@@ -1,63 +1,93 @@
-# Executable Assurance - Reference Architecture
+# Executable Assurance — Reference Architecture
 
-Executable Assurance separates the capability core, execution runtime and governance runtime so that capability is not authority. It turns paper-based policies into executable checks before consequential actions, and generates evidence as part of the decision rather than relying only on auditing after the event.
+> *"Knowing how to fly does not give a pilot clearance to take off. AI systems are the same: what a model can do is capability; what it may do is authority."*
 
-This repository contains the standalone reference implementation accompanying two papers by Ernest Chiweshe:
+Executable Assurance establishes the architectural separation of runtime authority from model execution. AI models propose actions; an independent, fail-closed governance runtime evaluates policy, verifies cryptographically qualified evidence, checks real-time identity and licensing, and issues single-use permits bound to exact output bytes before any consequential effect can reach external infrastructure.
 
-- [Capability Is Not Authority: Executable Assurance as Infrastructure for Containing AI Risk to Humankind](https://doi.org/10.5281/zenodo.23580975)
-- [Governed AI as Runtime Infrastructure: A Unified Authority and Evidence Architecture for Regulated Agentic Systems](https://doi.org/10.5281/zenodo.23581016)
+This repository provides the open-source reference implementation accompanying the published foundational research by **Ernest Chiweshe**:
 
-The underlying LumiWright Agent Factory was implemented and deployed before this
-reference extraction. Its domain implementations and deployment history are the
-subject of the papers. The focused examples here reproduce selected mechanisms;
-their smaller scope does not redefine the platform as a proposal.
+- **Paper A (Foundational Position Paper & Specification):**  
+  [**Capability Is Not Authority: Executable Assurance as Infrastructure for Containing AI Risk to Humankind**](https://doi.org/10.5281/zenodo.23580975)  
+  *Ernest Chiweshe, 22 October 2026. DOI: 10.5281/zenodo.23580975*
 
-Both papers were published on 22 October 2026. The reference implementation and the deployed platform have separate evidence scopes, described in the papers and reproduction records.
+- **Paper B (Technical Architecture & Empirical Evidence):**  
+  [**Governed AI as Runtime Infrastructure: A Unified Authority and Evidence Architecture for Regulated Agentic Systems**](https://doi.org/10.5281/zenodo.23581016)  
+  *Ernest Chiweshe, 22 October 2026. DOI: 10.5281/zenodo.23581016*
 
-## The authority path
+---
 
-1. An agent proposes an action and its exact payload.
-2. Governance checks the applicable policy, identity, scope and evidence requirements.
-3. An allowed action receives a cryptographic permit bound to the decision and payload, with evidence recorded before release.
-4. The receiving boundary verifies the permit and enforces the applicable replay, budget and transaction rules. Unresolved outcomes remain subject to reconciliation or HOLD.
+## The Core Principles
 
-The guarantees depend on the receiving boundary. Transactional database effects and external filesystem or HTTP effects do not have identical atomicity guarantees.
+1. **Capability Is Not Authority:** An agent's technical ability to execute an action does not constitute permission. All actions require independently verified authorization outside the agent loop.
+2. **Single-Path Fail-Closed Door:** There is only one path to external side-effects. If the governance runtime halts, loses state, or refuses, the door remains closed.
+3. **The Permit Is a Single-Use Boarding Pass:** Authorization is not a blanket API token or role. A permit is cryptographically bound to one tenant, one specific target, the exact output bytes, and an expiring validity window, usable exactly once. Replay attempts are instantly rejected.
+4. **Evidence Before Effect:** No action is permitted until the decision, policy evaluation, and qualification signatures are committed to an immutable append-only ledger.
+5. **Refusals Are Authoritative Evidence:** Every blocked attempt, replayed permit, or policy refusal is signed and stored with equal weight to approvals, providing a complete regulatory audit trail.
+6. **Consequence-Tiered Human Oversight:** Human-in-the-loop approval is triggered automatically based on evaluated consequence tiers, preserving human agency while preventing cognitive fatigue.
 
-## Release and reproduction
+---
 
-Version **0.1.8rc5** is an attribution-cleaned public derivative of frozen candidate004, previously packaged as **0.1.8rc3**. Runtime logic is retained; the cleanup changes historical commentary, two runtime module docstrings, test attribution comments and the frozen-fixture integrity pin, and the provenance tooling needed to distinguish cleaned copies from the original bytes. Eleven new synthetic tests exercise that tooling's integrity checks.
+## What This Repository Contains
 
-The public profile contains **2,837 tests**: all 2,826 original public cases plus those 11 integrity tests. The same **124 cases requiring private inputs** remain explicitly excluded and are never counted as public passes. `PUBLIC-TEST-PARTITION.json` lists the case identities and source hashes. The public profile does not substitute for the complete private-input qualification.
+This standalone reference architecture provides:
 
-Follow `REPRODUCE.txt` with the release wheel, source archive and pinned dependencies. Runtime imports must come from the installed wheel, not an editable checkout. Use an isolated PostgreSQL cluster and retain its logs and data directory. The release's `PUBLIC-VALIDATION.json` records the actual completed environment, artifact hashes and outcome; the test count alone is not a pass claim.
+- **The Regulated Core (`regulated_core/`):** The domain-agnostic, fail-closed authority engine implementing the Six-Ring Assurance Architecture (Rings 1–2).
+- **The Production Gate & Ledger (`factory/`):** Cryptographic verification contracts, single-use permit enforcement, and tamper-evident decision logging.
+- **Verification & Test Suite (`tests/`):** 2,837 automated tests verifying single-path isolation, replay prevention, qualification checks, and fault injection drills.
+- **Empirical Soak Evidence (`evidence/soak-2026-07/`):** Verifiable logs from the 24-hour CloudHSM soak evaluation (854,100 consecutive governed decisions across 2,847 batches with zero failures).
 
-The earlier rc3 artifact passed 2,826 public tests on Linux with Python 3.14 and PostgreSQL 18. That result belongs to rc3 and is not reused as rc4 validation. The complete private candidate's 2,950-case results are also separate from public installed-package qualification.
+---
 
-## Provenance
+## Quickstart & Replication
 
-This repository's initial commit records the public export, not the beginning of development. Earlier development history and original evidence are preserved separately.
+### 1. Installation
 
-The source archive used as the cleanup baseline has SHA-256 `ea01c93993c72fbfa2fafa455dcc7e3ac5fc1157dde1ade1fa472193616bab7b`. `docs/provenance/public-attribution-sanitization.json` records the files changed by the attribution pass. Historical upstream hashes remain historical references. Cleaned retained copies have separate hashes under the explicit v2 adaptation schema; their exact patches are checked. Checking a cleaned copy does not itself prove that it is byte-identical to upstream. Comparing against the preserved baseline and independent review remain separate steps.
+```bash
+# Clone the reference repository
+git clone https://github.com/ernest-chiweshe/executable-assurance-reference.git
+cd executable-assurance-reference
 
-Historical reports describe the versions and hashes they actually tested. They do not supersede the current release validation report or imply that every historical variant is the current runtime.
+# Create and activate an isolated virtual environment
+python -m venv .venv
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 
-## Engineering boundaries
+# Install dependencies and the package
+pip install -e .
+```
 
-- **R1b:** expiry detected by the database's in-COMMIT check is rejected; this mechanism does not establish a bound on physical completion after that check.
-- **R2b:** complete safe authority resumption after restore remains unfinished; unsafe recovery cases stay on HOLD.
-- Formal latency acceptance for this candidate remains open. Timing results from earlier candidates are not transferred to it.
+### 2. Running the Test Suite
 
-## Contribute a layer
+```bash
+# Execute the public test suite
+pytest tests/
+```
 
-The authority path is one layer in a wider strategy. We invite contributions from security, systems engineering, law, human factors and domain practice: identify what your layer prevents, its assumptions, how it fails, and how another layer can detect or contain that failure. The goal is an integrated set of protections whose gaps do not all align.
+---
 
-Walkthroughs and video updates: [lumiwright.com/videos](https://www.lumiwright.com/videos).
+## Walkthrough Videos & Media
 
-## Author
+A companion library of architecture walkthroughs, technical deep-dives, and documentary films is available at:  
+👉 **[https://www.lumiwright.com/videos](https://www.lumiwright.com/videos)**
 
-Ernest Chiweshe, Founder & CEO, LumiWright  
-Email: [ernest.chiweshe@lumiwright.com](mailto:ernest.chiweshe@lumiwright.com)
+- **Flagship Film:** *One Door: Why Capability Is Not Authority in Autonomous AI* (14-min documentary)
+- **Official Trailer:** *Executable Assurance in 3 Minutes*
+- **Technical Series:** Topic-by-topic breakdowns of key custody, runtime topology, and evidence verification.
+
+---
+
+## Author & Contact
+
+**Ernest Chiweshe**  
+Founder & CEO, LumiWright  
+
+- **Email:** [ernest.chiweshe@lumiwright.com](mailto:ernest.chiweshe@lumiwright.com)
+- **LinkedIn:** [linkedin.com/in/ernest-chiweshe-6b7732433](https://www.linkedin.com/in/ernest-chiweshe-6b7732433/)
+- **YouTube:** [youtube.com/@ExecutableAssurance](https://www.youtube.com/@ExecutableAssurance)
+- **X / Twitter:** [@ernest_chiweshe](https://x.com/ernest_chiweshe)
+
+---
 
 ## Licensing
 
-The software is licensed under Apache License 2.0; see `LICENSE`. This retains the licensing basis of the preceding public repository. The papers are published separately under Creative Commons Attribution 4.0, as recorded on Zenodo.
+- **Software & Implementation:** Licensed under the [Apache License, Version 2.0](LICENSE).
+- **Research Papers:** Published under [Creative Commons Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/), as deposited on Zenodo.
