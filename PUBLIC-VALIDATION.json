@@ -1,0 +1,120 @@
+{
+  "schema_version": 1,
+  "package_version": "0.1.8rc5",
+  "scope": "Completed installed-package public regression qualification",
+  "public_cases": 2837,
+  "private_cases_excluded": 124,
+  "qualified_artifacts": {
+    "executable_assurance_reference-0.1.8rc5-py3-none-any.whl": {
+      "sha256": "a0191272cff7f617cf1fe6fef691c8cf454c9edc59a6a3956d7763ac35dd1596"
+    },
+    "executable_assurance_reference-0.1.8rc5.tar.gz": {
+      "sha256": "605979df092ecb58331d33b0d15ca23ac1321a880c81cf4f999effa03e33339d"
+    }
+  },
+  "platforms": {
+    "windows": {
+      "environment": {
+        "python": "3.12.0",
+        "postgresql": "17.4",
+        "scratch_filesystem": "NTFS"
+      },
+      "modes": {
+        "wheel": {
+          "passed": 2837,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "exact_test_identities_verified": true,
+          "unapproved_runtime_imports": 0,
+          "isolated_clusters_stopped": true,
+          "junit_sha256": {
+            "pytest.xml": "51e16183ec462da60be88cca8c8d3e6a40e4ee306607681fa2fbc97ae6881f12"
+          }
+        },
+        "offline": {
+          "passed": 2837,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "exact_test_identities_verified": true,
+          "unapproved_runtime_imports": 0,
+          "isolated_clusters_stopped": true,
+          "junit_sha256": {
+            "pytest.xml": "fd8b3f6fabff713ef33f29babf09338b95e6f41fae37f545946fe7b0d80d9746"
+          }
+        },
+        "source": {
+          "passed": 2837,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "exact_test_identities_verified": true,
+          "unapproved_runtime_imports": 0,
+          "isolated_clusters_stopped": true,
+          "junit_sha256": {
+            "pytest.xml": "2d06bf31ef6fefba31cd170e4c95591e474f4d816acab3f4bf553e6887a462ba"
+          }
+        }
+      }
+    },
+    "linux": {
+      "environment": {
+        "python": "3.14.4",
+        "postgresql": "18.6",
+        "scratch_filesystem": "ext4"
+      },
+      "modes": {
+        "wheel": {
+          "passed": 2837,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "exact_test_identities_verified": true,
+          "unapproved_runtime_imports": 0,
+          "isolated_clusters_stopped": true,
+          "junit_sha256": {
+            "pytest-0.xml": "f4d29ed592a1a090b1d11827cdc91038c0d6c1ca49068ee4c999e6a1955bfced",
+            "pytest-1.xml": "474b0cf73a502140f44d9a05ca4209d298525910908d18dfca11ee0e4bab4b2b"
+          }
+        },
+        "offline": {
+          "passed": 2837,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "exact_test_identities_verified": true,
+          "unapproved_runtime_imports": 0,
+          "isolated_clusters_stopped": true,
+          "junit_sha256": {
+            "pytest-0.xml": "27143d7056229d20d8d621d0e889e14b0c3272a344e4ec2d8e9f62aa32199fa6",
+            "pytest-1.xml": "b71c39b668c713294f5809f8dea6b5b8184abdf4ea16b070f0ab7199870ce5b6"
+          }
+        },
+        "source": {
+          "passed": 2837,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "exact_test_identities_verified": true,
+          "unapproved_runtime_imports": 0,
+          "isolated_clusters_stopped": true,
+          "junit_sha256": {
+            "pytest-0.xml": "75620d5485ddc39e20d638efa2031be10a9a44603ef1a9f61a1c5b76811c1bde",
+            "pytest-1.xml": "6c641f082d8a77f6f785e994405481d87ae79ec85803c6a9c8c6c0d5d89ac604"
+          }
+        }
+      }
+    }
+  },
+  "prior_failed_runs": {
+    "retained": true,
+    "used_as_pass_evidence": false,
+    "windows_initial_public_run": {
+      "passed": 2835,
+      "failed": 2,
+      "resolution": "The host HTTPS interceptor was disabled by the operator; subsequent qualification used sequential suites. Runtime assertions and certificate verification were unchanged. Isolated concurrency repetitions and the completed sequential suites passed; load as the cause of the original lock timeout was not conclusively established."
+    }
+  },
+  "interpretation": "These results qualify the identified artifacts on the recorded environments. Private-input tests are excluded from these public counts. Final documentation and release assembly require separate hash reconciliation."
+}
