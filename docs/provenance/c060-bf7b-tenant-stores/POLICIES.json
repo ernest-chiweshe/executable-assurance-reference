@@ -1,0 +1,357 @@
+{
+ "schema": "reference/rls-policy-semantics/v1",
+ "captured_from": "freshly provisioned reference schema on isolated PostgreSQL 17; 32 entries captured in candidate 057, roles compared from 058; regulated_governance_rosters_v1 added in candidate 060 and confirmed by the live comparison; reference_pack_tenants_v1 (partitioned lifecycle, provisioned by default since 060) added and confirmed by the live comparison; reference_governed_receipts_v1 (A15 durable registries) added and confirmed by the live comparison",
+ "reading": "Each RLS table has exactly one PERMISSIVE policy for PUBLIC (every role, so every runtime login) and command ALL. USING governs which existing rows a login may read, update or delete; WITH CHECK governs which new or updated rows it may write. On 34 tables USING and WITH CHECK are the same row condition. On reference_clinical_state_v1, USING adds that the session has not been removed, so removed sessions are neither readable nor updatable nor deletable, while an inserted or updated row is checked only against the tenant, clinician and namespace condition. Which commands a login may issue at all is fixed by the explicit privilege contract (test_role_contract). Row security is active for every runtime login on every RLS table.",
+ "tables": {
+  "pack_documents": [
+   {
+    "policy": "education_scope",
+    "permissive": "PERMISSIVE",
+    "roles": "{public}",
+    "cmd": "ALL",
+    "using": "((tenant_id = current_setting('app.education_tenant'::text, true)) AND (pack_id = 'lumiwright.education.formative-feedback'::text) AND (collection = ANY (ARRAY['roster-user'::text, 'reviewer-appointment'::text])))",
+    "with_check": "((tenant_id = current_setting('app.education_tenant'::text, true)) AND (pack_id = 'lumiwright.education.formative-feedback'::text) AND (collection = ANY (ARRAY['roster-user'::text, 'reviewer-appointment'::text])))"
+   }
+  ],
+  "projectos_states": [
+   {
+    "policy": "project_scope",
+    "permissive": "PERMISSIVE",
+    "roles": "{public}",
+    "cmd": "ALL",
+    "using": "((tenant_id = current_setting('app.tenant'::text, true)) AND (namespace = current_setting('app.project_namespace'::text, true)))",
+    "with_check": "((tenant_id = current_setting('app.tenant'::text, true)) AND (namespace = current_setting('app.project_namespace'::text, true)))"
+   }
+  ],
+  "reference_alerts_v1": [
+   {
+    "policy": "alert_tenant_scope",
+    "permissive": "PERMISSIVE",
+    "roles": "{public}",
+    "cmd": "ALL",
+    "using": "((((convert_from(envelope, 'UTF8'::name))::jsonb -> 'payload'::text) ->> 'tenant_id'::text) = current_setting('app.alert_tenant'::text, true))",
+    "with_check": "((((convert_from(envelope, 'UTF8'::name))::jsonb -> 'payload'::text) ->> 'tenant_id'::text) = current_setting('app.alert_tenant'::text, true))"
+   }
+  ],
+  "reference_clinical_removals_v1": [
+   {
+    "policy": "clinical_removal_scope",
+    "permissive": "PERMISSIVE",
+    "roles": "{public}",
+    "cmd": "ALL",
+    "using": "((workspace_id = current_setting('app.tenant'::text, true)) AND (owner_id = ((current_setting('app.tenant'::text, true) || ':'::text) || current_setting('app.clinician'::text, true))) AND (current_setting('app.project_namespace'::text, true) = 'health'::text))",
+    "with_check": "((workspace_id = current_setting('app.tenant'::text, true)) AND (owner_id = ((current_setting('app.tenant'::text, true) || ':'::text) || current_setting('app.clinician'::text, true))) AND (current_setting('app.project_namespace'::text, true) = 'health'::text))"
+   }
+  ],
+  "reference_clinical_state_v1": [
+   {
+    "policy": "clinical_scope",
+    "permissive": "PERMISSIVE",
+    "roles": "{public}",
+    "cmd": "ALL",
+    "using": "((workspace_id = current_setting('app.tenant'::text, true)) AND (owner_id = ((current_setting('app.tenant'::text, true) || ':'::text) || current_setting('app.clinician'::text, true))) AND (current_setting('app.project_namespace'::text, true) = 'health'::text) AND (NOT (EXISTS ( SELECT 1\n   FROM reference_clinical_removals_v1 r\n  WHERE ((r.workspace_id = reference_clinical_state_v1.workspace_id) AND (r.owner_id = reference_clinical_state_v1.owner_id) AND (r.session_id = reference_clinical_state_v1.session_id))))))",
+    "with_check": "((workspace_id = current_setting('app.tenant'::text, true)) AND (owner_id = ((current_setting('app.tenant'::text, true) || ':'::text) || current_setting('app.clinician'::text, true))) AND (current_setting('app.project_namespace'::text, true) = 'health'::text))"
+   }
+  ],
+  "reference_epoch_withdrawal_receipts_v1": [
+   {
+    "policy": "reference_epoch_receipt_tenant_v1",
+    "permissive": "PERMISSIVE",
+    "roles": "{public}",
+    "cmd": "ALL",
+    "using": "(tenant = current_setting('app.tenant'::text, true))",
+    "with_check": "(tenant = current_setting('app.tenant'::text, true))"
+   }
+  ],
+  "reference_governed_receipts_v1": [
+   {
+    "policy": "governed_receipt_tenant",
+    "permissive": "PERMISSIVE",
+    "roles": "{public}",
+    "cmd": "ALL",
+    "using": "(tenant = current_setting('app.tenant'::text, true))",
+    "with_check": "(tenant = current_setting('app.tenant'::text, true))"
+   }
+  ],
+  "reference_identities_v1": [
+   {
+    "policy": "tenant_scope",
+    "permissive": "PERMISSIVE",
+    "roles": "{public}",
+    "cmd": "ALL",
+    "using": "(tenant = current_setting('app.tenant'::text, true))",
+    "with_check": "(tenant = current_setting('app.tenant'::text, true))"
+   }
+  ],
+  "reference_pack_tenants_v1": [
+   {
+    "policy": "pack_tenant_scope",
+    "permissive": "PERMISSIVE",
+    "roles": "{public}",
+    "cmd": "ALL",
+    "using": "(tenant_id = current_setting('app.pack_tenant'::text, true))",
+    "with_check": "(tenant_id = current_setting('app.pack_tenant'::text, true))"
+   }
+  ],
+  "reference_release_goal_heads_v1": [
+   {
+    "policy": "release_scope",
+    "permissive": "PERMISSIVE",
+    "roles": "{public}",
+    "cmd": "ALL",
+    "using": "(tenant = current_setting('app.release_tenant'::text, true))",
+    "with_check": "(tenant = current_setting('app.release_tenant'::text, true))"
+   }
+  ],
+  "reference_release_goal_versions_v1": [
+   {
+    "policy": "release_scope",
+    "permissive": "PERMISSIVE",
+    "roles": "{public}",
+    "cmd": "ALL",
+    "using": "(tenant = current_setting('app.release_tenant'::text, true))",
+    "with_check": "(tenant = current_setting('app.release_tenant'::text, true))"
+   }
+  ],
+  "reference_release_links_v1": [
+   {
+    "policy": "release_scope",
+    "permissive": "PERMISSIVE",
+    "roles": "{public}",
+    "cmd": "ALL",
+    "using": "(tenant = current_setting('app.release_tenant'::text, true))",
+    "with_check": "(tenant = current_setting('app.release_tenant'::text, true))"
+   }
+  ],
+  "reference_release_materials_v1": [
+   {
+    "policy": "release_scope",
+    "permissive": "PERMISSIVE",
+    "roles": "{public}",
+    "cmd": "ALL",
+    "using": "(tenant = current_setting('app.release_tenant'::text, true))",
+    "with_check": "(tenant = current_setting('app.release_tenant'::text, true))"
+   }
+  ],
+  "reference_release_settlements_v1": [
+   {
+    "policy": "settlement_scope",
+    "permissive": "PERMISSIVE",
+    "roles": "{public}",
+    "cmd": "ALL",
+    "using": "(tenant = current_setting('app.tenant'::text, true))",
+    "with_check": "(tenant = current_setting('app.tenant'::text, true))"
+   }
+  ],
+  "reference_sessions_v1": [
+   {
+    "policy": "tenant_scope",
+    "permissive": "PERMISSIVE",
+    "roles": "{public}",
+    "cmd": "ALL",
+    "using": "(tenant = current_setting('app.tenant'::text, true))",
+    "with_check": "(tenant = current_setting('app.tenant'::text, true))"
+   }
+  ],
+  "reference_tenant_fences_v1": [
+   {
+    "policy": "tenant_fence_scope",
+    "permissive": "PERMISSIVE",
+    "roles": "{public}",
+    "cmd": "ALL",
+    "using": "(tenant = current_setting('app.tenant'::text, true))",
+    "with_check": "(tenant = current_setting('app.tenant'::text, true))"
+   }
+  ],
+  "reference_tenant_owners_v1": [
+   {
+    "policy": "owner_roster_scope",
+    "permissive": "PERMISSIVE",
+    "roles": "{public}",
+    "cmd": "ALL",
+    "using": "(tenant = current_setting('app.tenant'::text, true))",
+    "with_check": "(tenant = current_setting('app.tenant'::text, true))"
+   }
+  ],
+  "regulated_database_attempts_v1": [
+   {
+    "policy": "receiver_tenant_v1",
+    "permissive": "PERMISSIVE",
+    "roles": "{public}",
+    "cmd": "ALL",
+    "using": "(tenant = current_setting('app.tenant'::text, true))",
+    "with_check": "(tenant = current_setting('app.tenant'::text, true))"
+   }
+  ],
+  "regulated_database_receipts_v1": [
+   {
+    "policy": "receiver_tenant_v1",
+    "permissive": "PERMISSIVE",
+    "roles": "{public}",
+    "cmd": "ALL",
+    "using": "(tenant = current_setting('app.tenant'::text, true))",
+    "with_check": "(tenant = current_setting('app.tenant'::text, true))"
+   }
+  ],
+  "regulated_decision_evidence_v1": [
+   {
+    "policy": "regulated_evidence_tenant_v1",
+    "permissive": "PERMISSIVE",
+    "roles": "{public}",
+    "cmd": "ALL",
+    "using": "(tenant = current_setting('app.tenant'::text, true))",
+    "with_check": "(tenant = current_setting('app.tenant'::text, true))"
+   }
+  ],
+  "regulated_decision_inputs_v1": [
+   {
+    "policy": "regulated_inputs_tenant_v1",
+    "permissive": "PERMISSIVE",
+    "roles": "{public}",
+    "cmd": "ALL",
+    "using": "(tenant = current_setting('app.tenant'::text, true))",
+    "with_check": "(tenant = current_setting('app.tenant'::text, true))"
+   }
+  ],
+  "regulated_decision_uses_v1": [
+   {
+    "policy": "regulated_decision_use_tenant_v1",
+    "permissive": "PERMISSIVE",
+    "roles": "{public}",
+    "cmd": "ALL",
+    "using": "(tenant = current_setting('app.tenant'::text, true))",
+    "with_check": "(tenant = current_setting('app.tenant'::text, true))"
+   }
+  ],
+  "regulated_delegation_grants_v1": [
+   {
+    "policy": "regulated_grants_tenant_v1",
+    "permissive": "PERMISSIVE",
+    "roles": "{public}",
+    "cmd": "ALL",
+    "using": "(tenant = current_setting('app.tenant'::text, true))",
+    "with_check": "(tenant = current_setting('app.tenant'::text, true))"
+   }
+  ],
+  "regulated_delegation_revocations_v1": [
+   {
+    "policy": "regulated_grant_revocations_tenant_v1",
+    "permissive": "PERMISSIVE",
+    "roles": "{public}",
+    "cmd": "ALL",
+    "using": "(tenant = current_setting('app.tenant'::text, true))",
+    "with_check": "(tenant = current_setting('app.tenant'::text, true))"
+   }
+  ],
+  "regulated_egress_scope_v1": [
+   {
+    "policy": "regulated_egress_scope_tenant_v1",
+    "permissive": "PERMISSIVE",
+    "roles": "{public}",
+    "cmd": "ALL",
+    "using": "(tenant = current_setting('app.tenant'::text, true))",
+    "with_check": "(tenant = current_setting('app.tenant'::text, true))"
+   }
+  ],
+  "regulated_evidence_checkpoints_v1": [
+   {
+    "policy": "checkpoint_tenant_v1",
+    "permissive": "PERMISSIVE",
+    "roles": "{public}",
+    "cmd": "ALL",
+    "using": "(tenant = current_setting('app.tenant'::text, true))",
+    "with_check": "(tenant = current_setting('app.tenant'::text, true))"
+   }
+  ],
+  "regulated_governance_events_v1": [
+   {
+    "policy": "regulated_governance_tenant_v1",
+    "permissive": "PERMISSIVE",
+    "roles": "{public}",
+    "cmd": "ALL",
+    "using": "(tenant = current_setting('app.tenant'::text, true))",
+    "with_check": "(tenant = current_setting('app.tenant'::text, true))"
+   }
+  ],
+  "regulated_governance_rosters_v1": [
+   {
+    "policy": "regulated_roster_tenant_v1",
+    "permissive": "PERMISSIVE",
+    "roles": "{public}",
+    "cmd": "ALL",
+    "using": "(tenant = current_setting('app.tenant'::text, true))",
+    "with_check": "(tenant = current_setting('app.tenant'::text, true))"
+   }
+  ],
+  "regulated_mission_budget_events_v1": [
+   {
+    "policy": "regulated_budget_tenant_v1",
+    "permissive": "PERMISSIVE",
+    "roles": "{public}",
+    "cmd": "ALL",
+    "using": "(tenant = current_setting('app.tenant'::text, true))",
+    "with_check": "(tenant = current_setting('app.tenant'::text, true))"
+   }
+  ],
+  "regulated_monitor_clearances_v1": [
+   {
+    "policy": "regulated_clearance_tenant_v1",
+    "permissive": "PERMISSIVE",
+    "roles": "{public}",
+    "cmd": "ALL",
+    "using": "(tenant = current_setting('app.tenant'::text, true))",
+    "with_check": "(tenant = current_setting('app.tenant'::text, true))"
+   }
+  ],
+  "regulated_permit_uses_v1": [
+   {
+    "policy": "regulated_permit_tenant_v1",
+    "permissive": "PERMISSIVE",
+    "roles": "{public}",
+    "cmd": "ALL",
+    "using": "(tenant = current_setting('app.tenant'::text, true))",
+    "with_check": "(tenant = current_setting('app.tenant'::text, true))"
+   }
+  ],
+  "regulated_preparations_v1": [
+   {
+    "policy": "preparation_tenant",
+    "permissive": "PERMISSIVE",
+    "roles": "{public}",
+    "cmd": "ALL",
+    "using": "(tenant = current_setting('app.tenant'::text, true))",
+    "with_check": "(tenant = current_setting('app.tenant'::text, true))"
+   }
+  ],
+  "regulated_reviews_v1": [
+   {
+    "policy": "regulated_review_tenant_v1",
+    "permissive": "PERMISSIVE",
+    "roles": "{public}",
+    "cmd": "ALL",
+    "using": "(tenant = current_setting('app.tenant'::text, true))",
+    "with_check": "(tenant = current_setting('app.tenant'::text, true))"
+   }
+  ],
+  "regulated_revocation_events_v1": [
+   {
+    "policy": "regulated_revocation_tenant_v1",
+    "permissive": "PERMISSIVE",
+    "roles": "{public}",
+    "cmd": "ALL",
+    "using": "(tenant = current_setting('app.tenant'::text, true))",
+    "with_check": "(tenant = current_setting('app.tenant'::text, true))"
+   }
+  ],
+  "regulated_root_admissions_v1": [
+   {
+    "policy": "regulated_root_admission_tenant_v1",
+    "permissive": "PERMISSIVE",
+    "roles": "{public}",
+    "cmd": "ALL",
+    "using": "(tenant = current_setting('app.tenant'::text, true))",
+    "with_check": "(tenant = current_setting('app.tenant'::text, true))"
+   }
+  ]
+ }
+}

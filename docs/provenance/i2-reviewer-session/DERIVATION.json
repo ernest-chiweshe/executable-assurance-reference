@@ -1,0 +1,126 @@
+{
+  "schema": "reference/i2-reviewer-session-derivation/v1",
+  "parent_candidate": "041 adopted",
+  "adopted_baseline": "041",
+  "parent_manifest_sha256": "5d156d901e5bc97975354e84affe96244d6066125c6dacc395635a6bbf149f39",
+  "staging_manifest_sha256": "25eb30845c85e20d311f37d190bd90476b361940eb779e962404cd9eea5e9e41",
+  "previous_adaptation_manifest_sha256": "13d467b1838f5e2c69845fa1dee799b2966b914afd196b3e971571d8aa8169d4",
+  "adaptation_manifest": "docs/provenance/i2-reviewer-session/adaptations.json",
+  "adaptation_manifest_sha256": "faa6aad457b93a8db47810702fc2e6783a074bc6bc156bba7e1af91920e2edbd",
+  "retained_parent_originals": [
+    {
+      "path": "src/assurance_reference/clinical_review_admission.py",
+      "retained_path": "docs/provenance/i2-reviewer-session/parent-originals/src/assurance_reference/clinical_review_admission.py",
+      "sha256": "5e017998cdcb5fbe1dbea43b5944e9220b8930d7c2927b33591432f0f1089ade",
+      "adapted_sha256": "5a915d2cc7e69e481cf28baade09129e5ac87190203a37f93c11823236f2ae2a"
+    },
+    {
+      "path": "src/assurance_reference/education_review_sessions.py",
+      "retained_path": "docs/provenance/i2-reviewer-session/parent-originals/src/assurance_reference/education_review_sessions.py",
+      "sha256": "8a56be6d9addf2b1271f4d3b1eef9561284e5eec1e3257822009d614e4d1a49d",
+      "adapted_sha256": "bc5ab36c4d3b3ddccc84e41c2243676d6c5c704c276e824b8bef54436c3f189a"
+    },
+    {
+      "path": "src/assurance_reference/local_clinical_fixture.py",
+      "retained_path": "docs/provenance/i2-reviewer-session/parent-originals/src/assurance_reference/local_clinical_fixture.py",
+      "sha256": "02899d58c01ace2c515c262b855cc0e0964d00308b09c370f80aa56aa4cdb7f0",
+      "adapted_sha256": "d643c9213cd7ffd4916601ee47df1e493915397142fdef846b16fa8dd81bc601"
+    },
+    {
+      "path": "src/assurance_reference/local_sessions.py",
+      "retained_path": "docs/provenance/i2-reviewer-session/parent-originals/src/assurance_reference/local_sessions.py",
+      "sha256": "424b677f33fcb5182d9dab28008cfb5ad3a7a8c7444be9f8100495698448f455",
+      "adapted_sha256": "da529afd6a0a1afe98c8e12a19377f69b6bf64d15338b4a903465aae8d711a92"
+    },
+    {
+      "path": "src/assurance_reference/session_admission_scope.py",
+      "retained_path": "docs/provenance/i2-reviewer-session/parent-originals/src/assurance_reference/session_admission_scope.py",
+      "sha256": "07ff1508d2172d7100626014397eefd82aa7146b9721bc9622ead35b44ddf00f",
+      "adapted_sha256": "f8dc3caae6d3febe00396a58998acc6439dbeb8aae5377f617ad2d9f66c35fc5"
+    },
+    {
+      "path": "src/assurance_reference/session_credentials.py",
+      "retained_path": "docs/provenance/i2-reviewer-session/parent-originals/src/assurance_reference/session_credentials.py",
+      "sha256": "301c2bbe2686d5fad84f7a72397cf98a7fd415db9b93cbba822f58915e1b6f5c",
+      "adapted_sha256": "f8b29cac4d7bbd6c8e5d4c2120b8b09b6e72a8b38262688e82adecf41447ec57"
+    },
+    {
+      "path": "src/factory/education_workbench/reviewer_credentials.py",
+      "retained_path": "docs/provenance/i2-reviewer-session/parent-originals/src/factory/education_workbench/reviewer_credentials.py",
+      "sha256": "31d3703f71a32388b4b52c688b4eb2581bb859b50b3b6d1001eecebbb54fcb20",
+      "adapted_sha256": "971b8d1c40f0c2a64a51d256733afc965f20deda601a2368b4d537b9cdf48b39"
+    },
+    {
+      "path": "src/regulated_core/approval_evidence.py",
+      "retained_path": "docs/provenance/i2-reviewer-session/parent-originals/src/regulated_core/approval_evidence.py",
+      "sha256": "cf8f2a1d7bbdd689dbca26044031e92c7e1effb17b1647cdf3011f0d98a70154",
+      "adapted_sha256": "0b70bbea3a83ae06e2f21718a247065c3082d53e374a4357d0ed5513f1fac890"
+    },
+    {
+      "path": "src/regulated_core/identity_provider.py",
+      "retained_path": "docs/provenance/i2-reviewer-session/parent-originals/src/regulated_core/identity_provider.py",
+      "sha256": "6c0f20c09efa9c757d1a5736e78c58e197cc0f1dcd7f6e65e91e844c5c604327",
+      "adapted_sha256": "4ef3d8c65910e1c9443c04e82668d55630f9508f56110b0bc3d2d3128ef25dec"
+    },
+    {
+      "path": "src/regulated_core/projectos_gate.py",
+      "retained_path": "docs/provenance/i2-reviewer-session/parent-originals/src/regulated_core/projectos_gate.py",
+      "sha256": "01bfbf034c025fc3040d7e20ad82e6f4294b563d2a5fd427f96c5e3528ef0ec8",
+      "adapted_sha256": "015505e9df36113d669d06b3a3a1acafad80fecd275ec86fbd46927d508c21ac"
+    },
+    {
+      "path": "tests/test_clinical_retained_review_validation.py",
+      "retained_path": "docs/provenance/i2-reviewer-session/parent-originals/tests/test_clinical_retained_review_validation.py",
+      "sha256": "ae08e90e02a4c0cc62ea29d8ed264f39ed8d4ab2b2099a2fe90d3fc0bafd59f2",
+      "adapted_sha256": "eb3564689a1d3665bd2bbf457e5e03acdaa6ae529aabcf44e3eedc8a0b135117"
+    }
+  ],
+  "new_modules": [
+    "src/regulated_core/reviewer_sessions.py",
+    "src/assurance_reference/reviewer_session_admission.py"
+  ],
+  "limits": [
+    "I-2 remains OPEN; working candidate042 is neither sealed nor adopted. Adopted parent041 has enacted42 MET,25 ordinary OPEN and2 OPEN BY DESIGN.",
+    "Old v1 credential receipts retain exact decoding; session-aware receivers require fresh authorized review with signed reviewer-session bindings. No automatic receipt conversion or re-signing.",
+    "Reviewer group uses one connection with identity SHARE locks in stable order followed by session SHARE locks in stable order; existing domain requester and lifecycle admission remains nested.",
+    "Real PostgreSQL group/revocation serialization and lawful Education plus ordinary/partitioned Health effects passed bounded intact local contracts. Single-process thread evidence does not prove distributed/load/production operation; full independent regression remains pending.",
+    "No production migration, hosted IAM, live deployment, external provider or new runtime dependency.",
+    "Complete retained private candidate remains required for full audit; whole signed private Health fixture, private owner records and paper drafts stay outside distributable archives."
+  ],
+  "inventory_refresh": {
+    "retained_catalog": "docs/provenance/i2-reviewer-session/parent-originals/docs/provenance/effect-site-classifications.json",
+    "retained_sha256": "df7f11d6a5b8377ed5c7ed83f5ea202777d6936cdc37f2fa062cb86297123123",
+    "current_catalog_sha256": "92b7f26dbac06941201d436b5b7f0dc24d9191deabd2a6e1dfd3a34a14a16189",
+    "existing_sites_hash_refreshed": 7,
+    "static_site_keys_unchanged": true,
+    "total_classified_sites": 290,
+    "limits": "Seven existing migration/session-write static sites retain exact locations and classifications; hash updated for additive read-only reviewer admission. SELECT FOR SHARE and session configuration add locking/availability effects outside this lexical site scanner, requiring separate admission and concurrency qualification. No authorization exemption."
+  },
+  "runtime_contracts": [
+    {
+      "path": "tests/test_reviewer_group_pg.py",
+      "sha256": "0b41c0ec426a6774dcf8b545d64df4e39a25dfefd3859f6ae976f7a710bce11a",
+      "source_path": "private-evidence/candidate042-integrated-runtime-001\\test_reviewer_group_pg.py"
+    },
+    {
+      "path": "tests/test_reviewer_session_lifecycle_pg.py",
+      "sha256": "e5067f57dbb6307353ab0c1c685979e5117a44102b4be89ba5bd6adf7b5c74d3",
+      "source_path": "private-evidence/candidate042-integrated-runtime-002\\test_reviewer_session_lifecycle_pg.py"
+    },
+    {
+      "path": "tests/test_reviewer_session_boundaries.py",
+      "sha256": "ca003fa47f89980aaedfceed834da44de211fd34bd7d1969789552a52e2c5502",
+      "source_path": "private-evidence/candidate042-integrated-runtime-002\\test_reviewer_session_boundaries.py"
+    }
+  ],
+  "runtime_receipts": [
+    {
+      "path": "private-evidence/candidate042-integrated-runtime-001\\RECEIPT.json",
+      "sha256": "9aeeb1b7fb516162453af94f5196226f720ec7ad2118ec1228389f2c81a6390f"
+    },
+    {
+      "path": "private-evidence/candidate042-integrated-runtime-002\\RECEIPT.json",
+      "sha256": "b95719489704a8438a564441d73ec7d3c767cffe60bedf3af7bba5cb86a20de3"
+    }
+  ]
+}

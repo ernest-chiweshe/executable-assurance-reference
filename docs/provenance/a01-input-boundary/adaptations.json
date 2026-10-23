@@ -1,0 +1,95 @@
+{
+  "schema": "reference/explicit-source-adaptations/v2",
+  "source_commit": "6bba989aeca27575b971c78a103cbf3745cfda6a",
+  "source_tree": "c72682a1dc4b51b3646d686002bfbdd7b8ae788d",
+  "patch_path": "docs/provenance/a01-input-boundary/PROPOSED.patch",
+  "patch_sha256": "9c4d176bf152a0a08592fe3a1fab676830c638eade509f0b36788645d2b45f0a",
+  "files": [
+    {
+      "source_path": "regulated_core/projectos_gate.py",
+      "path": "src/regulated_core/projectos_gate.py",
+      "original_path": "docs/provenance/a21/originals/regulated_core/projectos_gate.py",
+      "original_sha256": "ebea15e2cb49027e7cc56303f7678aae8163fd9de256447173251c36727978d2",
+      "original_git_blob": "abfde32ee3f1034352585da469ceb3698106ed30",
+      "adapted_sha256": "10a9657eb37a56ec48db0e19d62efc21fe56bc3f61ba1b5747d9088774f42ab0",
+      "recovered_source": true,
+      "retained_original": {
+        "kind": "attribution-sanitized-copy",
+        "sha256": "6db4658ef01ce993ce878da872ded7a99c13204807cb64319b8306ce197bf4ae",
+        "git_blob": "1f84f2cf7f56108fa79d27733ef1804028f37484"
+      }
+    },
+    {
+      "source_path": "regulated_core/pack_gate.py",
+      "path": "src/regulated_core/pack_gate.py",
+      "original_path": "docs/provenance/a21/originals/regulated_core/pack_gate.py",
+      "original_sha256": "fb1e3b981b036482b047cbcef69fa506dca11f76c23c6ede5780ab2fdcf431f2",
+      "original_git_blob": "b8da9e37507784c7bacdcf10394a218620aa3ce6",
+      "adapted_sha256": "666d87309845e5b602f51839b40614e7124f45ebe8bf4b75537e922ea47db09d",
+      "recovered_source": true
+    },
+    {
+      "source_path": "tests/test_authority_alarm_sinks.py",
+      "path": "docs/provenance/a21/proposed/tests/test_authority_alarm_sinks.py",
+      "original_path": "docs/provenance/a21/originals/tests/test_authority_alarm_sinks.py",
+      "original_sha256": "bee933d8677f8995f6419573478ce4fd3d45005771c2ed0e03b69aa9915546cb",
+      "original_git_blob": "8ffb09c3f75329df3abea5fef9e189095a3d1eed",
+      "adapted_sha256": "3958b54c674e615a597ef6f013762c49c6eb20d7eadaeda13debadc4d5353f29",
+      "recovered_source": false
+    },
+    {
+      "source_path": "factory/credentials.py",
+      "path": "src/factory/credentials.py",
+      "original_path": "docs/provenance/bf7c/originals/factory/credentials.py",
+      "original_sha256": "de42aaa69a439c9a1e0150aef7481aaeae2079b4a66a72cd7bc5b289664a38b4",
+      "original_git_blob": "9dbf39b3800f9886eafd8cd5f83f3be6f9c32a9d",
+      "adapted_sha256": "8314c6cd4578f30b336168d0702df1aafbd8e2ac1c61d48e0fb54e42162b61d7",
+      "recovered_source": true
+    },
+    {
+      "source_path": "regulated_core/governance_targets.py",
+      "path": "src/regulated_core/governance_targets.py",
+      "original_path": "docs/provenance/a02-input-boundary/originals/regulated_core/governance_targets.py",
+      "original_sha256": "eb721c91336a72daf1eb89233fe46cfcc95b69b6014789148d6abe2fad8eb7d1",
+      "original_git_blob": "9a4dcf1c62771db873aab6c0ea98351ea3a0f0e5",
+      "adapted_sha256": "b326811185ada42173fa41c688e64987a391ba8ce5f7c3e9f02e748650c15d33",
+      "recovered_source": true,
+      "retained_original": {
+        "kind": "attribution-sanitized-copy",
+        "sha256": "98458cf4d7203d7de622667fcb9fd80606a8507f88675233e20ce7025a9b2b50",
+        "git_blob": "2b022ad7d3db4975c6894c1f22615e483f4edd96"
+      }
+    },
+    {
+      "source_path": "regulated_core/target.py",
+      "path": "src/regulated_core/target.py",
+      "original_path": "docs/provenance/a01-input-boundary/originals/regulated_core/target.py",
+      "original_sha256": "d69b7f0f0827475f3ee0222ee7bf90117c90a7f1664eae6d01a1496e9dae7665",
+      "original_git_blob": "5af41a81092ec7a1b72bd1acc0f2a70d99003431",
+      "adapted_sha256": "6231aa27959f97120320d0a6c726975e9d918cca3a3d0708b3ac0f711e15911e",
+      "recovered_source": true,
+      "retained_original": {
+        "kind": "attribution-sanitized-copy",
+        "sha256": "d778e184747df5c35ea741f23c397fbc5a668cf2a2e279e2e36976612f9f51dc",
+        "git_blob": "173eb1c4f46db767f4899d832d9ffa89cf1e8333"
+      }
+    },
+    {
+      "source_path": "regulated_core/database_receiver_pg.py",
+      "path": "src/regulated_core/database_receiver_pg.py",
+      "original_path": "docs/provenance/a01-input-boundary/originals/regulated_core/database_receiver_pg.py",
+      "original_sha256": "3c48cf2d442f7403c1b27b5ebb1d9f88bca25a6b575fcabce1dfa065afb667ed",
+      "original_git_blob": "5186b70f2aac662a420218b4d3b7b0fa1ae48209",
+      "adapted_sha256": "e37015118ec1410f99b5ee91769b1115719b9b12a4675eae4da933fc32ea4cf0",
+      "recovered_source": true
+    }
+  ],
+  "sanitization": {
+    "kind": "attribution-only-public-derivative",
+    "baseline_archive_sha256": "ea01c93993c72fbfa2fafa455dcc7e3ac5fc1157dde1ade1fa472193616bab7b",
+    "baseline_manifest_sha256": "c36aab9fadde30b31646b147f2b8a838f75c10b3645b3274f0e199ad095d35d1",
+    "baseline_patch_sha256": "9c4d176bf152a0a08592fe3a1fab676830c638eade509f0b36788645d2b45f0a",
+    "upstream_byte_identity_verified_by_this_manifest": false,
+    "scope": "Original upstream hashes are retained as historical references. Public retained copies have attribution-only text changes and separate hashes. Exact patch reconstruction verifies the public copies; independent archive comparison is needed to verify the transformation from the upstream originals. Runtime acceptance and review are separate."
+  }
+}

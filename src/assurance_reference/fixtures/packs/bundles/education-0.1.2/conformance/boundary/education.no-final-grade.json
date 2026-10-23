@@ -1,0 +1,13 @@
+{
+  "cases": [
+    {
+      "name": "an encouraging percentage is over-blocked on purpose; the teacher card absorbs it",
+      "draft": "100% effort on the hatching, keep it up.",
+      "contract": {},
+      "expected": "fail",
+      "expected_reasons": [
+        "FINAL_GRADE_LEAKED"
+      ]
+    }
+  ]
+}

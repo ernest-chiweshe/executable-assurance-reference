@@ -1,0 +1,207 @@
+{
+  "schema": "reference/a15-receiving-boundary-matrix/v1",
+  "row": "A15",
+  "author": "implementer",
+  "criterion": "The target claims the nonce atomically with the effect; outcome recorded as a separate event. Lost acknowledgement gives UNKNOWN, resolved by receipt, never by retry; replay refused at the target on every boundary. Crash points tested are the named interruption points.",
+  "claim_patterns": {
+    "same-transaction": "Nonce INSERT, effect and receipt commit in one PostgreSQL transaction: no effect without its claim, no claim without its effect.",
+    "claim-under-lock-then-create-only-effect": "Nonce claimed under the target's exclusive lock before staging; the effect is create-only or identity-checked; a crash after the claim leaves the nonce spent and the target unchanged (fail-closed), never a second effect. Not a single atomic transaction.",
+    "claim-then-governed-transaction": "Nonce consumed and PREPARED logged before the host transaction applies effect and receipt atomically; a claim without preparation is UNKNOWN until reconciled; never re-executed."
+  },
+  "boundaries": [
+    {
+      "id": "filesystem",
+      "source": "src/regulated_core/target.py::FilesystemTargetAdapter.commit",
+      "pattern": "claim-under-lock-then-create-only-effect",
+      "substrate": "real filesystem + PostgreSQL nonce store",
+      "evidence": {
+        "one_effect_under_concurrency": [
+          "tests/test_receiving_nonce_contracts.py::test_two_normal_receivers_share_one_nonce_and_perform_one_write"
+        ],
+        "replay_refused_at_target": [
+          "tests/test_receiving_nonce_contracts.py::test_receiving_nonce_claim_survives_reopened_store_before_any_effect"
+        ],
+        "lost_ack_unknown_resolved_by_receipt": [
+          "tests/test_filesystem_interruption_points_pg.py::test_lost_acknowledgement_after_commit_is_unknown_then_resolved_by_receipt",
+          "tests/test_education_faults.py::test_lost_admission_close_acknowledgement_reconciles_from_receipt",
+          "tests/test_health_product_timing.py::test_lost_close_ack_reconciles_without_second_effect",
+          "tests/test_store_outage_boundaries.py::test_outcome_recording_unavailable_preserves_unknown_then_reconciles"
+        ],
+        "named_interruption_points": [
+          "tests/test_filesystem_interruption_points_pg.py::test_crash_before_the_effect_never_resolves_committed_and_retry_is_refused",
+          "tests/test_filesystem_interruption_points_pg.py::test_crash_after_the_effect_before_its_receipt_resolves_committed_by_file_identity"
+        ],
+        "separate_outcome_event": [
+          "tests/test_education_signer_outage.py::test_outcome_signer_failure_is_unknown_then_reconciles_from_existing_receipt"
+        ]
+      },
+      "named_points": [
+        "after-claim-before-stage",
+        "after-prepared-before-rename",
+        "after-rename-before-committed-receipt",
+        "committed-ack-lost (fail_after_write drill)",
+        "host session-close acknowledgement lost",
+        "outcome recording insert/before-commit"
+      ]
+    },
+    {
+      "id": "pack-bound-filesystem",
+      "source": "src/assurance_reference/pack_delivery.py::PackBoundFilesystemTarget.commit",
+      "pattern": "claim-under-lock-then-create-only-effect (inherits filesystem)",
+      "substrate": "real filesystem + PostgreSQL",
+      "evidence": {
+        "duplicate_returns_stored_no_second_effect": [
+          "tests/test_pack_delivery.py::test_pack_withdrawal_blocks_only_affected_delivery"
+        ],
+        "committed_ack_lost_resolved_by_receipt": [
+          "tests/test_pack_delivery.py::test_pack_withdrawal_blocks_only_affected_delivery"
+        ],
+        "spent_nonce_without_receipt_is_unknown": [
+          "tests/test_pack_delivery.py::test_pack_withdrawal_blocks_only_affected_delivery"
+        ]
+      },
+      "notes": [
+        "committed_ack_lost: redelivery after withdrawal returns the retained COMMITTED receipt.",
+        "spent_nonce_without_receipt: named point pack-bound-claimed-before-write; redelivery is UNKNOWN PACK_DELIVERY_RECONCILIATION_REQUIRED with no effect."
+      ],
+      "named_points": [
+        "pack-bound-claimed-before-write"
+      ]
+    },
+    {
+      "id": "postgres-receiver",
+      "source": "src/regulated_core/database_receiver_pg.py::PostgresTargetReceiver.commit",
+      "pattern": "same-transaction",
+      "substrate": "real PostgreSQL, real child-process kill",
+      "evidence": {
+        "atomic_claim_with_effect_and_named_crash_points": [
+          "tests/test_receiving_process.py::test_process_termination_before_and_after_commit"
+        ],
+        "duplicate_returns_stored_no_second_effect": [
+          "tests/test_versioned_cas_pg.py::test_reviewed_cas_commits_exact_state_and_replay_has_no_second_effect"
+        ],
+        "claim_rolls_back_with_refusal": [
+          "tests/test_versioned_cas_pg.py::test_uncomposed_cas_refuses_and_rolls_back_claim_and_budget"
+        ],
+        "injected_connection_error_unknown_resolved_by_receipt": [
+          "tests/test_pg_receiver_connection_loss_pg.py::test_injected_connection_error_inside_the_effect_transaction_is_unknown_then_not_committed"
+        ]
+      },
+      "named_points": [
+        "effect-written-uncommitted",
+        "committed-before-caller-ack",
+        "effect-applied-connection-error-injected"
+      ],
+      "limits": [
+        "effect-applied-connection-error-injected raises a synthetic psycopg.OperationalError after the real apply_on; it shows rollback and receipt classification of that error, not a severed or terminated transport."
+      ]
+    },
+    {
+      "id": "delegated-postgres-receiver",
+      "source": "src/assurance_reference/delegated_draft.py::AuditedDelegatedReceiver.commit",
+      "pattern": "same-transaction (inherits postgres-receiver)",
+      "substrate": "real PostgreSQL",
+      "evidence": {
+        "duplicate_returns_stored_no_second_effect": [
+          "tests/test_delegated_draft.py::test_delegated_draft_shared_budget_and_parent_withdrawal"
+        ],
+        "committed_ack_loss_with_alert_and_receipt_reconciliation": [
+          "tests/test_delegated_ack_loss_pg.py::test_delegated_committed_ack_loss_reconciles_without_another_effect"
+        ]
+      },
+      "limits": [
+        "Synthetic OperationalError after the real receiver transaction commits; not a killed transport.",
+        "Alert-store outage propagates an exception with no TARGET_UNKNOWN alert; the committed receipt remains authoritative.",
+        "Fresh receiver object and connections, not process restart; synthetic identities and no restricted-role claim."
+      ]
+    },
+    {
+      "id": "governance-targets",
+      "source": "src/regulated_core/governance_targets.py::GovernanceTarget.commit via pack_activation_target, pack_pin_target, pack_rollback_target, pack_revocation_target, qualification_target, issuer_target; src/regulated_core/governance_roster.py::roster_target; src/assurance_reference/epoch_withdrawal_target.py::epoch_withdrawal_target; src/assurance_reference/governance_targets.py wrappers; src/assurance_reference/durable_registries.py::PostgresQualificationRegistry.add_governed and PostgresIssuerRegistry.recognise_governed via the reference qualification_target/issuer_target (candidate 060)",
+      "pattern": "claim-then-governed-transaction",
+      "substrate": "real PostgreSQL (budget contract synthetic)",
+      "evidence": {
+        "effect_receipt_atomic_claim_unknown_on_failure": [
+          "tests/test_epoch_storage_atomicity_pg.py::test_receipt_storage_failure_rolls_back_epoch_and_budget_and_stays_unknown",
+          "tests/test_roster_budget_pg.py::test_roster_host_failure_rolls_back_effect_receipt_and_consume_keeps_reservation",
+          "tests/test_a15_governed_registries_pg.py::test_failure_after_the_final_check_rolls_back_effect_receipt_and_consumption"
+        ],
+        "duplicate_returns_stored_no_second_effect": [
+          "tests/test_governance_target_budget_contract.py::test_consumption_and_final_check_precede_effect_and_replay_does_not_reconsume",
+          "tests/test_roster_budget_pg.py::test_reviewed_roster_effect_budget_and_receipt_commit_once",
+          "tests/test_epoch_concurrent_delivery.py::test_concurrent_exact_deliveries_settle_to_one_epoch_and_receipt",
+          "tests/test_a15_governed_registries_pg.py::test_qualification_commits_once_with_budget_and_receipt_and_replay_applies_nothing",
+          "tests/test_a15_governed_registries_pg.py::test_issuer_recognition_commits_once_and_the_receipt_is_the_governing_tenants"
+        ],
+        "committed_ack_lost_resolved_by_receipt": [
+          "tests/test_governance_committed_ack_lost_pg.py::test_committed_governance_effect_with_lost_ack_is_unknown_then_committed_by_receipt",
+          "tests/test_a15_governed_registries_pg.py::test_lost_acknowledgement_after_commit_is_resolved_by_the_receipt_without_applying_again"
+        ],
+        "unknown_until_receipt": [
+          "tests/test_governance_target_budget_contract.py::test_unknown_retains_until_exact_receipt_proves_outcome",
+          "tests/test_epoch_reconciliation_connection_pg.py::test_signed_claim_without_preparation_remains_unknown_on_reconcile"
+        ]
+      },
+      "named_points": [
+        "after-final-check",
+        "after-roster-insert",
+        "receipt storage CHECK violation",
+        "committed-before-caller-ack"
+      ],
+      "open": [],
+      "resolved": [
+        "qualification_target and issuer_target now commit through durable PostgreSQL registries under the mandatory budget (candidate 060); the in-memory registries remain refused by reference composition."
+      ]
+    },
+    {
+      "id": "choke-points",
+      "source": "src/regulated_core/choke_points.py::credential_issuance_target, egress_target, channel_target",
+      "pattern": "claim-then-governed-transaction",
+      "substrate": "SYNTHETIC in-memory ports; the reference engine refuses composing these targets",
+      "evidence": {
+        "lost_ack_resolved_by_receipt_without_resend": [
+          "tests/test_choke_point_composition.py::test_lost_ack_is_reconciled_by_receipt_without_resend"
+        ],
+        "one_effect_on_repeat": [
+          "tests/test_choke_point_composition.py::test_authorized_observation_and_repeat_have_one_effect"
+        ]
+      },
+      "open": [
+        "Synthetic ports only; no durable vendor-side atomicity claim."
+      ]
+    },
+    {
+      "id": "http-delivery",
+      "source": "src/assurance_reference/governed_egress.py::egress_delivery_target over src/factory/governed_http.py::HttpEgressTransport (verbatim 6bba989a); src/factory/egress_composition.py::compose_http_delivery_target builds an unbudgeted core target the reference engine refuses; src/assurance_reference/governed_egress.py::EgressGovernanceTarget refuses a duplicate send at egress (candidate 060)",
+      "pattern": "claim-and-spend-then-external-send (attempt record + budget unit + authority recheck in one transaction before the request)",
+      "substrate": "real PostgreSQL + synthetic receipt-v1 destination (no network)",
+      "evidence": {
+        "exactly_once_with_bound_receipt": [
+          "tests/test_x8_governed_egress_pg.py::test_publication_and_messaging_are_delivered_exactly_once_with_a_bound_receipt"
+        ],
+        "refused_without_valid_permit_before_request": [
+          "tests/test_x8_governed_egress_pg.py::test_a_send_without_a_valid_permit_is_refused_at_the_choke_point"
+        ],
+        "lost_ack_unknown_then_resolved_by_receipt_without_resend": [
+          "tests/test_x8_governed_egress_pg.py::test_lost_acknowledgement_is_unknown_and_resolved_by_receipt_without_sending_again"
+        ],
+        "duplicate_refused_at_egress": [
+          "tests/test_x8_governed_egress_pg.py::test_publication_and_messaging_are_delivered_exactly_once_with_a_bound_receipt",
+          "tests/test_x15_managed_delivery_pg.py::test_an_inventoried_tenant_delivers_exactly_once_through_the_managed_host"
+        ]
+      },
+      "named_points": [
+        "acknowledgement-lost-after-destination-applied"
+      ],
+      "limits": [
+        "No atomic settlement with an external destination: the claim and spend commit before the request, and an unconfirmed send stays UNKNOWN until the destination's bound receipt resolves it.",
+        "Synthetic destination only; no real provider or network (governor 1e76307d)."
+      ]
+    }
+  ],
+  "limits": [
+    "Named interruption points only; no general crash-proof or distributed atomicity claim.",
+    "Filesystem crash simulation is an in-process non-recoverable exception at one named point, not an OS process kill; the PostgreSQL receiver has real process-kill evidence.",
+    "This matrix is author mapping; acceptance and the reading of 'atomically' per pattern are the verifier's."
+  ]
+}

@@ -1,0 +1,808 @@
+{
+  "source_commit": "6bba989aeca27575b971c78a103cbf3745cfda6a",
+  "source_tree": "c72682a1dc4b51b3646d686002bfbdd7b8ae788d",
+  "source_repository": "echiweshe/agent-factory-prod",
+  "seeds": [
+    "factory.education_workbench.reviewer_credentials",
+    "factory.education_workbench.source_witness"
+  ],
+  "files": [
+    {
+      "path": "src/factory/__init__.py",
+      "source_path": "factory/__init__.py",
+      "bytes": 360,
+      "sha256": "0f8b7f803dc3381c641f706a4a8ad05fac66a73dde1916ea8299e4284ed61d5b",
+      "git_blob": "0ca1d74f4c8a2bc2f143b63f01e1d91b8b1d250c",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/factory/customer/__init__.py",
+      "source_path": "factory/customer/__init__.py",
+      "bytes": 14973,
+      "sha256": "37942e8ba39585d3e783f3e1be041ed5333e993850910fff62e2e54a2c503791",
+      "git_blob": "5a90bb94adcb2043bc1202dbbff1f6e8efd9fd77",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/factory/customer/tenancy.py",
+      "source_path": "factory/customer/tenancy.py",
+      "bytes": 1726,
+      "sha256": "576e264849448616a780165aaa38b5d547aaf616be4986c616f5f2b84c2f422d",
+      "git_blob": "234b161602b6cf72921b3ede8deec44e89c9a23c",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/factory/education_workbench/__init__.py",
+      "source_path": "factory/education_workbench/__init__.py",
+      "bytes": 71,
+      "sha256": "3a1479772eaf44c7ec4e75731f6b7b069e7fd0cb87df6a42e0b19abad28efeeb",
+      "git_blob": "cf550afca72ab6103e95abb5e3e16be3e262fa03",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/factory/education_workbench/appointments.py",
+      "source_path": "factory/education_workbench/appointments.py",
+      "bytes": 8401,
+      "sha256": "ef2514d9a717dc2739415cd4cbf3bd7dcd7c05c2673cb84bf40a97f58634ba8f",
+      "git_blob": "d732357dbfd7a6b67e8d3b3e70cbd8b8bdea9ed0",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/factory/education_workbench/authority_guard.py",
+      "source_path": "factory/education_workbench/authority_guard.py",
+      "bytes": 2191,
+      "sha256": "15e6cfd399c4fa62576ed471fc9316497fa2937ce1ab56b9c291bacabe0decc0",
+      "git_blob": "f9c52e1fc73b3a304a574a306a485404ef756f85",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/factory/education_workbench/reviewer_credentials.py",
+      "source_path": "factory/education_workbench/reviewer_credentials.py",
+      "bytes": 12511,
+      "sha256": "31d3703f71a32388b4b52c688b4eb2581bb859b50b3b6d1001eecebbb54fcb20",
+      "git_blob": "e572c4906bcfab3f9560f9f8ddccaaeb73fe9a4b",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/factory/education_workbench/service.py",
+      "source_path": "factory/education_workbench/service.py",
+      "bytes": 15495,
+      "sha256": "8f37971f57a383d160fa4c05945a3b20955e574e839b9cf914324c149fd96c35",
+      "git_blob": "50c56e93413054e87c1d65cf3206df358da4e745",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/factory/education_workbench/source_material.py",
+      "source_path": "factory/education_workbench/source_material.py",
+      "bytes": 5296,
+      "sha256": "b3ce42920874a9c0b7865dc509e8279ae1f2a26aef453dfe897956cc2a0de4b6",
+      "git_blob": "2024955341c219b9bb71decc1509aa9351428c9f",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/factory/education_workbench/source_witness.py",
+      "source_path": "factory/education_workbench/source_witness.py",
+      "bytes": 15925,
+      "sha256": "706a25a182b675c3a83ba5eb5de96c57815c55024d968b1366fee849178e0c68",
+      "git_blob": "76bc9e09c40f46218883b58a568c3b7417ddb750",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/factory/education_workbench/teaching.py",
+      "source_path": "factory/education_workbench/teaching.py",
+      "bytes": 9074,
+      "sha256": "fe645090daa0e781ce151055cf104a490f935a11591985ba24ce89c01cef976c",
+      "git_blob": "a113e4df549068e6bebe62886960424b8fde9451",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/factory/gate/__init__.py",
+      "source_path": "factory/gate/__init__.py",
+      "bytes": 9209,
+      "sha256": "aa8f2700ec4daeb2ce65779529de758406148a3fe501fc76796debf9f8ee8c52",
+      "git_blob": "809b85ac3decc121460f1f510e70786b2af3f987",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/factory/gate/guardrails.py",
+      "source_path": "factory/gate/guardrails.py",
+      "bytes": 8978,
+      "sha256": "da479837f25649c11273e2fa90121948dca1e9c049161e0121ded54d276572d0",
+      "git_blob": "008efd6401f7663b135c7a77cf306ad31f5bfaf9",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/factory/harness.py",
+      "source_path": "factory/harness.py",
+      "bytes": 12773,
+      "sha256": "5f641e94ecba85cd0af9e0cefd53000d22369100bd9e3daa3668e0e5d56060e0",
+      "git_blob": "0af9265132a7fc87cb695ef9689cd0e0169cb801",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/factory/ledger.py",
+      "source_path": "factory/ledger.py",
+      "bytes": 20212,
+      "sha256": "480f209ada5842b9f737762e949b78f42da9cb4f61c96427b8d6aa5877c63e1e",
+      "git_blob": "7bacc11bc0be62876ac722d051810935d1a02161",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/factory/packs/__init__.py",
+      "source_path": "factory/packs/__init__.py",
+      "bytes": 3486,
+      "sha256": "d246dcd84755ee1f8607bc5b1120190e5a55822c048feb78cb6a3c6f36632383",
+      "git_blob": "31096f94ce699651cd399bdcfa7d34bb8d841eea",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/factory/packs/attestations.py",
+      "source_path": "factory/packs/attestations.py",
+      "bytes": 8064,
+      "sha256": "50fa176d2656eceab95cb2f8ba674e7c0944359b876c76a9d8bfe532df584283",
+      "git_blob": "630bdaa8ade16f88ba2494332375d0678dc57aab",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/factory/packs/cards.py",
+      "source_path": "factory/packs/cards.py",
+      "bytes": 8782,
+      "sha256": "434838568f7ed31a624749de78fb686add3e2ee1a766711e2e21587b7e6a2d61",
+      "git_blob": "d864371b6094b2ca0cd0d762ef3d289a104b6305",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/factory/packs/checks.py",
+      "source_path": "factory/packs/checks.py",
+      "bytes": 7908,
+      "sha256": "72a4b63f84189fb087e031399478376bf24c8e1b3c2d8995a961764e6dcf7aeb",
+      "git_blob": "1f9258f4229509da33bf3a292f001c37b2799ee9",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/factory/packs/collections.py",
+      "source_path": "factory/packs/collections.py",
+      "bytes": 28636,
+      "sha256": "ace1d2845613a51d4500d06f122052241e21ca1ae3f9c1bd1f3c63ac97f961f0",
+      "git_blob": "95ada06eb28c1ac962e5f8d054a7b4c44ffc2a07",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/factory/packs/examples.py",
+      "source_path": "factory/packs/examples.py",
+      "bytes": 47301,
+      "sha256": "0f0c952e771f0a22b77a64f7eaf15c12b1e38ef106eec52efd056c1268cc2ff8",
+      "git_blob": "cd935ac2da8fcb73c825e6301cef30bd1b1dba96",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/factory/packs/lifecycle.py",
+      "source_path": "factory/packs/lifecycle.py",
+      "bytes": 19296,
+      "sha256": "20674c3e30b4e2eecafbbc3a25caeec9c5c40334fb89826ec61c7120dba2561f",
+      "git_blob": "d85569825eb37bb269cb8e77063a305475548d3b",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/factory/packs/manifest.py",
+      "source_path": "factory/packs/manifest.py",
+      "bytes": 12039,
+      "sha256": "737c5a6c3267c2a3da918710be68cfade79fdf5c5706ab135f1baa0bad56f8bc",
+      "git_blob": "723dd2220d48cba764f081d65cb985a633a1c903",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/factory/packs/receipt.py",
+      "source_path": "factory/packs/receipt.py",
+      "bytes": 3842,
+      "sha256": "ce041192214aef75e20e57eac6513a6e94db649056e609a6885d54bf97b67f8a",
+      "git_blob": "9dd3e40f58b9710305e8ca64b039972a678f0bdb",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/factory/packs/registry.py",
+      "source_path": "factory/packs/registry.py",
+      "bytes": 40901,
+      "sha256": "e3f28521e05c61ca91a9d4d59e52e748173419a3fa49864fde5041dc21fb9188",
+      "git_blob": "791579d70d9de7372cf3973d646ddc99570a1073",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/factory/packs/rulebook.py",
+      "source_path": "factory/packs/rulebook.py",
+      "bytes": 27142,
+      "sha256": "8a15ee7da4f093fdd7c4561842593da56211685d80bffce7941615fa9644918a",
+      "git_blob": "a01daa57490270621de801e1916a59e140ba6e52",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/factory/packs/schema.py",
+      "source_path": "factory/packs/schema.py",
+      "bytes": 8898,
+      "sha256": "e52895113ce0f6898ac6f40051ca5691fbdc0142a8c7a8f6fa7776012f36eaa2",
+      "git_blob": "34664f8451a6dc0a8764c7cd9d9c387052f6ffdd",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/factory/packs/signing.py",
+      "source_path": "factory/packs/signing.py",
+      "bytes": 7385,
+      "sha256": "d22ed06a2e604e432bdf1bce01b1e270383a396f4afcdea6c72f7daff4edc8a6",
+      "git_blob": "01c4a4897ade9338d7f24f7aa6f6a4d34b81dc0c",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/factory/packs/sources.py",
+      "source_path": "factory/packs/sources.py",
+      "bytes": 5228,
+      "sha256": "dd2b31aeedfd6a812ea7b493ffbef9fe4769e768560dfa5af35ccb2f71afd771",
+      "git_blob": "02882a98caa924387dc923f83382480dfbc917b1",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/factory/packs/verifiers.py",
+      "source_path": "factory/packs/verifiers.py",
+      "bytes": 15439,
+      "sha256": "2e60297de434aee661dde44b5766c3450c3cb5b1ecaed13446fa31feb72eff34",
+      "git_blob": "1f5e229d33d3c77360dc02c6ec3292bbce8c59b1",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/factory/packs/workflow.py",
+      "source_path": "factory/packs/workflow.py",
+      "bytes": 4104,
+      "sha256": "34fc652ad4d4d43d78d26a50b68de4a6a5727e3c432f3ca76722a71365beaf81",
+      "git_blob": "9d08df00477edb24a975ec904d99c362f313ee5f",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/factory/pg_pool.py",
+      "source_path": "factory/pg_pool.py",
+      "bytes": 16140,
+      "sha256": "a4faa525a37bf485d22933b290445c059887b143c5ebf8890ad32a58a5c85495",
+      "git_blob": "f27c0d98c09449f2109125cf81730e08a37f418b",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/factory/pg_session.py",
+      "source_path": "factory/pg_session.py",
+      "bytes": 2698,
+      "sha256": "7957d4c1200a31675c190797ef84541f0c86def641e278e2f9877451a24d5662",
+      "git_blob": "6c405f561425af43b7b6f1822de4450b4415a6dc",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/factory/profile.py",
+      "source_path": "factory/profile.py",
+      "bytes": 6135,
+      "sha256": "1327e46f9a0634375201d22b6ff3c11e27ce3784ffc9148c1355e0d9093bcfa1",
+      "git_blob": "b0c2dc118a30a7630dfcf2f676a5c940e1ff38bc",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/factory/projectos/__init__.py",
+      "source_path": "factory/projectos/__init__.py",
+      "bytes": 1561,
+      "sha256": "89d49e3352a5fd059ff7679c9c480f8fdbf3f79699d1f4b195e410b7b70e527a",
+      "git_blob": "43fbd0c92274fd27cccb4b3d22e644e7a4544961",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/factory/projectos/engine.py",
+      "source_path": "factory/projectos/engine.py",
+      "bytes": 43698,
+      "sha256": "993659bb1af2a7a4a58243f12f31cc66e9f3e2183e2cafe0c34a99964d24d15f",
+      "git_blob": "a2be5d76cf87c7c3b125436ced1440a1e4a3ec6d",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/factory/projectos/errors.py",
+      "source_path": "factory/projectos/errors.py",
+      "bytes": 345,
+      "sha256": "c96fdcc2ffb783eeba32022e82a0b0081cca82eb79f52f54cf14cb4d60efb526",
+      "git_blob": "0e1665334f0f5ea111757f54f802cb2d2dcfc95f",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/factory/projectos/governed_release.py",
+      "source_path": "factory/projectos/governed_release.py",
+      "bytes": 31342,
+      "sha256": "5551a0f1717f4329bad6bc5f585363e60846e141985901f3e107705ee984fb18",
+      "git_blob": "cac5b38ee15478123d3632a734c1d90851d6346d",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/factory/projectos/pg_store.py",
+      "source_path": "factory/projectos/pg_store.py",
+      "bytes": 6684,
+      "sha256": "3ef91285dcf3db2b395938a5fac2d751f0fdda9f3f991d5faccb06960ae2c34c",
+      "git_blob": "fc0eeab64fc31b63e02b96e1536f8a095e260401",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/factory/projectos/regulated.py",
+      "source_path": "factory/projectos/regulated.py",
+      "bytes": 9109,
+      "sha256": "2fdda81249a8423317bca17e3de7acee0d5391885129607cc23ce4296db8f862",
+      "git_blob": "dccb3862162b47705d78f4a95212208500754870",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/factory/projectos/spec.py",
+      "source_path": "factory/projectos/spec.py",
+      "bytes": 12238,
+      "sha256": "ba41eb80e1536c4aed275d799cdd294411bd34b681935bbf8be458ca2795b05b",
+      "git_blob": "bdd770676f2ad073126e0366de09efa6f0d65abe",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/factory/registry.py",
+      "source_path": "factory/registry.py",
+      "bytes": 1914,
+      "sha256": "0f4f3ad5a2e1c85e7707e422ec50ca715711c49c4b68d4cb690f856e79af3337",
+      "git_blob": "df576b74bd641ce2cb4fc47354248cc8a5cb7fb9",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/factory/runtime.py",
+      "source_path": "factory/runtime.py",
+      "bytes": 8326,
+      "sha256": "1056afa9221a1f6f9951374188819485822da82a08b8e466883b6cd1c9c1b68d",
+      "git_blob": "3dfb67774e112778f2d8131e1b04c786dacf8ea3",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/factory/tenant.py",
+      "source_path": "factory/tenant.py",
+      "bytes": 4157,
+      "sha256": "a0427696ac98745a6ab3b6e8f8de3f093c2bc9cb7a9af7d79025f202d6dfe70d",
+      "git_blob": "ec7fa2a7bc0f8f05cd85356837c0547139aa8bab",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/regulated_core/__init__.py",
+      "source_path": "regulated_core/__init__.py",
+      "bytes": 2854,
+      "sha256": "a0d4600e8613527ca83e7bbe9e668135ddee950949bef656249369ffbeadabd7",
+      "git_blob": "bc9d4ce8288641729c357052a49ddee54e12871b",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/regulated_core/approval.py",
+      "source_path": "regulated_core/approval.py",
+      "bytes": 15522,
+      "sha256": "017570389e05eaed0941c3b0caf765a1aa496bad9ac89bdbc53d3b74c6ce47b4",
+      "git_blob": "6d41f100e6c0bd12ce5d582ddb914cd84d59800b",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/regulated_core/approval_evidence.py",
+      "source_path": "regulated_core/approval_evidence.py",
+      "bytes": 5102,
+      "sha256": "cf8f2a1d7bbdd689dbca26044031e92c7e1effb17b1647cdf3011f0d98a70154",
+      "git_blob": "b6552ceaffd611e167ee7ba624e4804227a68a86",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/regulated_core/authority_fence_pg.py",
+      "source_path": "regulated_core/authority_fence_pg.py",
+      "bytes": 5396,
+      "sha256": "429ad597be14c3956781b626f5a5d37f97f1f722a3e29e3a7e3f64076e8bae4b",
+      "git_blob": "86842ddd82fa9fc05e550989a080720d0d566ae6",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/regulated_core/budget.py",
+      "source_path": "regulated_core/budget.py",
+      "bytes": 4705,
+      "sha256": "f2ccc5e773f8750f2d4009d9823da7e449f870c258763609354769517c62d084",
+      "git_blob": "553b21210382c6ec614cf981e049b3f518b929d4",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/regulated_core/canonical.py",
+      "source_path": "regulated_core/canonical.py",
+      "bytes": 2709,
+      "sha256": "b9a5fa17f9f8070a0054ecf60975799ccb7935f5b8dc43ce63c3825d97dbb56c",
+      "git_blob": "531c2aa5c43fb01c77b895c86fad474abc3f4834",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/regulated_core/clock.py",
+      "source_path": "regulated_core/clock.py",
+      "bytes": 2732,
+      "sha256": "b2677b19ecb29732de79bff314675cf6dc6dc159fda8146b1cd39003e8ee0fb7",
+      "git_blob": "0224fa5d1ea3c7380e8cd5f0d7dcf88ddda7169c",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/regulated_core/delegated_effect_pg.py",
+      "source_path": "regulated_core/delegated_effect_pg.py",
+      "bytes": 8309,
+      "sha256": "83497ad5561b22187d4e1e82fe710f4c23323094a50351d52ecf45f90f936a46",
+      "git_blob": "b4eea13c3558c61c91fcc3d008a328d52e3c8a1e",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/regulated_core/delegation.py",
+      "source_path": "regulated_core/delegation.py",
+      "bytes": 31703,
+      "sha256": "205198935a30063f38887f824ac3357476929179ca215bf317d5a8ce44354626",
+      "git_blob": "6f2423536d9b764da375283057e9312f11845ca1",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/regulated_core/delegation_chain_pg.py",
+      "source_path": "regulated_core/delegation_chain_pg.py",
+      "bytes": 7896,
+      "sha256": "02a59671ff5cf82d6bdb00d7673ac3db6aa5770de731799c2d7595cdabaf3493",
+      "git_blob": "58eaa5d42ebb72c98445072169447a6ae107f722",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/regulated_core/egress_admission.py",
+      "source_path": "regulated_core/egress_admission.py",
+      "bytes": 22696,
+      "sha256": "e26b41adbca7834b4d616802517ba155f3110ed930d59c26653bbac27f72145f",
+      "git_blob": "9d49f280896d6fd3b8b71b230396155b710fc62d",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/regulated_core/engine.py",
+      "source_path": "regulated_core/engine.py",
+      "bytes": 47706,
+      "sha256": "38600ef56bf2188df58b09ad803ec1ddb86380b8504cff54556a26efe7a975ad",
+      "git_blob": "48d23cb8812a2240846028302eb8f9610f0b9c58",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/regulated_core/evidence.py",
+      "source_path": "regulated_core/evidence.py",
+      "bytes": 7550,
+      "sha256": "7a32afeb31de902a22ea5e52df3dad7b89f20e46edb5e20c1a6f6c9d3a4ef9ad",
+      "git_blob": "04fb6a3c78024befe7475ba88fd5dbcd3fb55006",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/regulated_core/evidence_checkpoints_pg.py",
+      "source_path": "regulated_core/evidence_checkpoints_pg.py",
+      "bytes": 15160,
+      "sha256": "b48aa17de05ae3958d180fc0bf4baf752dd1cf4a3e21eca72b5923c05608cc6f",
+      "git_blob": "fcb8c68bfae44f13230129edca78fdd0dfbcebd6",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/regulated_core/governance_guard.py",
+      "source_path": "regulated_core/governance_guard.py",
+      "bytes": 2315,
+      "sha256": "b5bc60ebeec5ca5c54103d6c75427cc60f1061f3cf742d78cffc0562d304b50f",
+      "git_blob": "5fad56494fa37ebde21a6eff9c19c9dc1c045a29",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/regulated_core/governance_roster.py",
+      "source_path": "regulated_core/governance_roster.py",
+      "bytes": 17855,
+      "sha256": "b450e5c33a40787ae1203456807b334bfc333ed5f85c6c3e4c7368273aba0769",
+      "git_blob": "433ea2066bcbdd666da7daaed9602ab4543b15b4",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/regulated_core/governance_targets.py",
+      "source_path": "regulated_core/governance_targets.py",
+      "bytes": 47183,
+      "sha256": "eb721c91336a72daf1eb89233fe46cfcc95b69b6014789148d6abe2fad8eb7d1",
+      "git_blob": "9a4dcf1c62771db873aab6c0ea98351ea3a0f0e5",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/regulated_core/heartbeat.py",
+      "source_path": "regulated_core/heartbeat.py",
+      "bytes": 9439,
+      "sha256": "d0d28b07fce1752b4b9ca4a7a5335ae959ff019800eed07647f39fec1212f258",
+      "git_blob": "6c3feca8a7c70985c3bc0584a604ca767ee1dfad",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/regulated_core/identity.py",
+      "source_path": "regulated_core/identity.py",
+      "bytes": 2151,
+      "sha256": "cd9e546f2c53ea3807a8259418dad13f416432c8ee7ef1f7227b9e7c6d34f818",
+      "git_blob": "f0835ab1fbc6548e8a8f736e1a7b34669deef4a2",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/regulated_core/identity_provider.py",
+      "source_path": "regulated_core/identity_provider.py",
+      "bytes": 8571,
+      "sha256": "6c0f20c09efa9c757d1a5736e78c58e197cc0f1dcd7f6e65e91e844c5c604327",
+      "git_blob": "94f595af93b943e6b82663d1d9455c8de06bec5e",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/regulated_core/input_evidence.py",
+      "source_path": "regulated_core/input_evidence.py",
+      "bytes": 14606,
+      "sha256": "3551ffb19db003a3a0c22bcfdcd13cd1c917526e28687194885935f58e0e9b2a",
+      "git_blob": "214a61558c1cc5e9fe29b3267498e9b07386138a",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/regulated_core/input_evidence_pg.py",
+      "source_path": "regulated_core/input_evidence_pg.py",
+      "bytes": 9465,
+      "sha256": "7d2594f530988849d4af3c8a0ecdb52718ac92eaa7f06ff54164be521f62ada9",
+      "git_blob": "6ea5532d74dc0aec90479789e7924fa3eb8a98ad",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/regulated_core/models.py",
+      "source_path": "regulated_core/models.py",
+      "bytes": 12084,
+      "sha256": "0297ae57293b9e70c2884c9370320a9f317d7ebba80f6df39e3810f5ba09d4ee",
+      "git_blob": "ef525e95985727857221e38a3870bb8b22b01209",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/regulated_core/outage.py",
+      "source_path": "regulated_core/outage.py",
+      "bytes": 12115,
+      "sha256": "7fdd707489b9e80894921c9e48b037a40f442e8f7d852928eb4884458c352fbc",
+      "git_blob": "ae70725b33d8c262e8280a9105d62bfee76dcb43",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/regulated_core/permit.py",
+      "source_path": "regulated_core/permit.py",
+      "bytes": 8613,
+      "sha256": "fb2482d692863288cd72a5f9979d75c0f7362ed62f34ce1df8ddf0209e676e58",
+      "git_blob": "2eac39bf8feac7ffdee5e5add4a4cf6a2bce76b3",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/regulated_core/persistence_pg.py",
+      "source_path": "regulated_core/persistence_pg.py",
+      "bytes": 73724,
+      "sha256": "73608a57290c3e01c297707eaa6cad8fd115a8589438a4d10b7e166e89011fa3",
+      "git_blob": "7b99ebd463eb63963b8dec17f9ed265a6f8d8f17",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/regulated_core/policy_document.py",
+      "source_path": "regulated_core/policy_document.py",
+      "bytes": 6298,
+      "sha256": "0638f8dd65f45fca3337a54f2991a9baeadbf2cf9df2973c5e8a6ff4837d7615",
+      "git_blob": "b3271a9b858d45255d4dfe285a1bf53364c63140",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/regulated_core/preflight.py",
+      "source_path": "regulated_core/preflight.py",
+      "bytes": 6934,
+      "sha256": "d3f06200e9a0f20ed048c2905dba0275ed260c162b5e100b9ad9540577f9bf55",
+      "git_blob": "996a99bbf2a4f2040d9653235773bc3ab9ba0f71",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/regulated_core/preparation_pg.py",
+      "source_path": "regulated_core/preparation_pg.py",
+      "bytes": 8553,
+      "sha256": "bc6f6b09ed2a139bf5435720b3a02a2e98e56a016ef00a61060edc970e5008fc",
+      "git_blob": "a4e1faeb8e765bc5ff0cf7970f4fe0fd10aa48f1",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/regulated_core/prepared_issuance_pg.py",
+      "source_path": "regulated_core/prepared_issuance_pg.py",
+      "bytes": 16075,
+      "sha256": "0ba4d3edc033660561e78da2aa83d32499ddefc247084b613df943010cc016d3",
+      "git_blob": "2cd1f0dd2a5fa2d104239d13ef91c70feeb9baea",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/regulated_core/production_gate.py",
+      "source_path": "regulated_core/production_gate.py",
+      "bytes": 13121,
+      "sha256": "ca66c85274b2173c9c7af472a3c9a20792c0e502b9867a469e8f9357ac97fc35",
+      "git_blob": "450d9265fd47188e3f6b08b20b86c52e94d45796",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/regulated_core/qualification.py",
+      "source_path": "regulated_core/qualification.py",
+      "bytes": 13067,
+      "sha256": "10e2db31eb9f3cc4044a6374e16d6058c21353cb08065922780ea95508ec8d87",
+      "git_blob": "885ddcd7421e10232687a541d3b205a34f9c0ce3",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/regulated_core/registry.py",
+      "source_path": "regulated_core/registry.py",
+      "bytes": 1825,
+      "sha256": "954c15321dc2b3c0c1ce8226519030959d6c6776b4d1e0df52f80e31d5fe860c",
+      "git_blob": "7a55507eb7bf5a72379ef8a38afb436988439095",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/regulated_core/reservation_subject.py",
+      "source_path": "regulated_core/reservation_subject.py",
+      "bytes": 2600,
+      "sha256": "fc1eea40107d1b60d95d32a4151f3bf9bfec5f79840bbb7de204a230203713f5",
+      "git_blob": "1f923cb71a777bf8e1070ab8b500ed23a4d24282",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/regulated_core/resilience.py",
+      "source_path": "regulated_core/resilience.py",
+      "bytes": 8039,
+      "sha256": "12200a17f55b8c0b85500d9629625a9ad8eeaafacbd44e4c61b508557f481fb2",
+      "git_blob": "42fcb0f9ab50753be1c36d4790422d1fe206062a",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/regulated_core/restrictions.py",
+      "source_path": "regulated_core/restrictions.py",
+      "bytes": 2129,
+      "sha256": "2df78976c3025d71df84da6819d063672477e971841e9392c6cd5fef4a44be66",
+      "git_blob": "3d07daa336924554e30f5e1cca9cad315b53378d",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/regulated_core/retained_authority_pg.py",
+      "source_path": "regulated_core/retained_authority_pg.py",
+      "bytes": 21001,
+      "sha256": "38467fa443572f3e3208c53ff04ceb4561a30655854f39ce46c3352d40e84b03",
+      "git_blob": "8591a2d5403249acada3d33b239432c3de44ed9f",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/regulated_core/review_store.py",
+      "source_path": "regulated_core/review_store.py",
+      "bytes": 5539,
+      "sha256": "3995a8ac02eae984a275c08f542f3ca0785e0c5c78607e2054ca2649dc7e44e0",
+      "git_blob": "ecd35c3b10453c5673c7f5578ac4aa10ecc91031",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/regulated_core/revocation.py",
+      "source_path": "regulated_core/revocation.py",
+      "bytes": 2884,
+      "sha256": "cabd6a3518e280f7e5a5781060cb6ea3714c80735ae4df8fda19d0368b77497f",
+      "git_blob": "56ab667a0746ef9037a2f1b27397e704ddbc1af4",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/regulated_core/root_admission_pg.py",
+      "source_path": "regulated_core/root_admission_pg.py",
+      "bytes": 18877,
+      "sha256": "436261c901c87558ad6288d8e0fb1b8d7b15b23cd086c4d6f3d5fb09834f0fd6",
+      "git_blob": "50ebead12eac39adfdc1185114bc749507a11e39",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/regulated_core/signing.py",
+      "source_path": "regulated_core/signing.py",
+      "bytes": 11155,
+      "sha256": "d93c2dec6670b4c16f925d05f9fb244d95d2abb20c7b18614ae4643ad937e53b",
+      "git_blob": "e7dcfd76efc0eddf267b0d264320fd18292fbbfa",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/regulated_core/target.py",
+      "source_path": "regulated_core/target.py",
+      "bytes": 49780,
+      "sha256": "d69b7f0f0827475f3ee0222ee7bf90117c90a7f1664eae6d01a1496e9dae7665",
+      "git_blob": "5af41a81092ec7a1b72bd1acc0f2a70d99003431",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/regulated_core/target_lock.py",
+      "source_path": "regulated_core/target_lock.py",
+      "bytes": 4368,
+      "sha256": "ba922160a73aef5bc1f074a2d4ad5a9f124bd101784eaf11ea7e8521faa61eb7",
+      "git_blob": "7948bc64e6eb75358689e290b24adf01233bced2",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/regulated_core/tier4.py",
+      "source_path": "regulated_core/tier4.py",
+      "bytes": 8035,
+      "sha256": "f53e8665a11343a65fb103f7569c2684cb095186f9fc6ff128cd0d79c045ea4d",
+      "git_blob": "df4e468e533eca19a14792094067d9f9bf8216ac",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/regulated_core/verification.py",
+      "source_path": "regulated_core/verification.py",
+      "bytes": 2615,
+      "sha256": "cd1e7dcdd40225d62154870f42eac0b8ca76496fd19b8e2f9354405e488bd637",
+      "git_blob": "1fb34db311a54bbd1c620cb43d5b93faf0d43a9f",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/regulated_core/verticals/__init__.py",
+      "source_path": "regulated_core/verticals/__init__.py",
+      "bytes": 260,
+      "sha256": "73e87cb8d27946900e1473e70e4193b57c6b2b56bd856d5d9dbd693356f391b0",
+      "git_blob": "20279e7794feb772164144613c880754f7bd50a5",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/regulated_core/verticals/course.py",
+      "source_path": "regulated_core/verticals/course.py",
+      "bytes": 1814,
+      "sha256": "e05a7415381a095baab91834cace1b5ec369ced8b284270d8aa79b556c954cd0",
+      "git_blob": "26f6f3ffb3bc4834b3a9b4507d4edea4bf1859ea",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/regulated_core/verticals/finance.py",
+      "source_path": "regulated_core/verticals/finance.py",
+      "bytes": 2841,
+      "sha256": "351199363751b741a432114f62c4250c73e9a90a02210ea0db700dc9ad8eaa8f",
+      "git_blob": "60bb76028f914c3f7d646588d8dbb78bfe8cd2b5",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/regulated_core/verticals/health.py",
+      "source_path": "regulated_core/verticals/health.py",
+      "bytes": 5046,
+      "sha256": "1b657db5ada4fa3364eb3c66ac5656da883edfd3e88b2a0301afc4e7cc9cdd67",
+      "git_blob": "689ececb0589407fe0565c2aa0a9f10e02b61ed4",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/regulated_core/worm.py",
+      "source_path": "regulated_core/worm.py",
+      "bytes": 5315,
+      "sha256": "672e9e9656592425b5e089e753682f0449ef0497e13266dcabe215fe648b9c57",
+      "git_blob": "5bbb74a22275bf360c3d517743a6f5d9be5af2e8",
+      "historical_crlf": false
+    }
+  ],
+  "external_import_roots": [
+    "__future__",
+    "ast",
+    "atexit",
+    "bisect",
+    "collections",
+    "contextlib",
+    "contextvars",
+    "copy",
+    "cryptography",
+    "dataclasses",
+    "datetime",
+    "decimal",
+    "enum",
+    "errno",
+    "fcntl",
+    "hashlib",
+    "importlib",
+    "inspect",
+    "json",
+    "logging",
+    "math",
+    "msvcrt",
+    "ntpath",
+    "os",
+    "pathlib",
+    "psycopg",
+    "psycopg_pool",
+    "re",
+    "shutil",
+    "stat",
+    "sys",
+    "tempfile",
+    "threading",
+    "time",
+    "traceback",
+    "types",
+    "typing",
+    "urllib",
+    "uuid",
+    "weakref"
+  ],
+  "replacements": [],
+  "scope": "Exact import closure recovery only; no integration or deployment verdict.",
+  "licence": "Private owner-authorized extraction; public licensing unresolved."
+}

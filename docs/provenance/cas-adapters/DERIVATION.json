@@ -1,0 +1,93 @@
+{
+  "schema": "reference/additive-integration-provenance/v1",
+  "source_commit": "6bba989aeca27575b971c78a103cbf3745cfda6a",
+  "base_candidate": "038",
+  "base_manifest_sha256": "979aaadfe5720b1fa4526521fac8092c2a61983c43a36721e26a4f9ab289c22a",
+  "scope": "Additive CAS reference composition and byte-identical I-5 recovery; no original guarded source edits.",
+  "additions": [
+    {
+      "path": "src/assurance_reference/versioned_cas.py",
+      "sha256": "61a3c7a471070896a823bf6ab700d648d3ab801f1f76ef218eebff28987d3c63",
+      "kind": "reference implementation or synthetic test"
+    },
+    {
+      "path": "tests/test_versioned_cas_offline.py",
+      "sha256": "54af70cd66333d86b17b886514fd01c1b0d8e2c1f40b15b6d4da8db104d08c6c",
+      "kind": "reference implementation or synthetic test"
+    },
+    {
+      "path": "tests/versioned_cas_pg_fixture.py",
+      "sha256": "cc95b349be129a42ffc01966a1afd08435aa668a878d6c5c5b95695ecd5dcb80",
+      "kind": "reference implementation or synthetic test"
+    },
+    {
+      "path": "tests/test_versioned_cas_pg.py",
+      "sha256": "2345ec8b16c01aa30415ddda89736df626bad5ea7679abb2fd35d522a22952e7",
+      "kind": "reference implementation or synthetic test"
+    },
+    {
+      "path": "src/regulated_core/adapters.py",
+      "sha256": "c1ee0703e9f4dd4929b18a38d3854b713282bbe93801b260c6463d017d442d4f",
+      "kind": "exact frozen recovery"
+    },
+    {
+      "path": "src/factory/cryptoledger.py",
+      "sha256": "250c7c8794bb1619c12fa5e4c29b86c07bc786689e5b758a8da9151a4d74c486",
+      "kind": "exact frozen recovery"
+    },
+    {
+      "path": "src/factory/keyprovider.py",
+      "sha256": "7e7f4574fee09d5788adf59eaee3ea8c1cb6232db5a9ff7a4c9f4fdad107a8f1",
+      "kind": "exact frozen recovery"
+    },
+    {
+      "path": "tests/test_i5_adapters.py",
+      "sha256": "5b63ffa66695d6bb619a38cc2cbf88b5374580505c39e453c06124223db39ca1",
+      "kind": "reference implementation or synthetic test"
+    }
+  ],
+  "inherited_adaptation_manifest": "docs/provenance/a03-application-tiers/adaptations.json",
+  "inherited_adaptation_sha256": "13d467b1838f5e2c69845fa1dee799b2966b914afd196b3e971571d8aa8169d4",
+  "limits": [
+    "X-1, X-2 and I-5 remain OPEN pending qualification and independent acceptance.",
+    "Generic CAS does not implement original Studio session, ownership, generation-floor or self-approval-specific obligations.",
+    "No new runtime dependency; local signer/vault path uses already declared cryptography. Optional cloud provider path unselected.",
+    "Private evidence and owner/paper records remain outside distributable archives."
+  ],
+  "modified_metadata_and_audit_files": [
+    {
+      "path": "MANIFEST.in",
+      "sha256": "896b428f1b687669e720c27fe2dffbefa4e2af6674129d75b4cb7c5b031afc10",
+      "candidate_sha256": "89a28a18245b26576e287482ebb8c61dcc33e1bce6f0a2bf0b89626556c1e819"
+    },
+    {
+      "path": "docs/qualification/source-trace-bindings.json",
+      "sha256": "9ba12f2ebf648ea883e37ccab6aa1261c5ef0b459025d9d61d7729e47f810755",
+      "candidate_sha256": "eceab5d64201cada0f950d70721777246d70630fcea51c235a9b7e53661be5f2"
+    },
+    {
+      "path": "docs/provenance/effect-site-classifications.json",
+      "sha256": "ee8c5a523070986a884f5097674675b9e33bf9f1e509a5521276ddc4223306bc",
+      "candidate_sha256": "be7daf8b0f4002ad64b952e14983dc597060d2052acdde83fae13b6715542ffe"
+    },
+    {
+      "path": "tests/test_effect_classifications.py",
+      "sha256": "8d6c546a3fae786e4b385839c2ed3d6c90e506ea8c9476e6995218cfb2fc6609",
+      "candidate_sha256": "68c824fedb0b1cf09faf5ce6a775d82d1161524663812562755aced4a81eabd1"
+    },
+    {
+      "path": "tests/test_authority_recovery.py",
+      "sha256": "bd846d705a6ea41d1edfb7bfc9f5bf87b70174dcfa8e278e4d11e81c0a3fde83",
+      "candidate_sha256": "f1a9df2775349395ca8348bbb6294732906b7998611fee10140fcae90832aff5"
+    }
+  ],
+  "static_site_counts": {
+    "baseline": 268,
+    "added": 12,
+    "candidate": 280
+  },
+  "additional_indirect_effect_notes": [
+    "The scanner is syntax-limited: software-key provisioning also uses tempfile.mkstemp and os.write; these remain unexecuted host provisioning effects, not exemptions.",
+    "Provider client encrypt/decrypt calls and adapter/vault delegation require separate boundary review; cloud provider calls remain unselected."
+  ]
+}

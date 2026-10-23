@@ -1,0 +1,62 @@
+--- a/regulated_core/projectos_gate.py
++++ b/regulated_core/projectos_gate.py
+@@ -87,6 +87,13 @@
+     return "write-once-evidence" if isinstance(down, WormUnavailable) else "signer"
+ 
+ 
++def require_retention_store(store: WormStore) -> None:
++    """Reject incomplete retention configuration without invoking storage."""
++    if any(not callable(getattr(store, name, None))
++           for name in ("anchor", "fetch", "verify")):
++        raise ValueError("explicit retention operations required")
++
++
+ class _RegulatedGateBase:
+     """The reusable recipe. A domain subclass sets the class attributes and implements `_verify`/`_audit`."""
+ 
+@@ -106,6 +113,7 @@
+                  review_store: ReviewStore | None = None, outage_alarm: OutageAlarm | None = None,
+                  membership_evidence: ReviewMembershipEvidence | None = None,
+                  release_readiness: ReleaseReadiness | None = None) -> None:
++        require_retention_store(worm)
+         self._engine = engine
+         # Paper A 5.3 (A17): an outage of the signer, key store or evidence store is reported through this channel,
+         # which depends on none of them; the default is the structured log a CloudWatch metric filter alarms on.
+--- a/regulated_core/pack_gate.py
++++ b/regulated_core/pack_gate.py
+@@ -27,7 +27,7 @@
+ from .preflight import IntendedUse, IntendedUseRegistry
+ from .registry import PolicyRegistry
+ from .outage import OutageAlarm
+-from .projectos_gate import CredentialVerifier, QualificationRegistry, _RegulatedGateBase
++from .projectos_gate import CredentialVerifier, QualificationRegistry, _RegulatedGateBase, require_retention_store
+ from .signing import Signer, TrustDirectory
+ from .verification import sign_verification
+ from .worm import WormStore
+@@ -57,6 +57,9 @@
+     review_extension_factory: Any = None
+     # The host's composed outage alarm (A17); absent, the gate's default log channel.
+     outage_alarm: OutageAlarm | None = None
++
++    def __post_init__(self) -> None:
++        require_retention_store(self.worm)
+ 
+     def __call__(self, pack: InstalledPack, registry: PackRegistry, surface: Any) -> RulebookGate:
+         spec = getattr(surface, "_spec", None) or getattr(surface, "spec", None)
+--- a/tests/test_authority_alarm_sinks.py
++++ b/tests/test_authority_alarm_sinks.py
+@@ -144,8 +144,13 @@
+     document = NS(vertical="v", policy_id="pid", digest=lambda: "d")
+     pack = NS(reference="p#1", rulebook=NS(document=document))
+     surface = NS(spec=NS(regulated=NS(pack_version="p#1", policy_ref="v/pid", policy_digest="d")))
++    def unexpected_retention(*args, **kwargs):
++        raise AssertionError("alarm wiring must not access retention")
++
++    retention = NS(anchor=unexpected_retention, fetch=unexpected_retention,
++                   verify=unexpected_retention)
+     factory = pack_gate.PackGateFactory(trust=None, engine=None, host_verifiers=None,  # type: ignore[arg-type]
+                                         verifier_signers={}, credential_verifier=None,  # type: ignore[arg-type]
+-                                        intended_uses=None, worm=None, outage_alarm=alarm)  # type: ignore[arg-type]
++                                        intended_uses=None, worm=retention, outage_alarm=alarm)  # type: ignore[arg-type]
+     assert factory(pack, None, surface) is None  # type: ignore[arg-type]
+     assert built["outage_alarm"] is alarm

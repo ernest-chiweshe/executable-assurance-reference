@@ -1,0 +1,41 @@
+{
+  "schema": "reference/surgical-reference-composition/v1",
+  "created_utc": "2026-10-16T07:48:00.837777+00:00",
+  "parent_candidate": "adopted031/755",
+  "parent_files_sha256": "7f7cf9a9fbcdb18dec34efc9e79e629116a0153e72a8f58e3f0c24bae4d1cb07",
+  "staged_review_sha256": "66ff98bdc49fc9ca5ffb5aade164ca371b3333b08696d7c520e3a314e1e46605",
+  "patch_sha256": "68051c7bc1442f5af9ce4bd389da66545d73ae7c5ab92ec8d0e6bd6729c40ac8",
+  "test_sha256": "71e27864e7bae7f5bad012ad61ab645131f0c41fb19a35789aa396fdf2783687",
+  "targeted_receipt_sha256": "ad9ecb901e916f35d927a0c06da08ffd04ba6a1a751b27b13b74ebc0e615a03c",
+  "verified_consensus_payloads": [
+    "4a1008a0f38beac12b2e6002e4273c108cd871a1f6102125bbb1efc76f1642b7",
+    "5cc8c9ab570dc3f514ba4f0d7d7158b2797e3588daa1bc8abf5cfe34df1e9339"
+  ],
+  "changes": {
+    "src/assurance_reference/demo.py": {
+      "before_sha256": "8f60683d50293899828c61ab1850727a9d3744bec77b743511343de13420a335",
+      "after_sha256": "9c19fea49b15405c5a6d16fc81bfe25af5e60f6dfd3d5455ec67ca60a16c23e9"
+    },
+    "src/assurance_reference/health.py": {
+      "before_sha256": "64ccf556b00b729f98a21dfad0cabd7ab8558e41df983b7948e2b47f113e6749",
+      "after_sha256": "0a3d7b8ab4743867cc5a825263473742de92efe596bb8e64c95604bbdd67faa7"
+    },
+    "docs/provenance/effect-site-classifications.json": {
+      "before_sha256": "88baf87abaf1cc844168402fdf562a1aed7f95b6745af2d154663bec5cbdc4e2",
+      "after_sha256": "30e8f6463018213843d003b8240a2f1dedbde062fd13d9c30ff33904db4b2309"
+    }
+  },
+  "effect_classification_updates": {
+    "sites": 13,
+    "method": "Unchanged source lines mapped through exact SequenceMatcher matching blocks; only line and source hash refreshed. Classification, reasons and authority-review text unchanged.",
+    "total_sites": 263
+  },
+  "source_adaptation_manifest_unchanged": "171d8e30cb0d0e0bb6756ba727c634b38a6ebcf4f24d8bc51ff3a93b8efd7bef",
+  "limits": [
+    "A16 remains OPEN: supervisor-governance boundary is not implemented or qualified by this repair.",
+    "Four staged intact contracts passed before integration; complete private audit and full dual-OS regression pending.",
+    "Reconstruction uses new engine/ledger/connection factory/use store/budget/target with in-process keys and other services; not crash recovery.",
+    "No new dependency, role privilege, original core change or policy change.",
+    "Adopted031/755 unchanged; no deployment or publication."
+  ]
+}

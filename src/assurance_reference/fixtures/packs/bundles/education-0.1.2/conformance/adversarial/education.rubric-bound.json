@@ -1,0 +1,25 @@
+{
+  "cases": [
+    {
+      "name": "criterion named with different case is not the same criterion",
+      "draft": "...",
+      "contract": {
+        "rubric_identifier": "drawing-first-angle/v1",
+        "rubric_criteria": [
+          "projection",
+          "line-types",
+          "dimensioning"
+        ],
+        "criteria_addressed": [
+          "Projection",
+          "line-types",
+          "dimensioning"
+        ]
+      },
+      "expected": "fail",
+      "expected_reasons": [
+        "CRITERION_UNADDRESSED"
+      ]
+    }
+  ]
+}

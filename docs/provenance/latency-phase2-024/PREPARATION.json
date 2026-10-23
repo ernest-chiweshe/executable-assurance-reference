@@ -1,0 +1,16 @@
+{
+  "status": "PREPARED_NOT_TESTED_NOT_QUALIFIED",
+  "base_manifest_sha256": "00f7df77028cab11514f95ec74639b57906de214ca89b9c6bac493183059a17c",
+  "base_runtime_sha256": "fce75d11866a53d7051f54dc26e95444cb10b311351bd1ab16c4aa57b964b608",
+  "candidate_runtime_sha256": "62811c6d0105351bd231935da20d8b25647a88ca21d6864aeec06ff3c1cf58cd",
+  "delta_sha256": "bf487ceb0188b9675ac1d87ceffdb35eb5b16e38bc7b77b0cd173a1d72bb8b93",
+  "existing_changes": [
+    "src/regulated_core/evidence_service_pg.py",
+    "docs/provenance/effect-site-classifications.json",
+    "docs/provenance/history-read-classifications.json"
+  ],
+  "effect_sites": 16,
+  "history_sites": 24,
+  "guards": "No classification, debt, runtime checker or test changes; only catalog locations/source hashes/locus refreshed",
+  "recovered_source_adaptation_pin": "a820b580daf1053b9a04594e7f9a72a4d5cce132bd5af0176d2b30b59fd71e48"
+}

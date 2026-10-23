@@ -1,0 +1,11 @@
+# Reviewed source host bindings
+
+Candidate040 adds explicit pack ID, capability, credential factory and source-authority bindings for investment research, financial onboarding and patient education. The host composes the existing QualifiedReferenceEngine with the concrete retained SourceReleaseGuard. The original pack builder is byte-identical; source storage relocates three imports, and four original helper definitions retain their AST identity. Originals and exact derivation are retained in docs/provenance/reviewed-source/DERIVATION.json.
+
+Pre-integration evidence: 24 offline configuration contracts, three installed-pack gate observations and six intact PostgreSQL source lifecycle/ordinary lock contracts passed. Integration must qualify these again against the complete retained candidate. No row closure follows from staging.
+
+The installed-pack test reads private approved requirements at tests/private-inputs/approved-requirements.md and verifies its pinned digest. That file and the generated bundles remain private, outside distributable archives. Full audit requires the complete retained private candidate. An archive-only run is not full qualification.
+
+Limits: no complete application release or UI recovery; no live issuer or professional qualification; local lock observations use two connections in one process. Static effect accounting includes ten builder file sites, but indirect review-store writes, advisory SELECT locks and helper effects require their separate reviews. No exemptions are introduced. X25 remains OPEN until independently accepted.
+
+The signed Health workspace-membership qualification fixture contains private owner requirements. The entire unchanged bundle at src/assurance_reference/fixtures/packs/bundles/health-workspace-membership is retained only in the complete private candidate and omitted from both archives. Removing one signed knowledge file would invalidate the bundle, so no partial bundle is shipped. The default local clinical qualification fixture requires this retained private bundle; an archive-only installation cannot run that fixture or full qualification. Education bundles, Health runtime code and the explicit synthetic Health fixture path remain included. This is a packaging boundary, not an exclusion of Health obligations or a full installed-Health qualification claim.

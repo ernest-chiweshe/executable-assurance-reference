@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools==83.0.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "executable-assurance-reference"
+version = "0.1.8rc5"
+description = "Executable Assurance reference architecture with synthetic local demonstrations"
+requires-python = ">=3.11"
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+dependencies = ["cryptography==49.0.0", "psycopg[binary]==3.3.4", "psycopg-pool==3.3.3"]
+
+[project.optional-dependencies]
+test = ["pytest==9.0.3", "securesystemslib==1.4.0"]
+
+[project.scripts]
+assurance-demo = "assurance_reference.demo:main"
+assurance-health-demo = "assurance_reference.health:main"
+assurance-pack-check = "assurance_reference.packs:main"
+assurance-evidence-views = "assurance_reference.projections:main"
+assurance-education-local = "assurance_reference.education_local:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"assurance_reference.protocol_model" = ["results.json"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
+
+[tool.ruff]
+line-length = 100
+
+[tool.setuptools.exclude-package-data]
+"assurance_reference" = ["fixtures/packs/bundles/health-workspace-membership/*", "fixtures/packs/bundles/health-workspace-membership/**/*"]

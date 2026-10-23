@@ -1,0 +1,82 @@
+{
+  "files": [
+    {
+      "algorithm": "SHA256",
+      "hash": "597a23ad9211fe393107372d846121d10f8f9f9e3808e9fa5ba517860c939987",
+      "name": "pack.json"
+    },
+    {
+      "algorithm": "SHA256",
+      "hash": "b779bd79089caeac31ec15ad6bcc5b2c76c6e9db8475177fff8234c11759a89e",
+      "name": "conformance/adversarial/education.hint-ladder-no-answer.json"
+    },
+    {
+      "algorithm": "SHA256",
+      "hash": "0063900a3a80229f36beaa2302a9f7868fd68f20c03265a56ef267f297fd035f",
+      "name": "conformance/adversarial/education.no-final-grade.json"
+    },
+    {
+      "algorithm": "SHA256",
+      "hash": "75920136b2c2a6e96566c2c32cbc3f6418c8a693632277e58fb9d31613d6f270",
+      "name": "conformance/adversarial/education.region-normalized.json"
+    },
+    {
+      "algorithm": "SHA256",
+      "hash": "be50621369f7621f2f9abe0275c3d675ce19a373966335bc2614f0cb29d95418",
+      "name": "conformance/adversarial/education.rubric-bound.json"
+    },
+    {
+      "algorithm": "SHA256",
+      "hash": "93ace7e8bef67a4df36702e181f13e5faf5881556545cb0f86cf3b2531d04f7b",
+      "name": "conformance/boundary/education.no-final-grade.json"
+    },
+    {
+      "algorithm": "SHA256",
+      "hash": "0246c61495eff65b4ba8baa9f1f0d7e71a3615b2f38b9d7335dec5975c0f1fd5",
+      "name": "conformance/golden/education.hint-ladder-no-answer.json"
+    },
+    {
+      "algorithm": "SHA256",
+      "hash": "fa70d213ecaf6464012a69d0b79271608d23ee92b909d34547dea1b963d959bd",
+      "name": "conformance/golden/education.no-final-grade.json"
+    },
+    {
+      "algorithm": "SHA256",
+      "hash": "47d76193606e6bcc22fb77012cf696755b16eb292a283debbbf6afedd95ea7d4",
+      "name": "conformance/golden/education.region-normalized.json"
+    },
+    {
+      "algorithm": "SHA256",
+      "hash": "c109a2ebb19a436e8d8b6fdb4ddf175359852d5d63c5dc92a6f07ffcc2de7b2a",
+      "name": "conformance/golden/education.rubric-bound.json"
+    },
+    {
+      "algorithm": "SHA256",
+      "hash": "7e986927bded4a300fbcf459ecaa49b97b549f2c3539efcae6d892add1635512",
+      "name": "exercises/geometry.json"
+    },
+    {
+      "algorithm": "SHA256",
+      "hash": "5c4ab979affaa0b8aabdbe620bb4b9b49b7ed7a9ed20a1681d561c469de1fdfb",
+      "name": "kit/README.md"
+    },
+    {
+      "algorithm": "SHA256",
+      "hash": "8854e495750882c7fc2dc328691e269dcf5d87c82f048823febd7fef371f3e17",
+      "name": "rulebook/rulebook.json"
+    },
+    {
+      "algorithm": "SHA256",
+      "hash": "2a725f6c2508c3af85dc05fdc1d5136dfbcb77e0194a3dbe5a49a0f15390907d",
+      "name": "schema/schema.json"
+    }
+  ],
+  "pack": "lumiwright.education.formative-feedback#0.1.2",
+  "schema": "lumiwright.pack-signature/v1",
+  "scope": "install",
+  "signature": {
+    "alg": "ecdsa-p384",
+    "key_id": "education-pilot-authority-2026-09-10",
+    "value": "3066023100b59699c95f6cee52754f1282cdc8d33b83fd3159b6a7205a421ec2a5d3e244256bdff96e369d8fa347aa87829bc4056b023100d35e12e5e6d808d7ece1dac6827459967978cf122d38e4f9daad9718e0089b2d3e67dbd354b2a39a9ace1009920fa7e3"
+  }
+}

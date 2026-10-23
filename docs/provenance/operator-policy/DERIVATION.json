@@ -1,0 +1,92 @@
+{
+  "schema": "reference/additive-integration-provenance/v1",
+  "source_commit": "6bba989aeca27575b971c78a103cbf3745cfda6a",
+  "base_candidate": "040 pending qualification",
+  "base_manifest_sha256": "af1c9eafd72373af1f98b932836cbb8e0219bf5f637bbb5c3a9e0a3feb136fe6",
+  "originals": [
+    {
+      "source_path": "factory/care_composition.py",
+      "retained_path": "docs/provenance/operator-policy/originals/factory/care_composition.py",
+      "sha256": "563461c08467871959e6d2e07e76b0db9b03c02496411b8e2e6c98bbc142d69f",
+      "git_blob": "ba7347b42123a53c826a8cd131c102114d78d345"
+    },
+    {
+      "source_path": "factory/care/policy.py",
+      "retained_path": "docs/provenance/operator-policy/originals/factory/care/policy.py",
+      "sha256": "694f78899cce42cef13a2a945d2123ddade8bbd05d6ae65124c3b7bf7b783f8a",
+      "git_blob": "6803024eb22c173d681b2244efbf2f8f96335c1c"
+    },
+    {
+      "source_path": "factory/care/__init__.py",
+      "retained_path": "docs/provenance/operator-policy/originals/factory/care/__init__.py",
+      "sha256": "3256227f7d2b63f17284d94a7dccc9b67fb439a1f6ac061bc71bf4c481c9d05d",
+      "git_blob": "5e394c40f3ccf503cb7f0985a11f7586130edb1b"
+    },
+    {
+      "source_path": "factory/care/contracts.py",
+      "retained_path": "docs/provenance/operator-policy/originals/factory/care/contracts.py",
+      "sha256": "caffcbf1d1cc092e3b0642c3795ae2b00c843e8867c163aa2dc81dec506414ed",
+      "git_blob": "a2b545f35cee4a7e73a603cef9249491cdfc18ae"
+    },
+    {
+      "source_path": "factory/care/store.py",
+      "retained_path": "docs/provenance/operator-policy/originals/factory/care/store.py",
+      "sha256": "305f066530d91fbaac3fd8ca9fd4bc8cd1fbc3d018abb5f777002b7d783f8ecd",
+      "git_blob": "29deec53633381b57ac1fe2bd728a24f6be258db"
+    },
+    {
+      "source_path": "factory/education_workbench/provision_hosted_pilot.py",
+      "retained_path": "docs/provenance/operator-policy/originals/factory/education_workbench/provision_hosted_pilot.py",
+      "sha256": "20fab8960ac7177027b37d118b0daa2fbe908c868ad7b89a19a2aae34b0e4a23",
+      "git_blob": "66ca392968bc5728fdc8acbe4c656999f1e192bd"
+    }
+  ],
+  "added_source_and_contracts": [
+    {
+      "path": "src/assurance_reference/policy_loading.py",
+      "sha256": "9df2c2339a53ceabc809f131aa5953f018ff6fbf424fdbb1db8429c8515c0781",
+      "staging_path": "private-evidence/x11-policy-loading-staging-001\\src\\assurance_reference\\policy_loading.py"
+    },
+    {
+      "path": "src/assurance_reference/operator_provisioning.py",
+      "sha256": "a6ef445ee3bd3bb87fd7bc996b763051567750bf47086d8078d678b883f201b9",
+      "staging_path": "private-evidence/x16-operator-provisioning-staging-001\\src\\assurance_reference\\operator_provisioning.py"
+    },
+    {
+      "path": "tests/test_policy_loading.py",
+      "sha256": "4c2b4b43e6c7c478eaf9d8a87ffaeeade6da651a3b74580485270454dd1131ce",
+      "staging_path": "private-evidence/x11-policy-loading-staging-001\\tests\\test_policy_loading.py"
+    },
+    {
+      "path": "tests/test_operator_provisioning.py",
+      "sha256": "bbb93e5fd74c6b1b2336276aff2039dfef76554a21e7d4a1119da80e862c961e",
+      "staging_path": "private-evidence/x16-operator-provisioning-staging-001\\tests\\test_operator_provisioning.py"
+    },
+    {
+      "path": "tests/test_operator_monotonic.py",
+      "sha256": "691116509f534e2708a3910b8ba93aabe782023aa64a77f3afa081c433684626",
+      "staging_path": "private-evidence/x16-monotonic-review-001\\test_operator_monotonic.py"
+    },
+    {
+      "path": "tests/care_parser_compat/test_care_policy_compatibility.py",
+      "sha256": "8f36cc768e74cdd83ccba295f644285db944399e18c97e0853814aabfb6f6e2d",
+      "staging_path": "private-evidence/x11-care-parser-compatibility-001\\test_care_policy_compatibility.py"
+    }
+  ],
+  "test_only_import_harness": {
+    "path": "tests/care_parser_compat/conftest.py",
+    "sha256": "21fb9cf9cbc1057efe73ad2a7d527c112a805cad199503a49ac074706f579831",
+    "purpose": "Make exact retained care parser available to its unchanged three compatibility contracts; originals remain outside runtime src."
+  },
+  "derivation": "Two new reference compositions retain staged bytes and original-code provenance; not byte-identical source recovery.",
+  "limits": [
+    "X11 and X16 OPEN; candidate040 is a sealed pending parent, not an adopted baseline.",
+    "Policy loading requires explicit host public trust, identities and caller-supplied observation time; current gate integration remains separate.",
+    "Historical policy observation retains frozen care content/version semantics but grants no current authority; care originals imported only by test harness.",
+    "Operator uses original guarded enrollment and appointment writes; preflight-only membership, caller-clock custody, private validator coupling and non-atomic exact pack observation remain limits.",
+    "Three operator writes are not an atomic batch; partial completion requires inspection, not blind retry.",
+    "No hosted identity, customer route, live custody, service/UI deployment or new runtime dependency.",
+    "Full audit requires complete retained private candidate including private signed Health bundle; archives omit it and archive-only default clinical qualification remains unavailable.",
+    "Zero new direct syntax sites does not mean zero effects; indirect provisioning and host callbacks require their separate review."
+  ]
+}

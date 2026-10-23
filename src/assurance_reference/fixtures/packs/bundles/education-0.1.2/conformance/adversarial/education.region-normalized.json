@@ -1,0 +1,51 @@
+{
+  "cases": [
+    {
+      "name": "a region given as strings still has to be inside the square",
+      "draft": "...",
+      "contract": {
+        "media": [
+          "scan.jpg"
+        ],
+        "findings": [
+          {
+            "rubric_code": "x",
+            "region": [
+              "0.1",
+              "0.2",
+              "0.3",
+              "1.5"
+            ]
+          }
+        ]
+      },
+      "expected": "fail",
+      "expected_reasons": [
+        "REGION_OUT_OF_BOUNDS"
+      ]
+    },
+    {
+      "name": "a three-number region is not a box",
+      "draft": "...",
+      "contract": {
+        "media": [
+          "scan.jpg"
+        ],
+        "findings": [
+          {
+            "rubric_code": "x",
+            "region": [
+              0.1,
+              0.2,
+              0.3
+            ]
+          }
+        ]
+      },
+      "expected": "fail",
+      "expected_reasons": [
+        "REGION_OUT_OF_BOUNDS"
+      ]
+    }
+  ]
+}

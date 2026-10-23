@@ -1,0 +1,122 @@
+{
+  "schema": "reference/a03-application-derivation/v1",
+  "baseline_files_sha256": "c7cd94803578f558ac6f8360604dbe5d33dec8e5cf4cd79b84315f49251c22af",
+  "selected_files": [
+    {
+      "destination": "src/assurance_reference/local_clinical_fixture.py",
+      "sha256": "02899d58c01ace2c515c262b855cc0e0964d00308b09c370f80aa56aa4cdb7f0"
+    },
+    {
+      "destination": "src/assurance_reference/local_education_fixture.py",
+      "sha256": "4068c89c748de41b79fe1afd77494ad94598bd70322ac4ceed36eee0b90f9509"
+    },
+    {
+      "destination": "src/assurance_reference/local_fixture_host.py",
+      "sha256": "b1b99ca30a8720d7121e58ed65dab1838fd59208bc7f20fe1d412ed8fecef839"
+    },
+    {
+      "destination": "src/assurance_reference/local_product_spec_fixture.py",
+      "sha256": "4b692c66f72182384688bd68b6e54643a8d52d751af06b61d1a6b2d69ea7d6b1"
+    },
+    {
+      "destination": "tests/test_local_tier4_profile.py",
+      "sha256": "dfe21ded5fa52b7a3ab416824805a7c6ead93e842e3209952cb0220fa9c60e4d"
+    },
+    {
+      "destination": "src/assurance_reference/local_roles.py",
+      "sha256": "31e52a75c1aeb406e422175be4c2b52d8cb78830a8707f01cb45f7df051cf344"
+    },
+    {
+      "destination": "src/assurance_reference/role_contract.py",
+      "sha256": "20841f887216edc72943a8600ae7131b3650bcaa86411e4fa9489cc0d0a5d5b4"
+    },
+    {
+      "destination": "tests/test_a03_clearance_writer.py",
+      "sha256": "693fd93df1effec13d1f451f4fb62b81ba9b20e246b3beaf09fc6b50e72d9537"
+    },
+    {
+      "destination": "tests/test_role_contract.py",
+      "sha256": "05c1b9a89feca35b79d2cab2d7d96191b6a99be651e4b7b1c6a51ec8fb8735ca"
+    },
+    {
+      "destination": "tests/test_product_tier_policy.py",
+      "sha256": "c59488c48800dbb10e8c489df47354ace827e8b22c89038a112efb782dfadf17"
+    },
+    {
+      "destination": "tests/synthetic_tier4_education.py",
+      "sha256": "c3746ac81fca87f2a6c5ba397517f1433b5c09d1ab71d6bb44a0d30e475979e3"
+    },
+    {
+      "destination": "tests/test_education_tier_policy.py",
+      "sha256": "bc7d301afe9522861d9280bbe060819d11a28dd27cd480e46f71fe24d2502a1b"
+    },
+    {
+      "destination": "tests/synthetic_tier4_health.py",
+      "sha256": "012b9eb1f5a6ce5829b3e488758aaa81fbafb9411f77af911a2ddf0240fb740a"
+    },
+    {
+      "destination": "tests/test_health_tier_policy.py",
+      "sha256": "d06e86a5a8d6933e4e9a620023f3da79a87af330e9d13e0f066d906447c7f3e9"
+    },
+    {
+      "destination": "src/assurance_reference/clinical_review_attempts.py",
+      "sha256": "9b3bd752aaaf774ee6881cea67904ce057f5ddd41feeca2d7edb41321e5b9f8a"
+    },
+    {
+      "destination": "tests/test_clinical_review_attempts.py",
+      "sha256": "ff58995b1b841039cb29617cc3014449de1a63936a1833e8c56151b0cd1a243b"
+    },
+    {
+      "destination": "src/assurance_reference/clinical_review.py",
+      "sha256": "10cb4247b9fd5bcefe198e9e9cecaba389973d6bda66bf721d8d2d8c77dfa182"
+    },
+    {
+      "destination": "src/factory/health_ui/clinical_release.py",
+      "sha256": "ff35f5aa4baf4c6399375e05bde3708a0fdf875bcabac47a419c94369dd24821"
+    },
+    {
+      "destination": "tests/test_clinical_review_caller.py",
+      "sha256": "68c7f26faf90d05f70020eb9494679c4bfd295a59bc464970e1a1226c60a7d2c"
+    },
+    {
+      "destination": "src/assurance_reference/clinical_review_admission.py",
+      "sha256": "5e017998cdcb5fbe1dbea43b5944e9220b8930d7c2927b33591432f0f1089ade"
+    },
+    {
+      "destination": "tests/test_clinical_review_admission.py",
+      "sha256": "72adfa92aeaab4dfeef469206e36f439ab4b05e2a89941078333a0049e8cc111"
+    },
+    {
+      "destination": "tests/test_clinical_fixture_selection.py",
+      "sha256": "a9b0e6921626d8b79e3ad13d54f8a808e0c19010b13f90876b34e9ce21b2b5c6"
+    },
+    {
+      "destination": "tests/test_clinical_retained_review_validation.py",
+      "sha256": "ae08e90e02a4c0cc62ea29d8ed264f39ed8d4ab2b2099a2fe90d3fc0bafd59f2"
+    },
+    {
+      "destination": "tests/test_a03_product_application_tiers.py",
+      "sha256": "6a2b072f8808d7e36d67d026b33847b242bed7a7c9eddeed1cb3e921e8843674"
+    },
+    {
+      "destination": "tests/test_a03_education_application_tiers.py",
+      "sha256": "79a40f3597d3df588fd527086e140c5b14fe37d87dcba34df73d6900c4205802"
+    },
+    {
+      "destination": "tests/test_health_tier4_effect_pg_003.py",
+      "sha256": "85440784f66b857a809dde990c02e526f814152b4432a2e788c7c586263a58e4"
+    },
+    {
+      "destination": "tests/test_clinical_review_composition_pg_002.py",
+      "sha256": "4bbc2bee20fd26ef892053014f1692314c3924e800106fccb43e5aa8f78d015a"
+    }
+  ],
+  "original_source": "Cumulative18-file pinned adaptation; originals retained. Computed Git blob identity checked, no fresh upstream repository object read claimed.",
+  "static_sites": {
+    "retained": 267,
+    "added": 1,
+    "total": 268
+  },
+  "qualification": "Working integration; independent acceptance pending; A03 OPEN.",
+  "runtime_dependencies_changed": false
+}

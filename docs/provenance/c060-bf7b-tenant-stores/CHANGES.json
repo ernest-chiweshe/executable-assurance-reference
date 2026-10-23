@@ -1,0 +1,95 @@
+{
+  "schema": "reference/candidate-changes/v1",
+  "candidate": "060 (batched overnight implementation)",
+  "base": "059 (FILES 00c6bae2, SEAL b7afc473; dual-OS 2093/2093, private audit 233; S1-S5 KILLED 5/5)",
+  "approval": "Owner overnight directive OVERNIGHT-IMPLEMENTATION-20261017 (0ca90a27; repeated to implementer directly): implementation done overnight, only reviews left. governor bb68fe64 (GO 060), 98eb05b4 (rosters approved; installation retries correction accepted; Option 1 approved), 9d2ef34d (overnight plan approved; X-4 stays a limit). verifier 35fa395b sets the Option 1 review bar; verifier C060-PRE-R1 is addressed.",
+  "changes": [
+    {
+      "row": "B-F7b",
+      "id": "roster tenancy",
+      "files": [
+        "src/assurance_reference/roster_tenancy.py",
+        "src/assurance_reference/local_roles.py",
+        "src/assurance_reference/role_contract.py",
+        "docs/runtime-role-contract.md",
+        "tests/a16_supervisor_fixture.py",
+        "tests/test_epoch_withdrawal_target.py",
+        "tests/test_roster_budget_pg.py"
+      ],
+      "note": "regulated_governance_rosters_v1 gets forced RLS on tenant = app.tenant. A roster chain verifies only for its one configured authority tenant (RosterAuthorityVerifier.verify_rows), and the installation-wide (installation, version) key is the chain head. The recovered PostgresRosterStore is unchanged (recovered bytes pinned); tenant_roster_store gives it a pool that binds the configured authority tenant on every connection. Rosters leave SCOPE_REVIEW."
+    },
+    {
+      "row": "B-F7b",
+      "id": "partitioned lifecycle as the only qualified profile (governor Option 1)",
+      "files": [
+        "src/assurance_reference/local_roles.py",
+        "src/assurance_reference/lifecycle_migration.py",
+        "src/assurance_reference/host_runtime.py",
+        "src/assurance_reference/durable_governance.py",
+        "src/assurance_reference/lifecycle_runtime.py",
+        "src/assurance_reference/local_*_fixture.py, local_fixture_host.py",
+        "tests/test_bf7b_qualified_lifecycle.py",
+        "tests updated to the partitioned profile (see delta)"
+      ],
+      "note": "Every provisioned schema is migrated to the tenant-partitioned pack lifecycle, so no runtime login can read or write pack_lifecycle. Every lifecycle entrypoint (compose_reference_stores, DurableGovernedEducationPacks, configuration, and the E/H/P fixture builders) defaults to partitioned and refuses partitioned_lifecycle=False before any I/O. The recovered regulated composition, an alternate route naming the legacy ledger, fails closed at the database. legacy_lifecycle=True provisioning remains only as migration evidence (test_lifecycle_migration, the legacy contract test). Single-login durability fixtures (test_durable_governance, test_pack_delivery, test_governed_packs) bind the recovered ledger directly in the test; product code refuses it. Composition tests formerly parametrised ordinary/partitioned now run partitioned only, so their collected test count is lower."
+    },
+    {
+      "row": "B-F7b",
+      "id": "retry receipts (correction to map f72ec881)",
+      "files": [
+        "tests/test_bf7b_partitioned_retries_pg.py"
+      ],
+      "note": "Two keyed governed pins: exactly fixture-retry-pin-school-a/-b, requests pin(school-a)/pin(school-b), held only in the governing tenant's forced-RLS scope; installation retries empty; index exactly 2 digests. The installation store holds only tenant-less receipts by construction, and every lawful governed operation carries its governance receipt."
+    },
+    {
+      "row": "B-F7b",
+      "id": "seeded and pinned evidence",
+      "files": [
+        "tests/test_bf7b_seeded_isolation_pg.py",
+        "tests/test_bf7b_policy_isolation_pg.py",
+        "docs/provenance/c060-bf7b-tenant-stores/POLICIES.json"
+      ],
+      "note": "The profile's RLS tables (35: the contract's 34 incl. rosters and governed receipts, plus reference_pack_tenants_v1) are seeded for two tenants and pinned field for field. Reads, the 26 INSERT grants and all column UPDATE grants are exercised."
+    },
+    {
+      "row": "X-8",
+      "id": "duplicate send refused at egress",
+      "files": [
+        "src/assurance_reference/governed_egress.py",
+        "tests/test_x8_governed_egress_pg.py",
+        "tests/test_x15_managed_delivery_pg.py"
+      ],
+      "note": "EgressGovernanceTarget refuses a duplicate send at egress inside the recovered target's own paths (verifier C060-PRE-R2). A stored COMMITTED or UNKNOWN replay, before or after a lost claim, raises DuplicateSendRefused, and so does losing the nonce claim to an earlier or concurrent holder. Nothing is sent, spent or recorded. A permit whose earlier delivery was refused still answers FAILED: nothing is sent, and its held budget can settle. The outcome of a dispatched permit stays observable only through reconcile and the bound receipt. Tests cover the replay after commit, the replay after a lost acknowledgement and reconcile, the managed-host path, and a send that loses the claim to another holder (public permit-use store)."
+    },
+    {
+      "row": "A19",
+      "id": "isolated permit-expiry guard",
+      "files": [
+        "tests/test_a19_permit_expiry_isolated_pg.py"
+      ],
+      "note": "A bare filesystem target (no session admission, no database decision-age bound) receives a permit valid in every respect except its absolute expiry. It is refused by require_permit_clock alone, with a pre-expiry verify control. Author pre-check only, not evidence: with A19-4 removed this test fails."
+    },
+    {
+      "row": "A15",
+      "id": "durable governed qualification and issuer registries",
+      "files": [
+        "src/assurance_reference/durable_registries.py",
+        "src/assurance_reference/governance_targets.py",
+        "src/assurance_reference/local_roles.py",
+        "src/assurance_reference/role_contract.py",
+        "tests/partitioned_governance_fixture.py",
+        "tests/test_a15_governed_registries_pg.py",
+        "docs/provenance/a15-receiving-boundaries/MATRIX.json",
+        "tests/test_a15_boundary_matrix.py"
+      ],
+      "note": "qualification_target and issuer_target now commit through PostgreSQL registries under the mandatory budget. One transaction under the subject's advisory lock: approved-prior check, then the budget final check on that connection, then the append and the governing tenant's receipt (forced RLS). Commit once; replay applies nothing; a failure after the final check rolls back effect, receipt and consumption and stays UNKNOWN; a lost acknowledgement is resolved by the receipt. The in-memory registries remain refused. MATRIX governance-targets open item resolved."
+    }
+  ],
+  "catalog": "effect-site catalog 334 sites (8 new A15 registry sites, 2 roster tenancy sites; others relocated)",
+  "not_included": [
+    "X-4 at-rest permit/reservation tamper evidence: a documented limit (governor 9d2ef34d, verifier f883d8c9); implementer may not author storage-tamper code.",
+    "A15 frozen text: filesystem and HTTP effects cannot be atomic with a database claim; those limits are unchanged.",
+    "No live deployment, publication or provider call."
+  ],
+  "scope_justification_registries": "reference_qualification_reports_v1 and reference_issuer_recognitions_v1 are classified installation authority (HOST_METADATA), not tenant RLS tables, because their rows carry no tenant content. A qualification report attests a verifier class against a dataset, signed by the qualification authority; an issuer recognition binds a trust-anchored key to a credential kind. Both are read by every tenant's host, as the in-memory registries were. The only tenant-bearing fields of a governed change (tenant, operation, nonce, change digest) are written to reference_governed_receipts_v1, which is under forced RLS and pinned in POLICIES.json. Grants: governor SELECT/INSERT on all three; receiver SELECT on the two registries only. verifier's review of this scope is pending; it is not claimed as accepted."
+}

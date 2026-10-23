@@ -1,0 +1,49 @@
+{
+  "schema": "reference/explicit-source-adaptations/v2",
+  "source_commit": "6bba989aeca27575b971c78a103cbf3745cfda6a",
+  "source_tree": "c72682a1dc4b51b3646d686002bfbdd7b8ae788d",
+  "patch_path": "docs/provenance/a21/PROPOSED.patch",
+  "patch_sha256": "5e73f862a935465ac632c33790a328545d7e507eb1edcfc4a7ae0bc2ea24f0b3",
+  "files": [
+    {
+      "source_path": "regulated_core/projectos_gate.py",
+      "path": "src/regulated_core/projectos_gate.py",
+      "original_path": "docs/provenance/a21/originals/regulated_core/projectos_gate.py",
+      "original_sha256": "ebea15e2cb49027e7cc56303f7678aae8163fd9de256447173251c36727978d2",
+      "original_git_blob": "abfde32ee3f1034352585da469ceb3698106ed30",
+      "adapted_sha256": "10a9657eb37a56ec48db0e19d62efc21fe56bc3f61ba1b5747d9088774f42ab0",
+      "recovered_source": true,
+      "retained_original": {
+        "kind": "attribution-sanitized-copy",
+        "sha256": "6db4658ef01ce993ce878da872ded7a99c13204807cb64319b8306ce197bf4ae",
+        "git_blob": "1f84f2cf7f56108fa79d27733ef1804028f37484"
+      }
+    },
+    {
+      "source_path": "regulated_core/pack_gate.py",
+      "path": "src/regulated_core/pack_gate.py",
+      "original_path": "docs/provenance/a21/originals/regulated_core/pack_gate.py",
+      "original_sha256": "fb1e3b981b036482b047cbcef69fa506dca11f76c23c6ede5780ab2fdcf431f2",
+      "original_git_blob": "b8da9e37507784c7bacdcf10394a218620aa3ce6",
+      "adapted_sha256": "666d87309845e5b602f51839b40614e7124f45ebe8bf4b75537e922ea47db09d",
+      "recovered_source": true
+    },
+    {
+      "source_path": "tests/test_authority_alarm_sinks.py",
+      "path": "docs/provenance/a21/proposed/tests/test_authority_alarm_sinks.py",
+      "original_path": "docs/provenance/a21/originals/tests/test_authority_alarm_sinks.py",
+      "original_sha256": "bee933d8677f8995f6419573478ce4fd3d45005771c2ed0e03b69aa9915546cb",
+      "original_git_blob": "8ffb09c3f75329df3abea5fef9e189095a3d1eed",
+      "adapted_sha256": "3958b54c674e615a597ef6f013762c49c6eb20d7eadaeda13debadc4d5353f29",
+      "recovered_source": false
+    }
+  ],
+  "sanitization": {
+    "kind": "attribution-only-public-derivative",
+    "baseline_archive_sha256": "ea01c93993c72fbfa2fafa455dcc7e3ac5fc1157dde1ade1fa472193616bab7b",
+    "baseline_manifest_sha256": "f080ac5dba18a0235e7e6ed94a14c3b858e20c80f2339fae82d7044cacc17917",
+    "baseline_patch_sha256": "5e73f862a935465ac632c33790a328545d7e507eb1edcfc4a7ae0bc2ea24f0b3",
+    "upstream_byte_identity_verified_by_this_manifest": false,
+    "scope": "Original upstream hashes are retained as historical references. Public retained copies have attribution-only text changes and separate hashes. Exact patch reconstruction verifies the public copies; independent archive comparison is needed to verify the transformation from the upstream originals. Runtime acceptance and review are separate."
+  }
+}

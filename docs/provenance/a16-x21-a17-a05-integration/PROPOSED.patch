@@ -1,0 +1,182 @@
+--- a/src/regulated_core/projectos_gate.py
++++ b/src/regulated_core/projectos_gate.py
+@@ -17,6 +17,9 @@
+ from .permit import EmissionError
+ 
+ import json
++import logging
++
++from psycopg import OperationalError
+ from contextlib import contextmanager, nullcontext
+ from dataclasses import replace
+ from hashlib import sha256
+@@ -78,10 +81,13 @@
+     ) -> Any: ...
+ 
+ 
+-_OUTAGES = (KmsUnavailable, WormUnavailable, ReleaseAdmissionUnavailable)
++_LOG = logging.getLogger(__name__)
++_OUTAGES = (KmsUnavailable, WormUnavailable, ReleaseAdmissionUnavailable, OperationalError)
+ 
+ 
+ def _component(down: Exception) -> str:
++    if isinstance(down, OperationalError):
++        return "authority-store"
+     if isinstance(down, ReleaseAdmissionUnavailable):
+         return "session-admission"
+     return "write-once-evidence" if isinstance(down, WormUnavailable) else "signer"
+@@ -355,6 +361,18 @@
+                           context: EmissionContext, artifact: bytes) -> EmissionDecision:
+         """Decide a release of exactly `artifact` to `out_path`. On allow, the decision carries a v2 permit bound
+         to those bytes and that target; nothing is written until `commit_release`. There is no other release path."""
++        try:
++            return self._authorize_available_release(
++                spec=spec, contract=contract, out_path=out_path, context=context, artifact=artifact)
++        except OperationalError as down:
++            reason = self._raise_outage(down, "authorize_release", context, effect_possible=False)
++            return EmissionDecision(allowed=False, reason=reason,
++                                    evidence={"outage": _component(down), "signed": False})
++
++    def _authorize_available_release(self, *, spec: VerticalSpec, contract: dict[str, Any],
++                                     out_path: str, context: EmissionContext,
++                                     artifact: bytes) -> EmissionDecision:
++        """Preserve entry, review and authority checks inside the store-outage boundary."""
+         context = self._trusted(context)
+         refused = self._delegation_refusal(contract, context)
+         if refused is not None:
+@@ -437,6 +455,12 @@
+         except ReleaseAdmissionUnavailable as down:
+             self._cancel_refused_release(decision, out_path, context, str(down))
+             return ReleaseOutcome("unknown", str(down))
++        except OperationalError as down:
++            # Admission/clock/target setup or admission exit can fail outside
++            # engine.commit. Do not infer whether a permitted effect occurred.
++            reason = self._raise_outage(down, "commit_release", context, effect_possible=True)
++            return ReleaseOutcome("unknown", reason,
++                                  {"outage": _component(down), "signed": False})
+ 
+     def _cancel_refused_release(
+         self, decision: EmissionDecision, out_path: str, context: EmissionContext, reason: str,
+@@ -542,8 +566,22 @@
+         it can never suppress the refusal or the UNKNOWN outcome the caller must still record (source review 3097)."""
+         component = _component(down)
+         # CRITICAL when an effect may have happened and its outcome is unknown; HIGH when nothing was released.
++        # The alarm must remain observable when its authority clock shares the
++        # failed dependency. An unavailable timestamp is explicit, not fabricated.
++        try:
++            at_us = self._engine.targets.now_us()
++        except Exception as clock_error:
++            at_us = None
++            # Keep the exception class observable without logging its message
++            # or consulting the failed store. Logging must not mask the alarm.
++            try:
++                _LOG.warning("authority alarm timestamp unavailable: %s",
++                             type(clock_error).__name__,
++                             extra={"clock_error_type": type(clock_error).__name__})
++            except Exception:
++                pass
+         event = OutageEvent(tenant_id=context.tenant, component=component, operation=operation,
+-                            detail=type(down).__name__, at_us=self._engine.targets.now_us(),
++                            detail=type(down).__name__, at_us=at_us,
+                             severity=Severity.CRITICAL if effect_possible else Severity.HIGH,
+                             phase="outcome-unknown" if effect_possible else "contained")
+         try:
+@@ -551,7 +589,7 @@
+         except Exception:
+             LogOutageAlarm().raise_alarm(event)
+         if effect_possible:
+-            return (f"authority outage in the {component} after the target was handed the permitted bytes: the outcome "
++            return (f"authority outage in the {component} during commit handling: a permitted effect may have occurred; the outcome "
+                     "is unknown, no signed outcome record could be made, and it must be resolved from the target's "
+                     "receipts; an independent alarm was raised")
+         return (f"authority outage in the {component}: nothing was released and no signed record could be made; "
+--- a/src/regulated_core/outage.py
++++ b/src/regulated_core/outage.py
+@@ -58,7 +58,7 @@
+     component: str          # "signer", "key-store" or "write-once-evidence"
+     operation: str          # what was refused, such as "authorize_release" or "commit_release"
+     detail: str             # the failure's class and fixed text, never payload content
+-    at_us: int
++    at_us: int | None       # None when the authority clock is unavailable; never invent a timestamp
+     severity: Severity = Severity.CRITICAL
+     phase: str = "contained"    # "contained": nothing released; "outcome-unknown": an effect may have happened
+ 
+@@ -183,7 +183,10 @@
+ 
+     def raise_alarm(self, event: OutageEvent) -> None:
+         envelope = alarm_envelope(event)
+-        attributes = {f"regulated.alarm.{key}": value for key, value in envelope.items()}
++        # Keep unavailable authority time explicit in JSON without forwarding
++        # null as a typed telemetry attribute.
++        attributes = {f"regulated.alarm.{key}": value for key, value in envelope.items()
++                      if value is not None}
+         self._emit(json.dumps(envelope, sort_keys=True), int(event.severity), event.severity.name, attributes)
+ 
+ 
+--- a/tests/test_education_record_outage.py
++++ b/tests/test_education_record_outage.py
+@@ -9,6 +9,7 @@
+ from assurance_reference.local_education_fixture import build_education_fixture
+ from assurance_reference.local_roles import provision_local_roles
+ from regulated_core.signing import Ed25519Signer
++from regulated_core.outage import RecordingOutageAlarm, Severity
+ from test_education_session_release import reviewed_context
+ 
+ 
+@@ -85,7 +86,8 @@
+         return signer
+ 
+     roles = provision_local_roles(os.environ["FACTORY_TEST_DB_URL"])
+-    app = build_education_fixture(roles, tmp_path, signer_factory=signer_factory)
++    alarm = RecordingOutageAlarm()
++    app = build_education_fixture(roles, tmp_path, signer_factory=signer_factory, outage_alarm=alarm)
+     context = reviewed_context(app)
+     gate = app.gates["requester"]
+     recorder = app.stores.recorder
+@@ -95,9 +97,13 @@
+     fault = RecordFailurePool(original_pool, phase)
+     recorder._pool = fault  # Explicit storage dependency fault, no guard replacement.
+     try:
+-        with pytest.raises(psycopg.OperationalError, match="synthetic recorder"):
+-            gate.authorize_release(spec=app.spec, contract=app.contract,
+-                out_path=str(app.path), context=context, artifact=app.body)
++        denied = gate.authorize_release(spec=app.spec, contract=app.contract,
++            out_path=str(app.path), context=context, artifact=app.body)
++        assert not denied.allowed and denied.permit is None
++        assert denied.evidence == {"outage": "authority-store", "signed": False}
++        event, = alarm.events
++        assert event.component == "authority-store" and event.detail == "OperationalError"
++        assert event.severity is Severity.HIGH and event.phase == "contained"
+     finally:
+         recorder._pool = original_pool
+     assert fault.failures == 1 and fault.inserts == 1
+--- a/src/assurance_reference/local_education_fixture.py
++++ b/src/assurance_reference/local_education_fixture.py
+@@ -39,7 +39,8 @@
+                             partitioned_lifecycle=False, fixture_validity_us=120_000_000,
+                             monitor_heartbeat=False, production_assurance=None,
+                             fixture_budget_limit=1, synthetic_pack_directory=None,
+-                            synthetic_publisher=None):
++                            synthetic_publisher=None, credential_identity_factory=None,
++                            qualification_factory=None):
+     """Compose a fictional school profile using already-provisioned restricted roles.
+ 
+     Bootstrap, scripted identities and certificates are explicit fixture actions.
+@@ -111,8 +112,16 @@
+     spec = VerticalSpec("education", "knowledge-backed", "education", "project_id", (),
+         regulated=RegulatedBlock(policy_ref=f"{doc.vertical}/{doc.policy_id}",
+             intended_use="formative feedback", policy_digest=doc.digest(), pack_version=pack.reference))
++    # Optional fixture authority adapters are explicit host composition inputs.
++    # Defaults retain the original local-session identity and marker report.
++    credential_identity = (sessions if credential_identity_factory is None else
++                           credential_identity_factory(sessions, trust, clock))
++    if qualification_factory is not None:
++        qualifications, report = qualification_factory(
++            trust, clock, keys["qualification"], tuple(pack.rulebook.check_ids()))
++
+     def make_gate(authenticated):
+-        credentials = SessionBoundCredentials(trust, keys["credential"], sessions, certificates,
++        credentials = SessionBoundCredentials(trust, keys["credential"], credential_identity, certificates,
+                                               sessions=sessions, authenticated=authenticated)
+         host = compose_reference_host(stores, replace(authorities, credential_verifier=credentials),
+                                       alerts=alerts, qualifications=qualifications, floor_not_used_reason="Synthetic local fixture; generation retirement is not qualified")

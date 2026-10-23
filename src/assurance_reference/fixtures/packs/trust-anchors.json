@@ -1,0 +1,10 @@
+{
+  "keys": [
+    {
+      "alg": "ecdsa-p384",
+      "key_id": "education-pilot-authority-2026-09-10",
+      "public_key_hex": "04766419e72d68a071012ddd87f8c1497b87cca653ded41fc0c14f2d9422f9bf12bb0fd84ac888e4ac8e575be394490469e58828acc81d742dc9c32ea21edcb1798c8c49702979863b193f5790563c9ac92fddec5815e7726af4661ce89887e9f3"
+    }
+  ],
+  "schema": "lumiwright.pack-trust/v1"
+}

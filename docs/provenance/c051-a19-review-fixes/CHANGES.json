@@ -1,0 +1,64 @@
+{
+  "schema": "reference/candidate-changes/v1",
+  "candidate": "051",
+  "base": "050 (FILES 2fdd1310, SEAL 498f6d4a)",
+  "changes": [
+    {
+      "id": "A19",
+      "ruling": "governor 802d0f5 amends the frozen A19 route (frozen text: static review plus intact tests, no removal, full conformance OPEN). This packet supplies (a) and (b); (c) is governor's own run of a_a19_mutate_v2.py; (d) is verifier's review. verifier performs no removal and certifies nothing beyond static and intact evidence.",
+      "files": [
+        "docs/provenance/a19-guard-conformance/MAP.json",
+        "tests/test_a19_guard_map.py",
+        "tests/test_a19_filesystem_guards_pg.py"
+      ],
+      "note": "Per-boundary sites: the PostgreSQL receiver keeps its own signature, exact-bytes, epoch-fence, deadline, nonce and budget sites, and the governance target its own nonce claim and budget participant; v2 removals target each."
+    },
+    {
+      "id": "C050-R1",
+      "files": [
+        "src/assurance_reference/retained_settlement.py",
+        "tests/test_retained_settlement_acquisition.py"
+      ],
+      "note": "Lock entry uses ExitStack: a failure after acquiring the connection or entering the transaction unwinds both and re-raises the original exception. Verified with an ordinary synthetic statement failure."
+    },
+    {
+      "id": "C050-BF1-G1",
+      "files": [
+        "tests/test_bf1_public_entry_pg.py"
+      ],
+      "note": "Each of E, H and P calls its gate's public authorize_release. No approval, no policy and no evidence each refuse there with no permit, nonce unspent and nothing written. The policy and evidence cases carry a completed approval. The engine-level matrix (test_bf1_deny_by_default_matrix_pg.py) and the unchanged VerticalSpec proof stay."
+    },
+    {
+      "id": "C050-X4-G1",
+      "files": [
+        "src/assurance_reference/retained_settlement.py",
+        "tests/test_retained_settlement_pg.py"
+      ],
+      "binding_map": {
+        "review": "Settlements are keyed by (tenant, review_id), and a nonce settles under one review only (constraint settlement_nonce_once). Naming a settled nonce under another review refuses: test_a_settled_nonce_named_under_another_review_is_refused. A different review with its own nonce is a separate approved review, not a re-entry.",
+        "bytes": "artifact digest and contract digest are in the binding digest: test_reentry_with_a_changed_binding_is_refused[artifact], [contract].",
+        "target": "target digest and operation are in the binding: [out_path].",
+        "nonce": "in the binding: [nonce].",
+        "principal": "in the binding: [principal].",
+        "permit": "Not caller-supplied: re-entry never accepts a permit. The retained permit is re-authenticated (TargetAuthority.authenticate, decision envelope verify_entry, record-hash, principal and tenant binding) before it is returned: test_settle_once_reenter_same_permit_commit_once_and_observe (same signed permit). A retained body altered at rest is not exercised (no tamper probe is authored); its refusal rests on that re-authentication.",
+        "budget_reservation": "Not caller-supplied: the reservation id is the permit's, bound to the nonce at issuance. Re-entry returns the same permit and its live reservation; the reserve count stays 1 across re-entry and every refused change (_reservations == 1)."
+      }
+    },
+    {
+      "id": "C050-A15-L1",
+      "files": [
+        "tests/test_pg_receiver_connection_loss_pg.py",
+        "docs/provenance/a15-receiving-boundaries/MATRIX.json"
+      ],
+      "note": "Renamed to the injected-error claim it proves (effect-applied-connection-error-injected) with an explicit limit: not a severed or terminated transport."
+    },
+    {
+      "id": "C050-WIN-F1",
+      "files": [
+        "tests/test_intake_lane_serialization_pg.py"
+      ],
+      "note": "Windows050 failure (verifier 4e66c55b): the second same-tenant admission was cancelled (QueryCanceled -> UNKNOWN) at the unchanged 30 s production lane lock_timeout, because the test held the first admission until the other tenant's whole admission completed under full-suite load. The test now releases as soon as it observes, within OBSERVE_S=20 < 30 s, both the same-tenant lane waiter and the other tenant inside its own callback; the paused hold is 120 s. Production deadline unchanged; waiter, order, status and decision-time assertions unchanged (the other tenant's completion is asserted after release)."
+    }
+  ],
+  "removals": "a_c051_mutate_v1.py (X4e nonce-once, R1a lock-entry unwinding) and a_a19_mutate_v2.py, both for governor's own copies"
+}

@@ -1,0 +1,227 @@
+{
+  "schema": "reference/a19-guard-conformance/v1",
+  "obligation": "A19",
+  "ruling": "governor 802d0f5: MET WITH LIMITS once (a) static map, (b) intact tests dual-OS, (c) per-guard removals KILLED/LAYERED, (d) verifier review",
+  "paper_table": "Paper A Table 2",
+  "removal_script": "a_a19_mutate_v2.py sha256 61f509af7db40b53ac537a53926c621892fad4951dad488e2b7e4cbd58bb102e",
+  "limits": [
+    "Evidence-before-permit and aggregate budget reservation are issuance guards in the shared engine; every receiving boundary inherits them through the permit it is given.",
+    "The governance target inherits signature, revocation, expiry and exact-payload checks from TargetAuthority.verify (same source site as the filesystem boundary); its own sites are the single-use claim and the transactional budget participant.",
+    "Boundaries not listed here are A15 open items and are not claimed by this map."
+  ],
+  "guards": [
+    {
+      "guard": "mandatory-effect-path",
+      "sites": [
+        {
+          "boundary": "filesystem",
+          "file": "src/regulated_core/target.py",
+          "anchor": "        if signed.signature.key_id != self._signer.key_id or not self._trust.verify(p.signed_body(), signed.signature):",
+          "removal": "A19-1-mandatory-effect-path",
+          "tests": [
+            "tests/test_receiving_signature_contracts.py::test_filesystem_refuses_signature_at_receiving_boundary",
+            "tests/test_a19_filesystem_guards_pg.py::test_forged_permit_never_reaches_the_filesystem_effect"
+          ]
+        },
+        {
+          "boundary": "governance-targets",
+          "file": "src/regulated_core/governance_targets.py",
+          "anchor": "            self._authority.verify(signed, output, tenant_id=self.tenant_id, target=self.target,",
+          "removal": "A19-1-mandatory-effect-path",
+          "tests": [
+            "tests/test_governance_authority_proof.py::test_first_state_host_receives_exact_verified_bootstrap_and_repeat_is_refused"
+          ]
+        },
+        {
+          "boundary": "postgres-receiver",
+          "file": "src/regulated_core/database_receiver_pg.py",
+          "anchor": "            signed.signature.key_id != self._authority.issuer_key_id",
+          "removal": "A19-1d-database-signature",
+          "tests": [
+            "tests/test_receiving_signature_contracts.py::test_database_refuses_signature_before_connection_acquisition"
+          ]
+        }
+      ]
+    },
+    {
+      "guard": "evidence-before-permit",
+      "sites": [
+        {
+          "boundary": "issuance",
+          "file": "src/regulated_core/engine.py",
+          "anchor": "            retain_before_permit()",
+          "removal": "A19-2-evidence-before-permit",
+          "tests": [
+            "tests/test_prepermit_retention.py::test_record_and_verified_retention_precede_permit_signing",
+            "tests/test_reference_retention_contract.py::test_direct_reference_requires_verified_retention_before_signing"
+          ]
+        },
+        {
+          "boundary": "postgres-receiver",
+          "file": "src/regulated_core/database_receiver_pg.py",
+          "anchor": "            self._authority.claim_on(conn, signed, self.target)",
+          "removal": "",
+          "tests": [
+            "tests/test_versioned_cas_pg.py::test_pg_transaction_proof_refusal_without_delivering_any_effect"
+          ]
+        }
+      ]
+    },
+    {
+      "guard": "revocation-check",
+      "sites": [
+        {
+          "boundary": "filesystem",
+          "file": "src/regulated_core/target.py",
+          "anchor": "        if p.revocation_epoch != epoch:",
+          "removal": "A19-3-revocation-check",
+          "tests": [
+            "tests/test_a19_filesystem_guards_pg.py::test_revoked_tenant_epoch_refuses_at_the_filesystem_target"
+          ]
+        },
+        {
+          "boundary": "postgres-receiver",
+          "file": "src/regulated_core/authority_fence_pg.py",
+          "anchor": "    if int(epoch) != expected_epoch:",
+          "removal": "A19-3d-database-epoch-fence",
+          "tests": [
+            "tests/test_receiving_payload_contracts.py::test_database_rechecks_revision_and_epoch_before_effect"
+          ]
+        }
+      ]
+    },
+    {
+      "guard": "expiry-check",
+      "sites": [
+        {
+          "boundary": "filesystem",
+          "file": "src/regulated_core/target.py",
+          "anchor": "        require_permit_clock(p, self.clock, connection=connection,",
+          "removal": "A19-4-expiry-check",
+          "tests": [
+            "tests/test_education_faults.py::test_expired_approved_permit_refuses_before_file_effect",
+            "tests/test_choke_point_composition.py::test_host_final_check_refuses_expiry_before_observation"
+          ]
+        },
+        {
+          "boundary": "postgres-receiver",
+          "file": "src/regulated_core/target.py",
+          "anchor": "        reading.require_live(domain=permit.clock_domain, issued_at_us=permit.issued_at_us,",
+          "removal": "A19-4d-shared-live-window",
+          "tests": [
+            "tests/test_versioned_cas_pg.py::test_elapsed_database_time_refuses_before_cas_and_rolls_back_settlement"
+          ]
+        },
+        {
+          "boundary": "postgres-receiver",
+          "file": "src/regulated_core/database_receiver_pg.py",
+          "anchor": "        if reading.now_us >= deadline:",
+          "removal": "A19-4e-database-admission-deadline",
+          "tests": [
+            "tests/test_versioned_cas_pg.py::test_elapsed_database_time_refuses_before_cas_and_rolls_back_settlement"
+          ]
+        }
+      ]
+    },
+    {
+      "guard": "exact-payload-binding",
+      "sites": [
+        {
+          "boundary": "filesystem",
+          "file": "src/regulated_core/target.py",
+          "anchor": "        if sha256(output).hexdigest() != p.output_digest:",
+          "removal": "A19-5-exact-payload-binding",
+          "tests": [
+            "tests/test_receiving_payload_contracts.py::test_filesystem_checks_exact_authorized_bytes_before_nonce_or_effect",
+            "tests/test_governance_target_budget_contract.py::test_unattempted_and_wrong_bytes_do_not_release_reservation"
+          ]
+        },
+        {
+          "boundary": "postgres-receiver",
+          "file": "src/regulated_core/database_receiver_pg.py",
+          "anchor": "                or sha256(output).hexdigest() != signed.permit.output_digest",
+          "removal": "A19-5d-database-exact-bytes",
+          "tests": [
+            "tests/test_receiving_payload_contracts.py::test_database_checks_exact_bytes_before_connection_or_effect",
+            "tests/test_versioned_cas_pg.py::test_receiver_refuses_other_output_before_host_admission"
+          ]
+        }
+      ]
+    },
+    {
+      "guard": "durable-replay-check",
+      "sites": [
+        {
+          "boundary": "filesystem",
+          "file": "src/regulated_core/target.py",
+          "anchor": "                    self.uses.consume(p.tenant_id, p.nonce)            # claimed BEFORE anything is staged",
+          "removal": "A19-6-durable-replay-check",
+          "tests": [
+            "tests/test_receiving_nonce_contracts.py::test_receiving_nonce_claim_survives_reopened_store_before_any_effect",
+            "tests/test_receiving_nonce_contracts.py::test_two_normal_receivers_share_one_nonce_and_perform_one_write"
+          ]
+        },
+        {
+          "boundary": "governance-targets",
+          "file": "src/regulated_core/governance_targets.py",
+          "anchor": "            self._uses.consume(p.tenant_id, p.nonce)",
+          "removal": "A19-6g-governance-nonce-claim",
+          "tests": [
+            "tests/test_governance_authority_proof.py::test_first_state_host_receives_exact_verified_bootstrap_and_repeat_is_refused",
+            "tests/test_governance_target_budget_contract.py::test_consumption_and_final_check_precede_effect_and_replay_does_not_reconsume"
+          ]
+        },
+        {
+          "boundary": "postgres-receiver",
+          "file": "src/regulated_core/database_receiver_pg.py",
+          "anchor": "                \"INSERT INTO regulated_permit_uses_v1(tenant,nonce) VALUES(%s,%s)\",",
+          "removal": "A19-6d-database-nonce-claim",
+          "tests": [
+            "tests/test_versioned_cas_pg.py::test_reviewed_cas_commits_exact_state_and_replay_has_no_second_effect"
+          ]
+        }
+      ]
+    },
+    {
+      "guard": "aggregate-budget-reservation",
+      "sites": [
+        {
+          "boundary": "issuance",
+          "file": "src/regulated_core/engine.py",
+          "anchor": "                reservation = self._budget.reserve(ctx.tenant_id, mission, reservation_id=nonce, units=units,",
+          "removal": "A19-7-aggregate-budget-reservation",
+          "tests": [
+            "tests/test_reference_host_budget_contract.py::test_resolve_reserve_sign_commit_and_exhaust"
+          ]
+        },
+        {
+          "boundary": "filesystem",
+          "file": "src/regulated_core/target.py",
+          "anchor": "                self.budget.consume(p.tenant_id, p.mission, p.budget_reservation)",
+          "removal": "",
+          "tests": [
+            "tests/test_reference_host_budget_contract.py::test_resolve_reserve_sign_commit_and_exhaust"
+          ]
+        },
+        {
+          "boundary": "governance-targets",
+          "file": "src/regulated_core/governance_targets.py",
+          "anchor": "                return self._budget_binding.participant(signed, authority=self._authority,",
+          "removal": "A19-7g-governance-budget-participant",
+          "tests": [
+            "tests/test_governance_target_budget_contract.py::test_consumption_and_final_check_precede_effect_and_replay_does_not_reconsume"
+          ]
+        },
+        {
+          "boundary": "postgres-receiver",
+          "file": "src/regulated_core/database_receiver_pg.py",
+          "anchor": "            PostgresMissionBudget(pool=None).consume_on(",
+          "removal": "A19-7d-database-budget-consume",
+          "tests": [
+            "tests/test_versioned_cas_pg.py::test_reviewed_cas_commits_exact_state_and_replay_has_no_second_effect"
+          ]
+        }
+      ]
+    }
+  ]
+}

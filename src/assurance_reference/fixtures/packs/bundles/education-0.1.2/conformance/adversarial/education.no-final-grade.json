@@ -1,0 +1,22 @@
+{
+  "cases": [
+    {
+      "name": "upper case",
+      "draft": "FINAL GRADE: 7/10",
+      "contract": {},
+      "expected": "fail"
+    },
+    {
+      "name": "space before the percent sign",
+      "draft": "you scored 85 %",
+      "contract": {},
+      "expected": "fail"
+    },
+    {
+      "name": "pass/fail inside a sentence",
+      "draft": "On a pass/fail basis this would not pass.",
+      "contract": {},
+      "expected": "fail"
+    }
+  ]
+}

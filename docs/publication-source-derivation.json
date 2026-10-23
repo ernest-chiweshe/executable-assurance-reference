@@ -1,0 +1,274 @@
+{
+  "schema": "reference/publication-cosmetic-derivation/v1",
+  "source_candidate": "062",
+  "source_inventory_sha256": "1e68e3b07d12aafcccd57fa14dde58c67a3e06fc55093cc48f9d67381c3ba0ff",
+  "scope": "Cosmetic successor; original source/evidence preserved privately. Not a new full qualification or a replacement for original provenance hashes.",
+  "files": [
+    {
+      "path": "src/factory/credential_currency.py",
+      "original_sha256": "2449c43853f035cf9525290da1172226f1e1a302a1fedb261e13ae0c961ab40f",
+      "publication_sha256": "8c5ef380ee1647648d694b62dbe464f2a205d1e60371269f7906a5141893e3b8",
+      "change": "comments/docstrings",
+      "ast_equivalent_except_documented_diagnostic": true
+    },
+    {
+      "path": "src/factory/egress_composition.py",
+      "original_sha256": "f82bed6f0361c792ee98fe017b764f7b1460029294a397c7bf1a462ebaebd431",
+      "publication_sha256": "13c0570102a5adbd16661d1ad3cd084797ce3553a5fd09ee3609030a17713d58",
+      "change": "comments/docstrings",
+      "ast_equivalent_except_documented_diagnostic": true
+    },
+    {
+      "path": "src/factory/ledger.py",
+      "original_sha256": "480f209ada5842b9f737762e949b78f42da9cb4f61c96427b8d6aa5877c63e1e",
+      "publication_sha256": "1e8186c7b82c3307bebe7e5cd790c04ad9aef85b43ae5bed414335734ba650d4",
+      "change": "comments/docstrings",
+      "ast_equivalent_except_documented_diagnostic": true
+    },
+    {
+      "path": "src/regulated_core/approval.py",
+      "original_sha256": "017570389e05eaed0941c3b0caf765a1aa496bad9ac89bdbc53d3b74c6ce47b4",
+      "publication_sha256": "718fc2ef2b6edb625a38d05273c175c30e8bf917b37b11232fa39c8853e5f6c0",
+      "change": "comments/docstrings",
+      "ast_equivalent_except_documented_diagnostic": true
+    },
+    {
+      "path": "src/regulated_core/approval_exchange.py",
+      "original_sha256": "8b3ae53162f7f5fa4f482d39f3e8913b092f7528a6ab704e30997601be689eca",
+      "publication_sha256": "396008bfcc5df7a9e80454089cc55ea91e7e2a1774b1fac5e2291c442511612c",
+      "change": "comments/docstrings",
+      "ast_equivalent_except_documented_diagnostic": true
+    },
+    {
+      "path": "src/regulated_core/canonical.py",
+      "original_sha256": "b9a5fa17f9f8070a0054ecf60975799ccb7935f5b8dc43ce63c3825d97dbb56c",
+      "publication_sha256": "7fc6f90a9044e15229404ae838a56b516bbd939c03063d07f041adfac0e8993b",
+      "change": "comments/docstrings",
+      "ast_equivalent_except_documented_diagnostic": true
+    },
+    {
+      "path": "src/regulated_core/choke_points.py",
+      "original_sha256": "505a067b5972ab92b155b282f7f1ab8380157dec5b77ee80889fbea74818b8fb",
+      "publication_sha256": "071ecb7cfc995822cb51aca43366ea0ceeda8b38ce10c1c30d1ba8d70cb87800",
+      "change": "comments/docstrings",
+      "ast_equivalent_except_documented_diagnostic": true
+    },
+    {
+      "path": "src/regulated_core/delegation.py",
+      "original_sha256": "205198935a30063f38887f824ac3357476929179ca215bf317d5a8ce44354626",
+      "publication_sha256": "856441fb363ba46a97f9bc515e441e55bbeffee189c61fc868291fd7c2027319",
+      "change": "comments/docstrings",
+      "ast_equivalent_except_documented_diagnostic": true
+    },
+    {
+      "path": "src/regulated_core/delegation_review.py",
+      "original_sha256": "1a9ce91f7d0f76aa2a35bec6e4a69ceac1d56edbb4b25773fdc548e295b87fdc",
+      "publication_sha256": "7a2e5d6a666a1913939a05b0db0429ae53c623a8686d808225a6da8552325043",
+      "change": "comments/docstrings",
+      "ast_equivalent_except_documented_diagnostic": true
+    },
+    {
+      "path": "src/regulated_core/delegation_source.py",
+      "original_sha256": "c8eb306144e1ad9b772e4fac28524ad632f649c767466e3a04cf6fdcda5a65d5",
+      "publication_sha256": "c819b16a0c3ecc7a96625cfe3a835a272793bec524ff6b21b7d390a172bd9c4c",
+      "change": "comments/docstrings",
+      "ast_equivalent_except_documented_diagnostic": true
+    },
+    {
+      "path": "src/regulated_core/egress_admission.py",
+      "original_sha256": "e26b41adbca7834b4d616802517ba155f3110ed930d59c26653bbac27f72145f",
+      "publication_sha256": "38d29e31942f78d450ddac1de637f0f6139239db27fd1a5ca634dc655db898c9",
+      "change": "comments/docstrings",
+      "ast_equivalent_except_documented_diagnostic": true
+    },
+    {
+      "path": "src/regulated_core/engine.py",
+      "original_sha256": "e683b9dcb1a0f25e1ce090c3697dd5758b9cf6d17cba21fa20c13ec4030bc4c6",
+      "publication_sha256": "4b6f3e59cead5689049c74712e92281666ca39345c657ab388831913b912c082",
+      "change": "comments/docstrings; engine.py also replaces attribution in one diagnostic suffix",
+      "ast_equivalent_except_documented_diagnostic": true
+    },
+    {
+      "path": "src/regulated_core/governance_guard.py",
+      "original_sha256": "b5bc60ebeec5ca5c54103d6c75427cc60f1061f3cf742d78cffc0562d304b50f",
+      "publication_sha256": "946f439993ac6d05d4fd561427826b29082406190858efb2e1271c941a7c7bde",
+      "change": "comments/docstrings",
+      "ast_equivalent_except_documented_diagnostic": true
+    },
+    {
+      "path": "src/regulated_core/governance_roster.py",
+      "original_sha256": "a167d4ecbabbc3e48505c11d011d68d6c9de9e0c77dae4529586de419c248bb3",
+      "publication_sha256": "5e0e779597cd232856f3737ab3cab1b39587f5503ad8ccf6b6d6a5a123d65703",
+      "change": "comments/docstrings",
+      "ast_equivalent_except_documented_diagnostic": true
+    },
+    {
+      "path": "src/regulated_core/governance_targets.py",
+      "original_sha256": "018cee80588111f44be8ab11cb3019615ac3f72e224ed826233cb8f61af14085",
+      "publication_sha256": "1b4694507e7cc2739aa05132d5bfc2ed99018be20b2294f2a732bac5646034ca",
+      "change": "comments/docstrings",
+      "ast_equivalent_except_documented_diagnostic": true
+    },
+    {
+      "path": "src/regulated_core/heartbeat.py",
+      "original_sha256": "d0d28b07fce1752b4b9ca4a7a5335ae959ff019800eed07647f39fec1212f258",
+      "publication_sha256": "ac06fcd2e7f54cf90cf516d161ae0a0d37723e97632626d9f7b9597e766d831e",
+      "change": "comments/docstrings",
+      "ast_equivalent_except_documented_diagnostic": true
+    },
+    {
+      "path": "src/regulated_core/identity_provider.py",
+      "original_sha256": "4ef3d8c65910e1c9443c04e82668d55630f9508f56110b0bc3d2d3128ef25dec",
+      "publication_sha256": "0e84b7cd626a58449c5dd1be2cd32bab5b9dcbe580580b883cc1fe9dda901f98",
+      "change": "comments/docstrings",
+      "ast_equivalent_except_documented_diagnostic": true
+    },
+    {
+      "path": "src/regulated_core/models.py",
+      "original_sha256": "0297ae57293b9e70c2884c9370320a9f317d7ebba80f6df39e3810f5ba09d4ee",
+      "publication_sha256": "cc3fddc1b2cc9aa1719b9dc516e1a5ec7ebbf7c44b664ecb751614bfca8314b6",
+      "change": "comments/docstrings",
+      "ast_equivalent_except_documented_diagnostic": true
+    },
+    {
+      "path": "src/regulated_core/outage.py",
+      "original_sha256": "bfde50524373f69c69b2d8ce15eb17b8200ca95a4d3383d96748a43d5d7652ea",
+      "publication_sha256": "f0301a600a454959d059dec0c8aff8eb86a455b09741227bf92d078b09775352",
+      "change": "comments/docstrings",
+      "ast_equivalent_except_documented_diagnostic": true
+    },
+    {
+      "path": "src/regulated_core/permit.py",
+      "original_sha256": "fb2482d692863288cd72a5f9979d75c0f7362ed62f34ce1df8ddf0209e676e58",
+      "publication_sha256": "424931816e1550977419eb293b88a8f0cddd15c7abad2e3e29b51b407c31ac20",
+      "change": "comments/docstrings",
+      "ast_equivalent_except_documented_diagnostic": true
+    },
+    {
+      "path": "src/regulated_core/persistence_pg.py",
+      "original_sha256": "60ad038f6c55036f1d8a20603e6c62abf4c109ed51fa470213b6776318600c54",
+      "publication_sha256": "6f0193a4a0c0b0bd66b5c22b21e65bb22a7f23ae1eef6f747aa032861e1c224c",
+      "change": "comments/docstrings",
+      "ast_equivalent_except_documented_diagnostic": true
+    },
+    {
+      "path": "src/regulated_core/preflight.py",
+      "original_sha256": "b5ad1775d57ce1f48aec9dbb7772861560e773524ba4ef69489c900ad387f5a0",
+      "publication_sha256": "2b4263c087baa84a5d7dce4bf4d44011db1dcb9d11fa2a5b9ffd921cf8fab6f8",
+      "change": "comments/docstrings",
+      "ast_equivalent_except_documented_diagnostic": true
+    },
+    {
+      "path": "src/regulated_core/projectos_gate.py",
+      "original_sha256": "015505e9df36113d669d06b3a3a1acafad80fecd275ec86fbd46927d508c21ac",
+      "publication_sha256": "1b112442f287349f531b4f29a38ad4cca405e0b000abe2410eebba97e3fff06f",
+      "change": "comments/docstrings",
+      "ast_equivalent_except_documented_diagnostic": true
+    },
+    {
+      "path": "src/regulated_core/providers_aws.py",
+      "original_sha256": "256b96afe92ed77372a2bd52cbc5e41c60014c9919ed5fefac9fbf12f0b7ea55",
+      "publication_sha256": "b79830b579044a09ce20747f8e8a2351a19affdb5e5704ca73fb758a57080d9a",
+      "change": "comments/docstrings",
+      "ast_equivalent_except_documented_diagnostic": true
+    },
+    {
+      "path": "src/regulated_core/runtime_pg.py",
+      "original_sha256": "30e1d22fa790d86252c6b17f6a50bafbac20012a1953aebad2ca62c62eed7d35",
+      "publication_sha256": "575e55201fbe0db58517f052896ba808fdd0d055ef6efd13736f8ea9036c3b47",
+      "change": "comments/docstrings",
+      "ast_equivalent_except_documented_diagnostic": true
+    },
+    {
+      "path": "src/regulated_core/signing.py",
+      "original_sha256": "d93c2dec6670b4c16f925d05f9fb244d95d2abb20c7b18614ae4643ad937e53b",
+      "publication_sha256": "14dc153194ffa4f5cd0dda52b3c122e5fc00afb14d82c2cfe0d350f6d8776cdc",
+      "change": "comments/docstrings",
+      "ast_equivalent_except_documented_diagnostic": true
+    },
+    {
+      "path": "src/regulated_core/target.py",
+      "original_sha256": "0c5fb9b37dfcb6874ffdd44d31da6e1b414eb2f84b242263ff76857e24c53492",
+      "publication_sha256": "92e8108db7726216c4d7af5afec0a27e7478fada4aa03ad3ba53dfbb1eda58d8",
+      "change": "comments/docstrings",
+      "ast_equivalent_except_documented_diagnostic": true
+    },
+    {
+      "path": "src/regulated_core/tier4.py",
+      "original_sha256": "f53e8665a11343a65fb103f7569c2684cb095186f9fc6ff128cd0d79c045ea4d",
+      "publication_sha256": "c57072fbd42aba0f309ba88cf266aada7a1e2b1911f43d071682957ad4e08566",
+      "change": "comments/docstrings",
+      "ast_equivalent_except_documented_diagnostic": true
+    },
+    {
+      "path": "src/regulated_core/verification.py",
+      "original_sha256": "cd1e7dcdd40225d62154870f42eac0b8ca76496fd19b8e2f9354405e488bd637",
+      "publication_sha256": "770ec0cfc474cff4edbe426b005ea807d49d681a7009b26339dbf451da9147dd",
+      "change": "comments/docstrings",
+      "ast_equivalent_except_documented_diagnostic": true
+    },
+    {
+      "path": "src/regulated_core/__init__.py",
+      "original_sha256": "a0d4600e8613527ca83e7bbe9e668135ddee950949bef656249369ffbeadabd7",
+      "publication_sha256": "db0708073b9622f8cedcec49d4583875f3aaebe82542a27beb3f7d25b7c937b3",
+      "change": "comments/docstrings",
+      "ast_equivalent_except_documented_diagnostic": true
+    },
+    {
+      "path": "src/factory/health_ui/clinical_checks.py",
+      "original_sha256": "31d10b93fe0b8efd5f5c43aa17e5d010db8a0fa9892ece13c912ce5cd8f291fa",
+      "publication_sha256": "333c50daa793107d38c1862a8075ea0f43776d63600ee59220a9704a9b332c47",
+      "change": "comments/docstrings",
+      "ast_equivalent_except_documented_diagnostic": true
+    },
+    {
+      "path": "src/factory/health_ui/clinical_release.py",
+      "original_sha256": "ff35f5aa4baf4c6399375e05bde3708a0fdf875bcabac47a419c94369dd24821",
+      "publication_sha256": "ffd6632b56e8464ff884c43108d66b6493bbdf87a25fb95e082db67f41d0dbe3",
+      "change": "comments/docstrings",
+      "ast_equivalent_except_documented_diagnostic": true
+    },
+    {
+      "path": "src/factory/health_ui/documents.py",
+      "original_sha256": "10e49f6ab9cf8e3edb9108fbaa32f55f5b6b80e3875cd323753954e93d322b03",
+      "publication_sha256": "be58c04801e08a48bcb1beb9597c4fe093670878221b2c3be0586bef8a934286",
+      "change": "comments/docstrings",
+      "ast_equivalent_except_documented_diagnostic": true
+    },
+    {
+      "path": "src/factory/projectos/engine.py",
+      "original_sha256": "993659bb1af2a7a4a58243f12f31cc66e9f3e2183e2cafe0c34a99964d24d15f",
+      "publication_sha256": "53ffed980ff04c3c52083d10c74b8360500355c49d1d354ea9906bfba6608bf8",
+      "change": "comments/docstrings",
+      "ast_equivalent_except_documented_diagnostic": true
+    },
+    {
+      "path": "src/factory/projectos/governed_release.py",
+      "original_sha256": "5551a0f1717f4329bad6bc5f585363e60846e141985901f3e107705ee984fb18",
+      "publication_sha256": "40701ada1e3af81ff1be26706aade15b12c7cddea1444292e42c2d46da75f8fb",
+      "change": "comments/docstrings",
+      "ast_equivalent_except_documented_diagnostic": true
+    },
+    {
+      "path": "src/factory/projectos/regulated.py",
+      "original_sha256": "2fdda81249a8423317bca17e3de7acee0d5391885129607cc23ce4296db8f862",
+      "publication_sha256": "3286dc110a8db0acefbd5fe23d849e0e88efe4d83b52326aef99d7996a6db5ae",
+      "change": "comments/docstrings",
+      "ast_equivalent_except_documented_diagnostic": true
+    },
+    {
+      "path": "src/factory/public_fetch/drivers/stdlib.py",
+      "original_sha256": "d148da9a778ca43a87a4ea37afa865600f321011612ee4a1c5ee7cb6fbd062a1",
+      "publication_sha256": "6117e70b82c8eb797d812bc0e1d80c345f20c94c412b0314a9cd37952745f786",
+      "change": "comments/docstrings",
+      "ast_equivalent_except_documented_diagnostic": true
+    },
+    {
+      "path": "tests/test_bf7b_qualified_lifecycle.py",
+      "original_sha256": "4758abd3152d63d3e4b514a4895c87f04a6ac476b3f93e73c232b6a19e70b946",
+      "publication_sha256": "a67bbd1363b03cfc60625b206f39dea01786afd86158b486cd27e91cadf65a55",
+      "change": "comments/docstrings",
+      "ast_equivalent_except_documented_diagnostic": true
+    }
+  ]
+}

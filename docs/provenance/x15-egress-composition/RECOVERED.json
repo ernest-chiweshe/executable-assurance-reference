@@ -1,0 +1,12 @@
+{
+  "schema": "reference/recovered-original/v1",
+  "row": "X-15",
+  "frozen_commit": "6bba989aeca27575b971c78a103cbf3745cfda6a",
+  "frozen_path": "factory/egress_composition.py",
+  "git_blob": "a7fdd2eee645222f2daa9252c482557b11b01097",
+  "sha256": "f82bed6f0361c792ee98fe017b764f7b1460029294a397c7bf1a462ebaebd431",
+  "byte_identical": true,
+  "recovered_by": "implementer",
+  "composition": "src/assurance_reference/managed_egress.py composes it over the reference host (new, implementer-authored)",
+  "unused_lazy_paths": "compose_http_delivery_target imports factory.governed_http* lazily; those modules are not recovered and the function is not called in the reference."
+}

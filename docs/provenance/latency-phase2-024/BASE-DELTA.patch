@@ -1,0 +1,80 @@
+--- 023p1/src/regulated_core/evidence_service_pg.py
++++ 024/src/regulated_core/evidence_service_pg.py
+@@ -608,38 +608,49 @@
+             return envelope, head
+ 
+     def _insert_append_on(self, conn, head, frontier, completed, pending, batch):
+-        from .evidence_encoding import canonical_bytes, envelope_bytes, loads as evidence_loads
++        from itertools import islice
++        from .evidence_encoding import canonical_bytes
++        statements = self._append_write_statements(head, frontier, completed, pending)
+         with conn.cursor() as cursor:
+-            for offset in range(0, len(completed), 256):
+-                chunk = completed[offset:offset + 256]
+-                cursor.execute(
+-                    "INSERT INTO regulated_evidence_tree_v1(tenant,level,idx,hash) "
+-                    "SELECT %s,n.* FROM unnest(%s::smallint[],%s::bigint[],%s::bytea[]) AS n(level,idx,hash)",
+-                    (self.tenant,[n.level for n in chunk],[n.index for n in chunk],[n.digest for n in chunk]))
+-            cursor.execute("INSERT INTO regulated_evidence_frontier_v1(tenant,tree_size,frontier) VALUES(%s,%s,%s::jsonb)",
+-                           (self.tenant, head.tree_size, canonical_bytes(frontier_document(frontier)).decode()))
+-            key_nodes = [(key,n.level,n.index,n.digest) for key,ordinal,key_frontier,nodes in pending for n in nodes]
+-            for offset in range(0, len(key_nodes), 256):
+-                chunk = key_nodes[offset:offset + 256]
+-                cursor.execute(
+-                    "INSERT INTO regulated_evidence_key_tree_v1(tenant,key_digest,level,idx,hash) "
+-                    "SELECT %s,n.* FROM unnest(%s::bytea[],%s::smallint[],%s::bigint[],%s::bytea[]) AS n(key_digest,level,idx,hash)",
+-                    (self.tenant,*([row[col] for row in chunk] for col in range(4))))
+-            for offset in range(0, len(pending), 256):
+-                chunk = pending[offset:offset + 256]
+-                cursor.execute(
+-                    "INSERT INTO regulated_evidence_key_frontier_v1(tenant,key_digest,tree_size,frontier) "
+-                    "SELECT %s,n.key_digest,%s,n.frontier FROM unnest(%s::bytea[],%s::jsonb[]) AS n(key_digest,frontier)",
+-                    (self.tenant,head.tree_size,[key for key,ordinal,key_frontier,nodes in chunk],
+-                     [canonical_bytes(frontier_document(key_frontier)).decode() for key,ordinal,key_frontier,nodes in chunk]))
+-                cursor.execute(
+-                    "INSERT INTO regulated_evidence_key_occurrences_v1(tenant,key_digest,ordinal,seq,tree_size) "
+-                    "SELECT %s,n.key_digest,n.ordinal,%s,%s FROM unnest(%s::bytea[],%s::bigint[]) AS n(key_digest,ordinal)",
+-                    (self.tenant,head.tree_size-1,head.tree_size,[key for key,ordinal,key_frontier,nodes in chunk],
+-                     [ordinal for key,ordinal,key_frontier,nodes in chunk]))
++            # Only already-prepared append writes share these bounded protocol
++            # batches. Drain every batch before map scope/readback validation.
++            while chunk := tuple(islice(statements, 8)):
++                with conn.pipeline():
++                    for sql, params in chunk:
++                        cursor.execute(sql, params)
+             insert_map_batch_on(conn, batch)
+             cursor.execute("INSERT INTO regulated_evidence_heads_v1(tenant,tree_size,sth) VALUES(%s,%s,%s::jsonb)",
+                            (self.tenant, head.tree_size, canonical_bytes(head.document()).decode()))
++
++    def _append_write_statements(self, head, frontier, completed, pending):
++        from .evidence_encoding import canonical_bytes
++        for offset in range(0, len(completed), 256):
++            chunk = completed[offset:offset + 256]
++            yield (
++                "INSERT INTO regulated_evidence_tree_v1(tenant,level,idx,hash) "
++                "SELECT %s,n.* FROM unnest(%s::smallint[],%s::bigint[],%s::bytea[]) AS n(level,idx,hash)",
++                (self.tenant,[n.level for n in chunk],[n.index for n in chunk],[n.digest for n in chunk]))
++        yield ("INSERT INTO regulated_evidence_frontier_v1(tenant,tree_size,frontier) VALUES(%s,%s,%s::jsonb)",
++                       (self.tenant, head.tree_size, canonical_bytes(frontier_document(frontier)).decode()))
++        key_nodes = [(key,n.level,n.index,n.digest) for key,ordinal,key_frontier,nodes in pending for n in nodes]
++        for offset in range(0, len(key_nodes), 256):
++            chunk = key_nodes[offset:offset + 256]
++            yield (
++                "INSERT INTO regulated_evidence_key_tree_v1(tenant,key_digest,level,idx,hash) "
++                "SELECT %s,n.* FROM unnest(%s::bytea[],%s::smallint[],%s::bigint[],%s::bytea[]) AS n(key_digest,level,idx,hash)",
++                (self.tenant,*([row[col] for row in chunk] for col in range(4))))
++        for offset in range(0, len(pending), 256):
++            chunk = pending[offset:offset + 256]
++            yield (
++                "INSERT INTO regulated_evidence_key_frontier_v1(tenant,key_digest,tree_size,frontier) "
++                "SELECT %s,n.key_digest,%s,n.frontier FROM unnest(%s::bytea[],%s::jsonb[]) AS n(key_digest,frontier)",
++                (self.tenant,head.tree_size,[key for key,ordinal,key_frontier,nodes in chunk],
++                 [canonical_bytes(frontier_document(key_frontier)).decode() for key,ordinal,key_frontier,nodes in chunk]))
++            yield (
++                "INSERT INTO regulated_evidence_key_occurrences_v1(tenant,key_digest,ordinal,seq,tree_size) "
++                "SELECT %s,n.key_digest,n.ordinal,%s,%s FROM unnest(%s::bytea[],%s::bigint[]) AS n(key_digest,ordinal)",
++                (self.tenant,head.tree_size-1,head.tree_size,[key for key,ordinal,key_frontier,nodes in chunk],
++                 [ordinal for key,ordinal,key_frontier,nodes in chunk]))
+ 
+ 
+     def consistency_on(self, conn: Any, previous: Any, head: Any) -> tuple[bytes, ...]:

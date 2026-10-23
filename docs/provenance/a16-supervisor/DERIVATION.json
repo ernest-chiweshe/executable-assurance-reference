@@ -1,0 +1,323 @@
+{
+  "schema": "reference/explicit-candidate-derivation/v1",
+  "scope": "Supervised withdrawal repair, reviewed original-core reconciliation ownership adaptation and exact B-F2 projection contract",
+  "baseline_candidate": "033",
+  "baseline_files_sha256": "a1cd1cb880619a4b1fd9ce578246ea2ebe387fa77189d8bf4402d0b0058cd81c",
+  "frozen_source_commit": "6bba989aeca27575b971c78a103cbf3745cfda6a",
+  "cumulative_adaptation_manifest": "docs/provenance/a16-resource-order/adaptations.json",
+  "cumulative_adaptation_sha256": "dfa0056ed989e47da0409287428ab1d7e03ccd283444c277406d821dcfdb8c8b",
+  "changes": [
+    {
+      "path": "MANIFEST.in",
+      "before_sha256": "29ac7ddfbdb0b92466342392cd5760a29d2566017e440cda17c7e5a932488731",
+      "after_sha256": "549e68335edabf6030ccdde93f8ac14ea15a3b6e224b67167e093f1512b3ccdf",
+      "retained_original": "docs/provenance/a16-supervisor/originals/MANIFEST.in"
+    },
+    {
+      "path": "docs/claim-evidence.md",
+      "before_sha256": "33df1f673dc2af63766678272524945c58dc471f0c99e4eee386be35759d7931",
+      "after_sha256": "eb225b21fae6af8c5676d097e224ec0ce5dae2330c2fb3d314f43dc92e4125bf",
+      "retained_original": "docs/provenance/a16-supervisor/originals/docs/claim-evidence.md"
+    },
+    {
+      "path": "docs/provenance/a16-resource-order/PROPOSED.patch",
+      "before_sha256": null,
+      "after_sha256": "c74fc6112731756a78f8bf9c8b86a8b41fa965b473516bc165f3f501cf2d662c",
+      "retained_original": null
+    },
+    {
+      "path": "docs/provenance/a16-resource-order/adaptations.json",
+      "before_sha256": null,
+      "after_sha256": "dfa0056ed989e47da0409287428ab1d7e03ccd283444c277406d821dcfdb8c8b",
+      "retained_original": null
+    },
+    {
+      "path": "docs/provenance/effect-site-classifications.json",
+      "before_sha256": "30e8f6463018213843d003b8240a2f1dedbde062fd13d9c30ff33904db4b2309",
+      "after_sha256": "9d0d25ec3dfeb061dadfaeb101636b1361c77e674f59cc44e31a3b192209aef1",
+      "retained_original": "docs/provenance/a16-supervisor/originals/docs/provenance/effect-site-classifications.json"
+    },
+    {
+      "path": "docs/qualification/a16-supervisor-withdrawal.md",
+      "before_sha256": null,
+      "after_sha256": "1a8e27d4e35fb5cb83cd94be10f6f21b92179d9f33f9600feaf2fa258a713d05",
+      "retained_original": null
+    },
+    {
+      "path": "docs/revocation.md",
+      "before_sha256": "1ff6a3fceb419cb3d4be61117ffd637a07c655a417d745e17db32741b4cbdcbd",
+      "after_sha256": "a562c78802bb719148b430275a1e964a550eadd0e9a4b3f8768db90414ece835",
+      "retained_original": "docs/provenance/a16-supervisor/originals/docs/revocation.md"
+    },
+    {
+      "path": "docs/runtime-role-contract.md",
+      "before_sha256": "df6c4e5efd2fa53c809025fb3870e6938dae8638d7e8c5e7c7ed241603e8f4b0",
+      "after_sha256": "ef2424d9668a506438f59b8791b17367246639bf0e2c8f5f830d094bbc53b250",
+      "retained_original": "docs/provenance/a16-supervisor/originals/docs/runtime-role-contract.md"
+    },
+    {
+      "path": "src/assurance_reference/demo.py",
+      "before_sha256": "9c19fea49b15405c5a6d16fc81bfe25af5e60f6dfd3d5455ec67ca60a16c23e9",
+      "after_sha256": "102d55ee807abbe2db2ce5a90a7f7ae4ff650ae87f1ba745d373f2d0ef3bcf4c",
+      "retained_original": "docs/provenance/a16-supervisor/originals/src/assurance_reference/demo.py"
+    },
+    {
+      "path": "src/assurance_reference/epoch_withdrawal_admission.py",
+      "before_sha256": null,
+      "after_sha256": "b8e93212895bcae2b76c3907c517cbe9bb1fdf66a595c7c33f5d8c6afca13cea",
+      "retained_original": null
+    },
+    {
+      "path": "src/assurance_reference/epoch_withdrawal_approval.py",
+      "before_sha256": null,
+      "after_sha256": "80bde5810c319cebf5c86c07a099241a5f87f6e1c4a0574a9ca1d2fd8f930cb3",
+      "retained_original": null
+    },
+    {
+      "path": "src/assurance_reference/epoch_withdrawal_retention.py",
+      "before_sha256": null,
+      "after_sha256": "be48a7deb7c7b6ed1964f90f6096eedaea24a88fe02f5d25c72ce3ab1b571123",
+      "retained_original": null
+    },
+    {
+      "path": "src/assurance_reference/epoch_withdrawal_review.py",
+      "before_sha256": null,
+      "after_sha256": "840c56ff9cb2d711e86bcf516f6046609444bff0ff8a89c7913356ade7d1d9dd",
+      "retained_original": null
+    },
+    {
+      "path": "src/assurance_reference/epoch_withdrawal_schema.py",
+      "before_sha256": null,
+      "after_sha256": "19b608cdbdf44506ee7cedfc82757492170f112a23ac5943f518adfde948397e",
+      "retained_original": null
+    },
+    {
+      "path": "src/assurance_reference/epoch_withdrawal_store.py",
+      "before_sha256": null,
+      "after_sha256": "b659c2cbda35ac13364c3e9baf10cb46a6efbd0f3825dc00e2c9d0f73f678749",
+      "retained_original": null
+    },
+    {
+      "path": "src/assurance_reference/epoch_withdrawal_target.py",
+      "before_sha256": null,
+      "after_sha256": "0654d23521ed2dce7c6ba0a1cbb189cd0f437663a95fc2aeda8dede1441fa90b",
+      "retained_original": null
+    },
+    {
+      "path": "src/assurance_reference/health.py",
+      "before_sha256": "0a3d7b8ab4743867cc5a825263473742de92efe596bb8e64c95604bbdd67faa7",
+      "after_sha256": "e7cd1d124aacba83238a090074d9ce15defc3efa3e5cb95bdf9b37ea140fe28c",
+      "retained_original": "docs/provenance/a16-supervisor/originals/src/assurance_reference/health.py"
+    },
+    {
+      "path": "src/assurance_reference/host_runtime.py",
+      "before_sha256": "f098e9a644ed08b0a57bfb5a672fc339d88f6b69d1ed0be1d9530a0f000fd2c0",
+      "after_sha256": "778b83f65b1574d5225f074672295817a562a259b360b04bbe241fd192fe554c",
+      "retained_original": "docs/provenance/a16-supervisor/originals/src/assurance_reference/host_runtime.py"
+    },
+    {
+      "path": "src/assurance_reference/local_roles.py",
+      "before_sha256": "aaaf1d5a6f24812c976419fdc6400f65714a2bc7cb157fd827f3867e1864d020",
+      "after_sha256": "d7abe7b360047c72e972e89cd4dbdcddf9f2ab950d974dd6073bf2727b2c6445",
+      "retained_original": "docs/provenance/a16-supervisor/originals/src/assurance_reference/local_roles.py"
+    },
+    {
+      "path": "src/assurance_reference/role_contract.py",
+      "before_sha256": "7e6c2f75fbdc14351e70d96969e83107b469294108d3c21019c0b5d8cc6e6c3f",
+      "after_sha256": "441b400ebd1a78cf1f28e45e36fd634419cd28858cb3e3f8e7a71c6e571fc39d",
+      "retained_original": "docs/provenance/a16-supervisor/originals/src/assurance_reference/role_contract.py"
+    },
+    {
+      "path": "src/regulated_core/governance_targets.py",
+      "before_sha256": "235abc371119a1adb98c7e5cd879e221433977c1c4961888303eee25b420aa6a",
+      "after_sha256": "018cee80588111f44be8ab11cb3019615ac3f72e224ed826233cb8f61af14085",
+      "retained_original": "docs/provenance/a16-supervisor/originals/src/regulated_core/governance_targets.py"
+    },
+    {
+      "path": "src/regulated_core/persistence_pg.py",
+      "before_sha256": "f71a867a8e19ff108c08040fccb5323e93cb6f8024db9710fa485c0cb6714350",
+      "after_sha256": "60ad038f6c55036f1d8a20603e6c62abf4c109ed51fa470213b6776318600c54",
+      "retained_original": "docs/provenance/a16-supervisor/originals/src/regulated_core/persistence_pg.py"
+    },
+    {
+      "path": "tests/a16_supervisor_fixture.py",
+      "before_sha256": null,
+      "after_sha256": "66047d66a4304b9fb6cc119d6f35bd7220b19268a504555629e11aa311899932",
+      "retained_original": null
+    },
+    {
+      "path": "tests/test_bf2_decision_projection.py",
+      "before_sha256": null,
+      "after_sha256": "a1cbd4d96d8f21c06b5b4077422b72a7616c8ee0c7b8da9b9ac565dfd2d2a265",
+      "retained_original": null
+    },
+    {
+      "path": "tests/test_effect_classifications.py",
+      "before_sha256": "795bcdaea74c570b29f0c1f11566051a752bb85ccec38611bcbdcbfaf6b9dfbf",
+      "after_sha256": "62acf744dfbb27df6da7af925cd8af9333ca35f3a5904a09ff1322a14bd451e3",
+      "retained_original": "docs/provenance/a16-supervisor/originals/tests/test_effect_classifications.py"
+    },
+    {
+      "path": "tests/test_epoch_application_reconstruction.py",
+      "before_sha256": null,
+      "after_sha256": "61b67478bcf7da62748da0e2869875dd0212dda648f56bc8a354b2e2fb2ba730",
+      "retained_original": null
+    },
+    {
+      "path": "tests/test_epoch_concurrent_delivery.py",
+      "before_sha256": null,
+      "after_sha256": "7f6bce32e810ef17c02c43af8d2c29172d77848543f24909de385cba3471b47c",
+      "retained_original": null
+    },
+    {
+      "path": "tests/test_epoch_host_composition.py",
+      "before_sha256": null,
+      "after_sha256": "59b2ffad796ca163c9477a4123f02ce986b20dc0941cef9cef9b65852c2dfb89",
+      "retained_original": null
+    },
+    {
+      "path": "tests/test_epoch_permit_expiry_pg.py",
+      "before_sha256": null,
+      "after_sha256": "d9c61af493cf65289d43c3593980584f90972482e696bf5a1d87f40b43779102",
+      "retained_original": null
+    },
+    {
+      "path": "tests/test_epoch_receipt_role_contract.py",
+      "before_sha256": null,
+      "after_sha256": "9b7869f94e8ea0c7d2cd5f2e1e5bcb39ee07a32983989eeacce90c3e89c48d42",
+      "retained_original": null
+    },
+    {
+      "path": "tests/test_epoch_reconciliation_connection_pg.py",
+      "before_sha256": null,
+      "after_sha256": "13c620182191bc7c8c4afc4b41d9fafd594f08f3dc72fd509c5f33f018d4a3e6",
+      "retained_original": null
+    },
+    {
+      "path": "tests/test_epoch_resource_concurrency_pg.py",
+      "before_sha256": null,
+      "after_sha256": "c1854f733460503ccd81dcec40ffadc84f9e29975184eb557bb559aa9202c071",
+      "retained_original": null
+    },
+    {
+      "path": "tests/test_epoch_retention_lock_pg.py",
+      "before_sha256": null,
+      "after_sha256": "6ef02d74ec0a8b7f82dd8b02f69bc73981848d405c680b3b163b801e0a98269c",
+      "retained_original": null
+    },
+    {
+      "path": "tests/test_epoch_standalone_construction.py",
+      "before_sha256": null,
+      "after_sha256": "df966fbba2d6613f90d766adc11ab0482d6cac9a1dcdbfb6b2c7281270646660",
+      "retained_original": null
+    },
+    {
+      "path": "tests/test_epoch_storage_atomicity_pg.py",
+      "before_sha256": null,
+      "after_sha256": "b121f61b10537d729b47d5e246054dd55e0b4651c36b939b4b684e718a1f6876",
+      "retained_original": null
+    },
+    {
+      "path": "tests/test_epoch_supervisor_pg.py",
+      "before_sha256": null,
+      "after_sha256": "39ad0e9350a2780310f62120973ae7df6ca384e89dfeee84d8308b4ddd0513b9",
+      "retained_original": null
+    },
+    {
+      "path": "tests/test_epoch_withdrawal_admission.py",
+      "before_sha256": null,
+      "after_sha256": "6624cc654167d554799f3b8aa6c35dca8bc1be32bf74aafa47c083707fb26d73",
+      "retained_original": null
+    },
+    {
+      "path": "tests/test_epoch_withdrawal_approval.py",
+      "before_sha256": null,
+      "after_sha256": "e2be427e037013541cd14cc34e13ef6f38741923e1708c839d048aac607ec49b",
+      "retained_original": null
+    },
+    {
+      "path": "tests/test_epoch_withdrawal_review.py",
+      "before_sha256": null,
+      "after_sha256": "c5cc79ff76e7964ee381fb032bc26c3835dc80d415493f1ffc7a71995411b187",
+      "retained_original": null
+    },
+    {
+      "path": "tests/test_epoch_withdrawal_store.py",
+      "before_sha256": null,
+      "after_sha256": "c863c4a06629950cd09c3b68b81f023c357062c01b6d36954964faff10713226",
+      "retained_original": null
+    },
+    {
+      "path": "tests/test_epoch_withdrawal_target.py",
+      "before_sha256": null,
+      "after_sha256": "486263026fad21b5c2e06536a69653fc5adb3e39deef4e588dbc1107444ee004",
+      "retained_original": null
+    },
+    {
+      "path": "tests/test_governor_composition.py",
+      "before_sha256": null,
+      "after_sha256": "56a92faa411820edcb38ca955a08356634bbb9af3db19f924f18f31766616e0b",
+      "retained_original": null
+    },
+    {
+      "path": "tests/test_host_contract.py",
+      "before_sha256": "c0e24bd32931f96b68a142c936090e76515cd878e7c1a738b1ebc25e35fbd8b8",
+      "after_sha256": "6298e26598d0a1a072cb71d648abfffb7034fb04aa27c12c3c9f23f7c3e12016",
+      "retained_original": "docs/provenance/a16-supervisor/originals/tests/test_host_contract.py"
+    },
+    {
+      "path": "tests/test_partitioned_composition.py",
+      "before_sha256": "88ef2ae1dcd65d2af685dcae38348146df99e3b35bd3ad0468286972cf321ade",
+      "after_sha256": "c2403c2f0a7efb738d192a1fa3e12dde8db63b145573d852c66ae8a201f61b97",
+      "retained_original": "docs/provenance/a16-supervisor/originals/tests/test_partitioned_composition.py"
+    },
+    {
+      "path": "tests/test_partitioned_role_contract.py",
+      "before_sha256": "801eeca624d86c594d6667980b47723ca5afaeeb8a021570070846ae196f9f61",
+      "after_sha256": "9708da9d622700f7a0cc8628d7b4a040490bdb9e888c25605f821580e4d4f3a5",
+      "retained_original": "docs/provenance/a16-supervisor/originals/tests/test_partitioned_role_contract.py"
+    },
+    {
+      "path": "tests/test_reconciliation_connection_ownership.py",
+      "before_sha256": null,
+      "after_sha256": "cd7dc00a71e284f4988d6deaeee8eee76a96785562d4eca89598fcf79ae07e9f",
+      "retained_original": null
+    },
+    {
+      "path": "tests/test_role_contract.py",
+      "before_sha256": "4471457866ae9410d504f53e954fc213b43635311e663fd832a58fea1eb2fdc9",
+      "after_sha256": "0d4ba64137679f756b55a37c8699fb3992f22b951a78d5806364a830f2c3a579",
+      "retained_original": "docs/provenance/a16-supervisor/originals/tests/test_role_contract.py"
+    },
+    {
+      "path": "tests/test_standalone_revocation_reconstruction.py",
+      "before_sha256": "71e27864e7bae7f5bad012ad61ab645131f0c41fb19a35789aa396fdf2783687",
+      "after_sha256": "8c385cb8139027fffa1c6f03cbaaeda81beef121545ed1553f7bbde98dd1df2b",
+      "retained_original": "docs/provenance/a16-supervisor/originals/tests/test_standalone_revocation_reconstruction.py"
+    }
+  ],
+  "patch_sha256": "d9a7e6a71ea77bc615b402478d1ee4baee66536fe3b0d849535c9c93d30974c0",
+  "status": "Unsealed candidate035; targeted regression passed; full private audit/package and independent acceptance pending",
+  "limits": [
+    "All frozen v12 and private publication/owner records retained unchanged; excluded from distributable archives.",
+    "Static inventory classification grants no exemption.",
+    "Current documentation records tested scope and remaining limits; historical facts and obligation census unchanged."
+  ],
+  "repair_parent": {
+    "candidate": "034",
+    "files_sha256": "8a7dc8207a9b48aa9ffef30c8e554d574c19d4b139dec66f1f66f24f8bed9612",
+    "qualification": "Independent full regression failed; frozen seal retained externally."
+  },
+  "resource_order_review": {
+    "integration_receipt_sha256": "a73fd25bcaa67dae3116d1dc115a20e93b14a8249d62a27c4bf6738c5c464974",
+    "receiver_roster_select": false,
+    "installation_scope": "OPEN",
+    "ordinary_concurrency": "9 ordinary operations; measured peak receiver2/governor2; capacity saturation not exercised",
+    "universal_order_proof": false,
+    "static_review_sha256": "d3e738ff0972687423e105b7aef8a87b000ee56f3ddada01cbc5b219490d5e0e"
+  },
+  "superseded_duty_proposal": {
+    "patch_sha256": "1cb21b8aa62e73dc6a91458bd412d7c93fc60519a11078a7351b1dad2cd0f12d",
+    "status": "Not integrated; replaced by receiver-first revision002 and reviewed reconciliation ownership adaptation"
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "schema": "reference/source-provenance/v1",
+  "source_commit": "6bba989aeca27575b971c78a103cbf3745cfda6a",
+  "source_tree": "c72682a1dc4b51b3646d686002bfbdd7b8ae788d",
+  "scope": "Existing signed workspace-membership qualification bundle; no deployed or professional-license claim",
+  "files": [
+    {
+      "path": "src/assurance_reference/fixtures/packs/bundles/health-workspace-membership/.signatures.json",
+      "source_path": "deploy/packs/bundles/clinical-writing-workspace-clinician-membership/.signatures.json",
+      "sha256": "d68d93601ecb47ce5cd0c813c34ea7063899b1a20af7904dc4d6652ababd780b",
+      "git_blob": "8de15b7c1ee9dd9283224b34731b62ff9f7d581b"
+    },
+    {
+      "path": "src/assurance_reference/fixtures/packs/bundles/health-workspace-membership/conformance/golden/content.present.json",
+      "source_path": "deploy/packs/bundles/clinical-writing-workspace-clinician-membership/conformance/golden/content.present.json",
+      "sha256": "7eccebdebcf2025bd302db17ac2efc442499af67a76bf6457e51b7b5e8fcd581",
+      "git_blob": "30941e1f0e2b7c92207bebd2bbbd29fb3db04258"
+    },
+    {
+      "path": "src/assurance_reference/fixtures/packs/bundles/health-workspace-membership/kit/README.md",
+      "source_path": "deploy/packs/bundles/clinical-writing-workspace-clinician-membership/kit/README.md",
+      "sha256": "605a98102952849cd4cbdf69f553d308d041c5247591abeceb13b51fde0734d7",
+      "git_blob": "6c83f40e3211c9385ffa8487edf1c492fdb0d69e"
+    },
+    {
+      "path": "src/assurance_reference/fixtures/packs/bundles/health-workspace-membership/knowledge/approved-requirements.md",
+      "source_path": "deploy/packs/bundles/clinical-writing-workspace-clinician-membership/knowledge/approved-requirements.md",
+      "sha256": "0d065f9446b92a7aa9b48e967f7697ab07ae263e67b03be05976c1d81b09c08c",
+      "git_blob": "8f65583543712319d23b1ffcbb878af4dcf7a4d4"
+    },
+    {
+      "path": "src/assurance_reference/fixtures/packs/bundles/health-workspace-membership/pack.json",
+      "source_path": "deploy/packs/bundles/clinical-writing-workspace-clinician-membership/pack.json",
+      "sha256": "65ab8e320d1af21facdabd152484307303b65dbdc3c2549b91fca3b9a83f51f2",
+      "git_blob": "be443a865cdb269d73af2409e3712f6fa7056a8a"
+    },
+    {
+      "path": "src/assurance_reference/fixtures/packs/bundles/health-workspace-membership/provenance.json",
+      "source_path": "deploy/packs/bundles/clinical-writing-workspace-clinician-membership/provenance.json",
+      "sha256": "7772f46bdfabc4a83d22e3391f82dde35e78ccf434171a36e3c96e6427e13821",
+      "git_blob": "7c7b6c6160470b1be4dbd5bf42cbaa74461108cd"
+    },
+    {
+      "path": "src/assurance_reference/fixtures/packs/bundles/health-workspace-membership/rulebook/rulebook.json",
+      "source_path": "deploy/packs/bundles/clinical-writing-workspace-clinician-membership/rulebook/rulebook.json",
+      "sha256": "2c1dcbc2ec72522c06b5ab977492406fa7567275b6a4c54fdbec9bb8ac4f3bf0",
+      "git_blob": "a29e7aa9dfa2cfe320852f5e1cf2c565325baac0"
+    },
+    {
+      "path": "src/assurance_reference/fixtures/packs/bundles/health-workspace-membership/schema/schema.json",
+      "source_path": "deploy/packs/bundles/clinical-writing-workspace-clinician-membership/schema/schema.json",
+      "sha256": "e49dcbaf50cad15930867234bca3c4584a10fdf38aa3a10c56440a8acfa94044",
+      "git_blob": "63071bf75307522ba064a361f54e818e46a69b69"
+    }
+  ]
+}

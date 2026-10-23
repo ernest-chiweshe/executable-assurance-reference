@@ -1,0 +1,23 @@
+{
+  "cases": [
+    {
+      "name": "hint without the answer",
+      "draft": "Try moving the term across and watch the sign.",
+      "contract": {
+        "reference_answer": "x = -3"
+      },
+      "expected": "pass"
+    },
+    {
+      "name": "the answer leaks",
+      "draft": "The answer is x = -3, so try again.",
+      "contract": {
+        "reference_answer": "x = -3"
+      },
+      "expected": "fail",
+      "expected_reasons": [
+        "ANSWER_LEAKED"
+      ]
+    }
+  ]
+}

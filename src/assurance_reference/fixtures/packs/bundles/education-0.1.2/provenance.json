@@ -1,0 +1,37 @@
+{
+  "signature": {
+    "alg": "ecdsa-p384",
+    "key_id": "education-pilot-authority-2026-09-10",
+    "value": "3066023100afc56ff68b86306b2e1f4cffec5c7d5b5ff3d3c521bbfad6d560df8299aa4b2406496aa3596239b6334feecee544f1680231009c1155bc68aa13dc501acb817eb983e12c897be70d9c9a0d5e86eda2a0429d72d25949a791d88b3afec0b6c9e53907d4"
+  },
+  "statement": {
+    "_type": "https://in-toto.io/Statement/v1",
+    "predicate": {
+      "buildDefinition": {
+        "buildType": "https://lumiwright.com/packkit/build/v1",
+        "externalParameters": {
+          "derivation": "preserve predecessor indexed files and policy; append teacher lesson and assignment collections",
+          "pack": "lumiwright.education.formative-feedback#0.1.2",
+          "predecessor_pack_digest": "1f43103defda5f195b5288e2bb8ff2c863ad678fe7061a68b73561912a60fc66",
+          "source": "factory.packs.examples",
+          "source_commit": "7fa8e5844e3efe634334c55190287b5ce0c13005"
+        },
+        "resolvedDependencies": []
+      },
+      "runDetails": {
+        "builder": {
+          "id": "https://lumiwright.com/packkit/0.2"
+        }
+      }
+    },
+    "predicateType": "https://slsa.dev/provenance/v1",
+    "subject": [
+      {
+        "digest": {
+          "sha256": "597a23ad9211fe393107372d846121d10f8f9f9e3808e9fa5ba517860c939987"
+        },
+        "name": "lumiwright.education.formative-feedback#0.1.2"
+      }
+    ]
+  }
+}

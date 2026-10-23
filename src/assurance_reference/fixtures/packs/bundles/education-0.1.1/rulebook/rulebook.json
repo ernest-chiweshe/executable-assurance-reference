@@ -1,0 +1,204 @@
+{
+  "content": {
+    "checks": {
+      "education:hint-ladder-no-answer": {
+        "capability": "text.excludes-contract-field@1",
+        "kind": "deterministic",
+        "params": {
+          "field": "reference_answer",
+          "reason": "ANSWER_LEAKED"
+        },
+        "version": "1"
+      },
+      "education:no-final-grade": {
+        "capability": "text.prohibited-terms@1",
+        "kind": "deterministic",
+        "params": {
+          "patterns": [
+            "\\b\\d{1,3}\\s?%"
+          ],
+          "reason": "FINAL_GRADE_LEAKED",
+          "terms": [
+            "final grade",
+            "pass/fail",
+            "you failed"
+          ]
+        },
+        "version": "1"
+      },
+      "education:region-normalized": {
+        "capability": "contract.regions-normalized@1",
+        "kind": "deterministic",
+        "params": {
+          "items_field": "findings",
+          "media_field": "media",
+          "region_field": "region"
+        },
+        "version": "1"
+      },
+      "education:rubric-bound": {
+        "capability": "contract.list-covers@1",
+        "kind": "deterministic",
+        "params": {
+          "covered_field": "criteria_addressed",
+          "reason_empty": "NO_RUBRIC",
+          "reason_missing": "CRITERION_UNADDRESSED",
+          "required_field": "rubric_criteria"
+        },
+        "version": "1"
+      },
+      "source:fidelity": {
+        "kind": "platform",
+        "version": "1"
+      }
+    },
+    "content_types": [
+      "education:formative-feedback"
+    ],
+    "data_classes": [
+      "pii"
+    ],
+    "prohibited_language": [
+      "final grade",
+      "pass/fail",
+      "you failed",
+      "disciplinary"
+    ],
+    "requires_payload_ref": false,
+    "retention_years": 7,
+    "rules": {
+      "education:draft-feedback": {
+        "annotations": [
+          {
+            "kind": "disclaimer",
+            "text": "advisory feedback; not yet reviewed by the teacher"
+          }
+        ],
+        "card": {
+          "indicator": "info",
+          "override_reasons": [
+            {
+              "code": "rubric-mismatch",
+              "display": "The feedback does not follow the rubric"
+            },
+            {
+              "code": "factually-wrong",
+              "display": "The feedback is wrong about the work"
+            },
+            {
+              "code": "tone",
+              "display": "The tone is not right for this learner"
+            },
+            {
+              "code": "needs-teacher",
+              "display": "This needs a conversation, not written feedback"
+            }
+          ],
+          "summary": "Advisory feedback is ready for your review."
+        },
+        "required_checks": [
+          "education:rubric-bound",
+          "education:no-final-grade",
+          "education:hint-ladder-no-answer"
+        ]
+      },
+      "education:record-progress": {
+        "approval": {
+          "expires_after_hours": 72,
+          "minimum_approvers": 1,
+          "reason": "a teacher records an attempt against a competency",
+          "role_groups": [
+            [
+              "teacher"
+            ]
+          ]
+        },
+        "card": {
+          "indicator": "info",
+          "override_reasons": [
+            {
+              "code": "not-representative",
+              "display": "This attempt does not show what the learner can do"
+            }
+          ],
+          "summary": "Record this attempt against the competency?"
+        },
+        "required_checks": [
+          "education:rubric-bound"
+        ]
+      },
+      "education:release-feedback": {
+        "approval": {
+          "expires_after_hours": 72,
+          "minimum_approvers": 1,
+          "reason": "a teacher releases feedback to a learner and their guardian",
+          "role_groups": [
+            [
+              "teacher"
+            ]
+          ]
+        },
+        "card": {
+          "indicator": "warning",
+          "override_reasons": [
+            {
+              "code": "rubric-mismatch",
+              "display": "The feedback does not follow the rubric"
+            },
+            {
+              "code": "factually-wrong",
+              "display": "The feedback is wrong about the work"
+            },
+            {
+              "code": "tone",
+              "display": "The tone is not right for this learner"
+            },
+            {
+              "code": "needs-teacher",
+              "display": "This needs a conversation, not written feedback"
+            }
+          ],
+          "summary": "Release this feedback? The learner and guardian will see it."
+        },
+        "required_checks": [
+          "education:rubric-bound",
+          "education:no-final-grade",
+          "education:hint-ladder-no-answer",
+          "education:region-normalized",
+          "source:fidelity"
+        ],
+        "requires_lineage": true,
+        "second_review": {
+          "below_confidence": "0.70",
+          "expires_after_hours": 72,
+          "minimum_approvers": 2,
+          "role_groups": [
+            [
+              "teacher"
+            ],
+            [
+              "head-of-department"
+            ]
+          ]
+        }
+      }
+    },
+    "schema": "lumiwright.rulebook/v1"
+  },
+  "effective_from_us": 1779999999999999,
+  "effective_until_us": 0,
+  "issued_by": "education-pilot-authority-2026-09-10",
+  "jurisdictions": [
+    "ZW",
+    "ZA"
+  ],
+  "policy_id": "formative-feedback",
+  "signature": {
+    "alg": "ecdsa-p384",
+    "key_id": "education-pilot-authority-2026-09-10",
+    "value": "3064023028972a831161570f7e8b3658697c945afaa95bdcd8be1e0a63825b34fea8ff2dd1dbaa46c8b2bdc524675aa0cb7b93d302307d0635306a6fac03b3f06df67f01eab39699a5c5a4da3c48910539e56c1915951e24649cd67003c98e72a3f863a83d67"
+  },
+  "supersedes": "",
+  "version": "1.0.0",
+  "vertical": "education"
+}

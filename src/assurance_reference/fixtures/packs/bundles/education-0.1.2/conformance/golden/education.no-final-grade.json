@@ -1,0 +1,25 @@
+{
+  "cases": [
+    {
+      "name": "advisory wording",
+      "draft": "Your projection is right; check the hidden line on the left face.",
+      "contract": {},
+      "expected": "pass"
+    },
+    {
+      "name": "a percentage leaks",
+      "draft": "This is worth 42% overall.",
+      "contract": {},
+      "expected": "fail",
+      "expected_reasons": [
+        "FINAL_GRADE_LEAKED"
+      ]
+    },
+    {
+      "name": "the words final grade",
+      "draft": "Your final grade is B.",
+      "contract": {},
+      "expected": "fail"
+    }
+  ]
+}

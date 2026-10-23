@@ -1,0 +1,36 @@
+{
+  "schema": "reference/surgical-reference-composition/v1",
+  "created_utc": "2026-10-16T04:15:36.658521+00:00",
+  "parent_files_sha256": "a5075b884294812c47909b3a21b96687fbdd608994bee2a83f3ec9bffd92951a",
+  "staged_review_sha256": "fb40c7384ea3beec7ffc9e4d308086b3f9c4f388c5e58fb6671594a984ef6e1f",
+  "patch_sha256": "1c67c31e15c7ed7a6b074e6ebc8ff640958ddb2e3cbf10f48d02675b65cb415b",
+  "verified_consensus_payloads": [
+    "80ba47f23543439e05e7200a8d37237868ca9aa59834fdc8f1c3db8cb66c2584",
+    "adb64a96ae7ef1c11d19e845e63651450a6d0e26399fd5be9cc808f0b920250a"
+  ],
+  "files": {
+    "src/assurance_reference/local_roles.py": {
+      "before_sha256": "a44fc8054ba01854eaef062685b3ac11243ed93fb01c638650d044cf36b66e36",
+      "after_sha256": "aaaf1d5a6f24812c976419fdc6400f65714a2bc7cb157fd827f3867e1864d020"
+    },
+    "src/assurance_reference/host_runtime.py": {
+      "before_sha256": "5c8779c3e14eb291cf44e7697f26395077d7192b0d7104b219732ee5cd5067ef",
+      "after_sha256": "dc4f09dd3af28b6688608613fcc3c76e1035e4530f152c3327c77689a4aeaeda"
+    },
+    "tests/test_delegation_root_journey.py": {
+      "before_sha256": "d05ae5bda0498d3dcd7b75d791edbb91593d8ce00df0cc99f91d493a63e543b1",
+      "after_sha256": "5ced2c087a0fdcebab07bf1797f23b3b98035daafabaeb9e0e66411ab242f46b"
+    },
+    "docs/provenance/effect-site-classifications.json": {
+      "before_sha256": "e6395a652e207bb7139f567a407874c9f4fea8eda44b2e5f6e8de4a33f959e80",
+      "after_sha256": "88e84a076b202a6987e819b52abb65f79811a4536f2c996f62e0b082722a1ad2"
+    }
+  },
+  "limits": [
+    "Grant revocation INSERT remains unavailable to this issuer; issuance repair alone does not qualify a grant-revocation write path.",
+    "stores.grants serves both issuance and at-effect chain/revocation reads. Database roles are separate but the receiving process holds the INSERT-capable issuer credential; process isolation is not established.",
+    "No original recovered source changes; cumulative adaptation manifest 171d8e30 remains unchanged.",
+    "Runtime and independent acceptance of the integrated candidate remain pending; A08/B-F4 OPEN."
+  ],
+  "new_runtime_dependencies": []
+}

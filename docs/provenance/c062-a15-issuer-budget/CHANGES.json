@@ -1,0 +1,24 @@
+{
+  "schema": "reference/candidate-changes/v1",
+  "candidate": "062 (A15 issuer budget assertion + packaging inclusion fix, version 0.1.7)",
+  "base": "061 (FILES f8bdd4e9, SEAL 6e549c57)",
+  "approval": "governor aed97d42: Q3 (issuer skips budget final check) SURVIVED on 060; implementer 73e8deb6 accepted it as a test gap.",
+  "changes": [
+    {
+      "row": "A15",
+      "files": [
+        "tests/test_a15_governed_registries_pg.py"
+      ],
+      "note": "The issuer recognition test now asserts the mission budget is consumed exactly once in the recognition's own transaction, and not again on replay. The failure path already asserts zero consumption. Test-only; no runtime change. Package version stays 0.1.6 (artifacts unaffected: tests are not in the wheel; the sdist would differ only in this test file)."
+    },
+    {
+      "row": "packaging",
+      "files": [
+        "MANIFEST.in",
+        "pyproject.toml",
+        "docs/installation.md"
+      ],
+      "note": "The installed-package run of 0.1.6 (installed-run-20261018T051816Z) collected with 3 errors: archive tests read public evidence files that the explicit inclusion list omitted. Added: A15 MATRIX.json, A19 MAP.json, c060 POLICIES.json, qualification/source-trace-bindings.json. Still excluded on purpose: docs/publication-corrections/* (private) and docs/retention-contract.json (publication material); the publication tests that read them are expected archive-only failures, reported and not skipped. Version 0.1.7 so no two different artifacts share a version."
+    }
+  ]
+}

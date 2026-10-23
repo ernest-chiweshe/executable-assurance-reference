@@ -1,0 +1,191 @@
+{
+  "schema": "reference/candidate-change-provenance/v1",
+  "candidate": "047",
+  "base_candidate": "044",
+  "base_manifest_sha256": "6c90896ed6e857bdf2cd3aa89962fc2104e18cf30d0639f976e7d64f8f390f5a",
+  "author": "implementer",
+  "consolidation": "045 (C044-R1/R2, X12-G1) and X-22 consolidated per governor eb169c04; 045 itself never sealed. 047 = sealed 046 (3f052d7a) plus the C046-R1 correction only.",
+  "addresses": [
+    {
+      "finding": "C044-R1 (verifier REVIEW d16d7055)",
+      "resolution": "Dedicated NOINHERIT logins egress_reader (SELECT regulated_egress_scope_v1 only) for the send-time admission and egress_scope (SELECT, INSERT on that table only) for inventory/enrolment; receiver gains nothing; provisioning and independent audit contract extended; composer refuses missing, identical or shared logins."
+    },
+    {
+      "finding": "C044-R2",
+      "resolution": "Offline test narrowed to an explicitly unavailable store (unreadable reason, unrecorded refusal). PG tests on restricted logins: readable-empty history signed EGRESS_SCOPE_UNKNOWN; inventoried passthrough sends holding the scope lock; enrolment after admission signed EGRESS_SCOPE_CHANGED; enrolled scope signed EGRESS_NOT_DECLARED; RLS tenant isolation; duty denials."
+    },
+    {
+      "finding": "X12-G1 (verifier map 6541ebdd)",
+      "resolution": "Inherited clinical_checks.py unchanged; retained_clinical_checks.py maps per-operation StoreDegraded to INDETERMINATE STORE_DEGRADED; local Health fixture binds it and exposes its registry. PG tests: lawful persisted judgement equals signed gate results; digest/owner refusals; synthetic connection outage at verifier and signed pack-gate boundary; refused session."
+    },
+    {
+      "finding": "X-22 V1/C1/C2/C3 (verifier design review verifier-x22-design-verification-001)",
+      "resolution": "release_linker login (reads goal versions/heads, links, material, reviews, grants, grant revocations, revocation events; UPDATE(lock_anchor) on heads and material; INSERT links only); receiver gains SELECT on goal versions and links for the receiving source check. ChainBoundReleaseMaterial.locked_on resolves the chain through the goal transaction's own connection, takes lock_current_authority shared tenant and per-ancestor fences, re-resolves under them and judges expiry on the trusted clock after all waits; locks held to commit. GoalOwnerAuthorization re-authorizes the authenticated goal owner around reads. LinkedReleaseSource composes as delegation_source_status so the executor effect requires a current published link. Executor identity follows frozen project_executor (factory/delegation/release_authority.py@6bba989a, blob 24f1ae38) schema and fields; reference tenants bind workspace to tenant (no customer prefix)."
+    },
+    {
+      "finding": "C046-R1 (verifier REVIEW 3d29702e)",
+      "resolution": "Reviewed effect-site catalog refreshed: local_roles CREATE SCHEMA and role_contract TRUNCATE anchors relocated with identical statement text and updated file hashes; 12 new release-link/material sites classified (owner-only provisioning support_effect; link publication boundary_effect); test_complete_private_candidate_static_sites_are_classified expects 302. No exemption; authorization and complete-effect coverage remain unproven by this check."
+    }
+  ],
+  "recovered_from_clio_stage": [
+    {
+      "target": "src/assurance_reference/release_link.py",
+      "origin": "x22_release_link_stage.py",
+      "change": "none (byte-identical)",
+      "origin_sha256": "1bae30dc61c4b27ccc53d34f3ac67fc849b6859572dca489bf9aad6eb3e9d244",
+      "sha256": "1bae30dc61c4b27ccc53d34f3ac67fc849b6859572dca489bf9aad6eb3e9d244",
+      "author": "verifier (stage 003); implementer integration"
+    },
+    {
+      "target": "src/assurance_reference/release_link_pg.py",
+      "origin": "x22_release_link_pg_stage.py",
+      "change": "one import line: x22_release_link_stage -> assurance_reference.release_link",
+      "origin_sha256": "0e338c741dcbe662daf05a381a9a3f746b29bf4f607d31747ea5a96252c98716",
+      "sha256": "d39f9638b9347ad614ee2c42ac78954f2f80117b0b6686369dcc5895dd8a8511",
+      "author": "verifier (stage 003); implementer integration"
+    },
+    {
+      "target": "src/assurance_reference/release_link_reviews.py",
+      "origin": "x22_signed_review_stage.py",
+      "change": "one import line: x22_release_link_stage -> assurance_reference.release_link",
+      "origin_sha256": "444a2b0b89c08d19ed8acaf81200e56a81870913653092cdb92d732a73c6f3f6",
+      "sha256": "a9d8b34c9ba4c0a5dec6e013e13628b0d0668252f8d555fba46ace345c4d94d7",
+      "author": "verifier (stage 003); implementer integration"
+    },
+    {
+      "target": "tests/test_release_link_admission.py",
+      "origin": "test_release_link_admission.py",
+      "change": "one import line",
+      "origin_sha256": "d42e85a17d4aaa60f0e109058c30f22926af148b4d8f2eb059f486866dc46342",
+      "sha256": "a6f8dec53eb8fc41c88b432140f21e3ffcb0a95fb1900612096299bd18dc3512",
+      "author": "verifier (stage 003); implementer integration"
+    },
+    {
+      "target": "tests/test_release_link_pg.py",
+      "origin": "test_release_link_pg.py",
+      "change": "import lines; in-test migrate_release_links removed (now provisioned by provision_local_roles); roles.project_state -> roles.release_linker (dedicated duty, finding C1)",
+      "origin_sha256": "22160ecdad07b3cf9b204e8c69da0db27cf7fe39896e3cd888990ec2c696cc4b",
+      "sha256": "73011d8d58b0bebfff638b7d27de6bfb47114d66707e7a402e1dc27ddd0e232a",
+      "author": "verifier (stage 003); implementer integration"
+    }
+  ],
+  "design_notes": [
+    "managed_egress composes the recovered unchanged EgressComposition/EgressAdmission/RecorderRefusals/evidence_refusal_sink directly because compose_egress binds one store to both admission and enrolment; frozen egress_composition.py stays byte-identical.",
+    "Role-count and derived-refusal-count assertions in role tests updated to the extended contract (16 logins, 38 tables, 29 RLS tables); no assertion relaxed."
+  ],
+  "limits": [
+    "No reference application outbound call site is yet routed through ReferenceManagedHost.egress; complete host-path egress coverage is not claimed (verifier integration limit).",
+    "Release goals and release material are owner-provisioned fixtures standing in for authoritative project state; no production goal/project admission store.",
+    "Grant revocation in tests is written through the provisioning pool: no runtime login of this local profile holds the revocation append duty.",
+    "Synthetic tenants and fictional people; isolated local PostgreSQL only; no deployment, network egress or provider call."
+  ],
+  "delta": {
+    "added": [
+      "src/assurance_reference/release_link.py",
+      "src/assurance_reference/release_link_authority.py",
+      "src/assurance_reference/release_link_pg.py",
+      "src/assurance_reference/release_link_reviews.py",
+      "src/assurance_reference/retained_clinical_checks.py",
+      "tests/test_managed_egress_pg.py",
+      "tests/test_release_link_admission.py",
+      "tests/test_release_link_composition_pg.py",
+      "tests/test_release_link_pg.py",
+      "tests/test_retained_clinical_checks_pg.py"
+    ],
+    "changed": [
+      "docs/provenance/effect-site-classifications.json",
+      "src/assurance_reference/local_clinical_fixture.py",
+      "src/assurance_reference/local_roles.py",
+      "src/assurance_reference/managed_egress.py",
+      "src/assurance_reference/role_contract.py",
+      "tests/test_effect_classifications.py",
+      "tests/test_local_roles.py",
+      "tests/test_managed_egress.py",
+      "tests/test_partitioned_role_contract.py",
+      "tests/test_role_contract.py"
+    ],
+    "removed": []
+  },
+  "files": {
+    "src/assurance_reference/release_link.py": {
+      "base_sha256": null,
+      "sha256": "1bae30dc61c4b27ccc53d34f3ac67fc849b6859572dca489bf9aad6eb3e9d244"
+    },
+    "src/assurance_reference/release_link_authority.py": {
+      "base_sha256": null,
+      "sha256": "740881c7cd473c7f8ee56526bd75e828d8a9cb739cb6ce534e08836913c474cd"
+    },
+    "src/assurance_reference/release_link_pg.py": {
+      "base_sha256": null,
+      "sha256": "d39f9638b9347ad614ee2c42ac78954f2f80117b0b6686369dcc5895dd8a8511"
+    },
+    "src/assurance_reference/release_link_reviews.py": {
+      "base_sha256": null,
+      "sha256": "a9d8b34c9ba4c0a5dec6e013e13628b0d0668252f8d555fba46ace345c4d94d7"
+    },
+    "src/assurance_reference/retained_clinical_checks.py": {
+      "base_sha256": null,
+      "sha256": "164c0d958ca823dc2a49855862c27438c71ff14e7d0eb13db21f61d02755d9d6"
+    },
+    "tests/test_managed_egress_pg.py": {
+      "base_sha256": null,
+      "sha256": "79c8b521a85f0c7a109d04d697241ac7650d14c083ce9f8b16fad3c64b9b2094"
+    },
+    "tests/test_release_link_admission.py": {
+      "base_sha256": null,
+      "sha256": "a6f8dec53eb8fc41c88b432140f21e3ffcb0a95fb1900612096299bd18dc3512"
+    },
+    "tests/test_release_link_composition_pg.py": {
+      "base_sha256": null,
+      "sha256": "7c53c8fdf542cba63423eee6e2ba81f73457866f3fbb61935a41dfdebce73f3f"
+    },
+    "tests/test_release_link_pg.py": {
+      "base_sha256": null,
+      "sha256": "73011d8d58b0bebfff638b7d27de6bfb47114d66707e7a402e1dc27ddd0e232a"
+    },
+    "tests/test_retained_clinical_checks_pg.py": {
+      "base_sha256": null,
+      "sha256": "9f2fbddde53f00017a18f6666eded0f39a38edd283e5037fd1965ef6794e4e80"
+    },
+    "docs/provenance/effect-site-classifications.json": {
+      "base_sha256": "92b7f26dbac06941201d436b5b7f0dc24d9191deabd2a6e1dfd3a34a14a16189",
+      "sha256": "6deaf1f6e8d728d4627327b654a2993c793142c72cf3dbcd8192dbf3e668ce73"
+    },
+    "src/assurance_reference/local_clinical_fixture.py": {
+      "base_sha256": "d643c9213cd7ffd4916601ee47df1e493915397142fdef846b16fa8dd81bc601",
+      "sha256": "72689526a8fab84b8834186203c9d4f61666d56b57fe69eeb0b8706fcd54292b"
+    },
+    "src/assurance_reference/local_roles.py": {
+      "base_sha256": "31e52a75c1aeb406e422175be4c2b52d8cb78830a8707f01cb45f7df051cf344",
+      "sha256": "d66ef5ac46c9ef07d8d7e19db9c58ec9b7204b1bd89142212f2a3b4cbbb95a7a"
+    },
+    "src/assurance_reference/managed_egress.py": {
+      "base_sha256": "133f407aa9eb02e2c276409cbd98a75067256836a6736ece7d0c12af5debdf27",
+      "sha256": "bdabeb2ee6eff21a4f35fe48088d582f4704262499191f4db1e137a681b42ed7"
+    },
+    "src/assurance_reference/role_contract.py": {
+      "base_sha256": "20841f887216edc72943a8600ae7131b3650bcaa86411e4fa9489cc0d0a5d5b4",
+      "sha256": "e0e17b6d44f83923a1aab301c0a1720aa741c073be63e3de3184c4ec8574880e"
+    },
+    "tests/test_effect_classifications.py": {
+      "base_sha256": "276b7e6ebdc78f210d1a98eae7cb4d01a01bebd2e88cda04db96a6a6bc44ad7c",
+      "sha256": "f394fe382f6529894909b664afd78df6fbeac84cf0bc4a2e0a4f91db044c4897"
+    },
+    "tests/test_local_roles.py": {
+      "base_sha256": "c6f572b6c50d04120a1386ec1dd435c1d0647e19e4f111bb306a45e1e4da20b8",
+      "sha256": "eb7bf31ac2c67bd124e298aff38a405db594c04371cd263478a0af39a40e7e0c"
+    },
+    "tests/test_managed_egress.py": {
+      "base_sha256": "650a9d60c612d3f552850fadd2bd8f5b1dcca35177dc1949708545130625838a",
+      "sha256": "46cd871dd7d9589781dae3c6aebb70892ff4971b69229652e14de2964371a13a"
+    },
+    "tests/test_partitioned_role_contract.py": {
+      "base_sha256": "9708da9d622700f7a0cc8628d7b4a040490bdb9e888c25605f821580e4d4f3a5",
+      "sha256": "3849c8d45ad93d9464c22e3b697d1201981e40d9695afa21b3c66df3cf149cbb"
+    },
+    "tests/test_role_contract.py": {
+      "base_sha256": "05c1b9a89feca35b79d2cab2d7d96191b6a99be651e4b7b1c6a51ec8fb8735ca",
+      "sha256": "8cdc6e80cb4dd525dfa36ff979d534c0cbe21cd27814bcb240a91dab3add0a67"
+    }
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "schema": "reference/surgical-reference-composition/v1",
+  "created_utc": "2026-10-16T05:13:36.922529+00:00",
+  "parent_files_sha256": "c49f930b6c7585b5347b37ac0fa06d5828a1fab5f826165a8a94c2b85608a4f0",
+  "staged_review_sha256": "fd16c109072f375969f775fe56376a3deebf326cbd6fdac574eb7e1d0f2776a5",
+  "patch_sha256": "c5ab32b3f05d992722ffa954c4dfa63710c46e1fca4e72e2df8b86b9852a285c",
+  "verified_consensus_payloads": [
+    "42996bcb046e1f9c8ee0b013ed64ed1a393f51d9dfca12fced9dfa185b6e1007",
+    "3ec55ff5864c3416f0228d692a2b65f10178f88eef5e6e17a35df168e0c73f82"
+  ],
+  "files": {
+    "src/assurance_reference/role_contract.py": {
+      "before_sha256": "1b3161d00a9886562b26694f4a9f3f8ef84db7352df3fd4e68a19633e93d804a",
+      "after_sha256": "7e6c2f75fbdc14351e70d96969e83107b469294108d3c21019c0b5d8cc6e6c3f"
+    },
+    "tests/test_role_contract.py": {
+      "before_sha256": "fbc3d2d6f5b873badb4c352c4d7cbba59d0a024bae05b32ebc59247fcb7fd245",
+      "after_sha256": "4471457866ae9410d504f53e954fc213b43635311e663fd832a58fea1eb2fdc9"
+    },
+    "tests/test_partitioned_role_contract.py": {
+      "before_sha256": "8dbf0008b1bba745406c6164ab7ca31ebe0a99dc387170a9bf82b99dd78006ad",
+      "after_sha256": "801eeca624d86c594d6667980b47723ca5afaeeb8a021570070846ae196f9f61"
+    },
+    "tests/test_local_roles.py": {
+      "before_sha256": "feebeb1f481afa8dc15e436a9188534e9b5f9810d040d89fa5a909681084e1cd",
+      "after_sha256": "c6f572b6c50d04120a1386ec1dd435c1d0647e19e4f111bb306a45e1e4da20b8"
+    },
+    "docs/runtime-role-contract.md": {
+      "before_sha256": "fd320bdaed95d1e5fa9af3a3578ddc57c3fcfbba75f9818aef2972981c44691d",
+      "after_sha256": "df6c4e5efd2fa53c809025fb3870e6938dae8638d7e8c5e7c7ed241603e8f4b0"
+    },
+    "docs/provenance/effect-site-classifications.json": {
+      "before_sha256": "88e84a076b202a6987e819b52abb65f79811a4536f2c996f62e0b082722a1ad2",
+      "after_sha256": "88baf87abaf1cc844168402fdf562a1aed7f95b6745af2d154663bec5cbdc4e2"
+    }
+  },
+  "limits": [
+    "Grant revocation INSERT remains unavailable to this issuer; issuance repair alone does not qualify a grant-revocation write path.",
+    "stores.grants serves both issuance and at-effect chain/revocation reads. Database roles are separate but the receiving process holds the INSERT-capable issuer credential; process isolation is not established.",
+    "No original recovered source changes; cumulative adaptation manifest 171d8e30 remains unchanged.",
+    "Runtime and independent acceptance of the integrated candidate remain pending; A08/B-F4 OPEN."
+  ],
+  "new_runtime_dependencies": []
+}

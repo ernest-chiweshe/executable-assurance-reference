@@ -1,0 +1,31 @@
+{
+  "source_commit": "6bba989aeca27575b971c78a103cbf3745cfda6a",
+  "source_repository": "echiweshe/agent-factory-prod",
+  "scope": "Private owner-authorized exact-byte extraction. Composition qualification is separately bounded in docs/durable-governance.md. Injected existing PostgreSQL connections; owned-pool branch is not qualified.",
+  "files": [
+    {
+      "path": "src/factory/packs/lifecycle_pg.py",
+      "source_path": "factory/packs/lifecycle_pg.py",
+      "bytes": 24663,
+      "sha256": "c3f38f2dbf715c402ef818f943d37f12f628eaa857e5aa9a59ac65ec33697def",
+      "git_blob": "3e147cbd5529d81223db1d6eefaf76851b80c5a7",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/factory/pg_pool.py",
+      "source_path": "factory/pg_pool.py",
+      "bytes": 16140,
+      "sha256": "a4faa525a37bf485d22933b290445c059887b143c5ebf8890ad32a58a5c85495",
+      "git_blob": "f27c0d98c09449f2109125cf81730e08a37f418b",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/factory/pg_session.py",
+      "source_path": "factory/pg_session.py",
+      "bytes": 2698,
+      "sha256": "7957d4c1200a31675c190797ef84541f0c86def641e278e2f9877451a24d5662",
+      "git_blob": "6c405f561425af43b7b6f1822de4450b4415a6dc",
+      "historical_crlf": false
+    }
+  ]
+}

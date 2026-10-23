@@ -1,0 +1,27 @@
+{
+  "schema": "reference/candidate-changes/v1",
+  "candidate": "058",
+  "base": "057 (FILES 14209593, SEAL b417b310)",
+  "approval": "verifier ec3b7506 / PRELIMINARY-REVIEW 16e7ea4a, finding C057-R1: include role applicability in a new sealed candidate and qualify the clinical USING/WITH CHECK description. governor 2c3c3e39 pre-authorized the frozen-scope B-F7b hardening cycle.",
+  "changes": [
+    {
+      "id": "C057-R1 role applicability",
+      "files": [
+        "tests/test_bf7b_policy_isolation_pg.py",
+        "docs/provenance/c058-bf7b-policy-roles/POLICIES.json"
+      ],
+      "note": "pg_policies.roles is now read and compared field for field against the pinned set ({public} on all 32 policies), with an explicit check that every policy is PERMISSIVE, for {public} and command ALL. Effective applicability is shown per login: connected as each of the 19 runtime logins, row_security_active() is true on every one of the 32 RLS tables."
+    },
+    {
+      "id": "clinical USING/WITH CHECK qualification",
+      "files": [
+        "docs/provenance/c058-bf7b-policy-roles/POLICIES.json"
+      ],
+      "note": "USING governs existing rows read, updated or deleted; WITH CHECK governs rows written. On reference_clinical_state_v1, USING adds that the session has not been removed, so removed sessions cannot be read, updated or deleted. An inserted or updated row is checked only against the tenant, clinician and namespace condition. On the other 31 tables the two conditions are identical. The policy entries are byte-for-byte the 057 capture; only 'reading' and 'captured_from' changed. The 057 provenance folder is kept unchanged as history."
+    }
+  ],
+  "not_included": [
+    "Owner-seeded two-tenant rows for the 25 tables without lawful-flow population (populated positives remain 7).",
+    "Installation/shared stores and the partitioned pack tables' OPEN notes are unchanged and not claimed."
+  ]
+}

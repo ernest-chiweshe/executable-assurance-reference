@@ -1,0 +1,234 @@
+{
+  "source_commit": "6bba989aeca27575b971c78a103cbf3745cfda6a",
+  "source_tree": "c72682a1dc4b51b3646d686002bfbdd7b8ae788d",
+  "source_repository": "echiweshe/agent-factory-prod",
+  "seeds": [
+    "factory.verticals.product_spec.spec",
+    "factory.verticals.product_spec.build",
+    "factory.verticals.product_spec.export",
+    "factory.verticals.product_spec.view"
+  ],
+  "files": [
+    {
+      "path": "src/factory/__init__.py",
+      "source_path": "factory/__init__.py",
+      "bytes": 360,
+      "sha256": "0f8b7f803dc3381c641f706a4a8ad05fac66a73dde1916ea8299e4284ed61d5b",
+      "git_blob": "0ca1d74f4c8a2bc2f143b63f01e1d91b8b1d250c",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/factory/gate/__init__.py",
+      "source_path": "factory/gate/__init__.py",
+      "bytes": 9209,
+      "sha256": "aa8f2700ec4daeb2ce65779529de758406148a3fe501fc76796debf9f8ee8c52",
+      "git_blob": "809b85ac3decc121460f1f510e70786b2af3f987",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/factory/gate/guardrails.py",
+      "source_path": "factory/gate/guardrails.py",
+      "bytes": 8978,
+      "sha256": "da479837f25649c11273e2fa90121948dca1e9c049161e0121ded54d276572d0",
+      "git_blob": "008efd6401f7663b135c7a77cf306ad31f5bfaf9",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/factory/harness.py",
+      "source_path": "factory/harness.py",
+      "bytes": 12773,
+      "sha256": "5f641e94ecba85cd0af9e0cefd53000d22369100bd9e3daa3668e0e5d56060e0",
+      "git_blob": "0af9265132a7fc87cb695ef9689cd0e0169cb801",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/factory/house_style.py",
+      "source_path": "factory/house_style.py",
+      "bytes": 5145,
+      "sha256": "2650a95e9e451aea9273de6640f4089948c38b17e7837f7eb263fe1bbe852156",
+      "git_blob": "5c2bd6319dfeac91d2640b070095057caf5527b0",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/factory/ledger.py",
+      "source_path": "factory/ledger.py",
+      "bytes": 20212,
+      "sha256": "480f209ada5842b9f737762e949b78f42da9cb4f61c96427b8d6aa5877c63e1e",
+      "git_blob": "7bacc11bc0be62876ac722d051810935d1a02161",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/factory/profile.py",
+      "source_path": "factory/profile.py",
+      "bytes": 6135,
+      "sha256": "1327e46f9a0634375201d22b6ff3c11e27ce3784ffc9148c1355e0d9093bcfa1",
+      "git_blob": "b0c2dc118a30a7630dfcf2f676a5c940e1ff38bc",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/factory/projectos/__init__.py",
+      "source_path": "factory/projectos/__init__.py",
+      "bytes": 1561,
+      "sha256": "89d49e3352a5fd059ff7679c9c480f8fdbf3f79699d1f4b195e410b7b70e527a",
+      "git_blob": "43fbd0c92274fd27cccb4b3d22e644e7a4544961",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/factory/projectos/engine.py",
+      "source_path": "factory/projectos/engine.py",
+      "bytes": 43698,
+      "sha256": "993659bb1af2a7a4a58243f12f31cc66e9f3e2183e2cafe0c34a99964d24d15f",
+      "git_blob": "a2be5d76cf87c7c3b125436ced1440a1e4a3ec6d",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/factory/projectos/errors.py",
+      "source_path": "factory/projectos/errors.py",
+      "bytes": 345,
+      "sha256": "c96fdcc2ffb783eeba32022e82a0b0081cca82eb79f52f54cf14cb4d60efb526",
+      "git_blob": "0e1665334f0f5ea111757f54f802cb2d2dcfc95f",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/factory/projectos/governed_release.py",
+      "source_path": "factory/projectos/governed_release.py",
+      "bytes": 31342,
+      "sha256": "5551a0f1717f4329bad6bc5f585363e60846e141985901f3e107705ee984fb18",
+      "git_blob": "cac5b38ee15478123d3632a734c1d90851d6346d",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/factory/projectos/pg_store.py",
+      "source_path": "factory/projectos/pg_store.py",
+      "bytes": 6684,
+      "sha256": "3ef91285dcf3db2b395938a5fac2d751f0fdda9f3f991d5faccb06960ae2c34c",
+      "git_blob": "fc0eeab64fc31b63e02b96e1536f8a095e260401",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/factory/projectos/regulated.py",
+      "source_path": "factory/projectos/regulated.py",
+      "bytes": 9109,
+      "sha256": "2fdda81249a8423317bca17e3de7acee0d5391885129607cc23ce4296db8f862",
+      "git_blob": "dccb3862162b47705d78f4a95212208500754870",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/factory/projectos/spec.py",
+      "source_path": "factory/projectos/spec.py",
+      "bytes": 12238,
+      "sha256": "ba41eb80e1536c4aed275d799cdd294411bd34b681935bbf8be458ca2795b05b",
+      "git_blob": "bdd770676f2ad073126e0366de09efa6f0d65abe",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/factory/recipes.py",
+      "source_path": "factory/recipes.py",
+      "bytes": 43500,
+      "sha256": "ea26c00ccf6fa96cfc68fdcc107e3577462a6e15a0767b22629c4e429b0f0c9a",
+      "git_blob": "6b78694699e7465013eeb3c0609f199fa23b9ccd",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/factory/registry.py",
+      "source_path": "factory/registry.py",
+      "bytes": 1914,
+      "sha256": "0f4f3ad5a2e1c85e7707e422ec50ca715711c49c4b68d4cb690f856e79af3337",
+      "git_blob": "df576b74bd641ce2cb4fc47354248cc8a5cb7fb9",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/factory/runtime.py",
+      "source_path": "factory/runtime.py",
+      "bytes": 8326,
+      "sha256": "1056afa9221a1f6f9951374188819485822da82a08b8e466883b6cd1c9c1b68d",
+      "git_blob": "3dfb67774e112778f2d8131e1b04c786dacf8ea3",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/factory/tenant.py",
+      "source_path": "factory/tenant.py",
+      "bytes": 4157,
+      "sha256": "a0427696ac98745a6ab3b6e8f8de3f093c2bc9cb7a9af7d79025f202d6dfe70d",
+      "git_blob": "ec7fa2a7bc0f8f05cd85356837c0547139aa8bab",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/factory/verticals/__init__.py",
+      "source_path": "factory/verticals/__init__.py",
+      "bytes": 2594,
+      "sha256": "21d0ce77373f49531d322f2326d3fbf0b8bcaf8d08706a328563d0506d1b5b2c",
+      "git_blob": "e6b7004f40468072bd2d234165e4bd68fcad69c6",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/factory/verticals/product_spec/__init__.py",
+      "source_path": "factory/verticals/product_spec/__init__.py",
+      "bytes": 851,
+      "sha256": "d9ef7ec0e29057eac6d544e312a9e461d75f958bdddf2929ee107d7780247c3b",
+      "git_blob": "0a1b41a00aad37eded3e7133b73b2512afb42071",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/factory/verticals/product_spec/build.py",
+      "source_path": "factory/verticals/product_spec/build.py",
+      "bytes": 975,
+      "sha256": "5d2fa600584608a2b29ee6bcb87c29c1e4a7f7050a3eccb49e3306f0c7ef45cd",
+      "git_blob": "f34ec2534e5e0fe834249b140da5326279993762",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/factory/verticals/product_spec/export.py",
+      "source_path": "factory/verticals/product_spec/export.py",
+      "bytes": 1119,
+      "sha256": "0f77bd0cc000657c23fdfb84b2943871c99ce50e03f002b03a5501440f77503f",
+      "git_blob": "a2c798b5fd4b0f15534e9bb5a79efd462ece86c7",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/factory/verticals/product_spec/spec.py",
+      "source_path": "factory/verticals/product_spec/spec.py",
+      "bytes": 6727,
+      "sha256": "c3f03f035117041fd194f0f9bac629da2167d905819a4b825792036a6bdffe9b",
+      "git_blob": "316dd2dba0547796411777e9e60bb7a4a7835742",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/factory/verticals/product_spec/view.py",
+      "source_path": "factory/verticals/product_spec/view.py",
+      "bytes": 1446,
+      "sha256": "d592517aa88fa615197cf9f69ddc13a2fd640f86b3def93135d1fde3f9cdb1f3",
+      "git_blob": "fac84537f1d0aa92b7eea2a450ec88cf7c3a0227",
+      "historical_crlf": false
+    }
+  ],
+  "external_import_roots": [
+    "__future__",
+    "collections",
+    "contextlib",
+    "contextvars",
+    "copy",
+    "dataclasses",
+    "enum",
+    "fcntl",
+    "hashlib",
+    "json",
+    "logging",
+    "math",
+    "msvcrt",
+    "ntpath",
+    "os",
+    "pathlib",
+    "psycopg",
+    "re",
+    "shutil",
+    "sys",
+    "tempfile",
+    "time",
+    "typing",
+    "uuid"
+  ],
+  "replacements": [],
+  "scope": "Exact import closure recovery only; no integration or deployment verdict.",
+  "licence": "Private owner-authorized extraction; public licensing unresolved."
+}

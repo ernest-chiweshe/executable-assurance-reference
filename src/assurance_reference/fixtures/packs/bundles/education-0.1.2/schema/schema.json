@@ -1,0 +1,165 @@
+{
+  "actions": {
+    "education:draft-feedback": {
+      "applies_to": {
+        "principal_types": [
+          "Teacher"
+        ],
+        "resource_types": [
+          "Submission"
+        ]
+      },
+      "context": {
+        "lane": {
+          "type": "string"
+        },
+        "rubricIdentifier": {
+          "type": "string"
+        }
+      },
+      "effect": "reversible"
+    },
+    "education:record-progress": {
+      "applies_to": {
+        "principal_types": [
+          "Teacher"
+        ],
+        "resource_types": [
+          "ProgressRecord"
+        ]
+      },
+      "context": {
+        "eventTime": {
+          "type": "timestamp"
+        }
+      },
+      "effect": "authoritative"
+    },
+    "education:release-feedback": {
+      "applies_to": {
+        "principal_types": [
+          "Teacher"
+        ],
+        "resource_types": [
+          "Feedback"
+        ]
+      },
+      "context": {
+        "confidence": {
+          "required": false,
+          "type": "decimal"
+        },
+        "nonce": {
+          "type": "string"
+        }
+      },
+      "effect": "external"
+    }
+  },
+  "entity_types": {
+    "Feedback": {
+      "attributes": {
+        "confidence": {
+          "required": false,
+          "type": "decimal"
+        },
+        "draftDigest": {
+          "type": "string"
+        },
+        "feedbackId": {
+          "type": "string"
+        },
+        "misconceptionCodes": {
+          "type": "set"
+        },
+        "submissionId": {
+          "type": "string"
+        }
+      },
+      "parents": []
+    },
+    "Guardian": {
+      "attributes": {
+        "sourcedId": {
+          "type": "string"
+        }
+      },
+      "parents": [],
+      "roles": [
+        "guardian"
+      ]
+    },
+    "Learner": {
+      "attributes": {
+        "gradeLevel": {
+          "required": false,
+          "type": "string"
+        },
+        "sourcedId": {
+          "type": "string"
+        }
+      },
+      "parents": [],
+      "roles": [
+        "learner"
+      ]
+    },
+    "ProgressRecord": {
+      "attributes": {
+        "competencyUri": {
+          "type": "string"
+        },
+        "eventTime": {
+          "type": "timestamp"
+        },
+        "learnerSourcedId": {
+          "type": "string"
+        },
+        "score": {
+          "type": "decimal"
+        }
+      },
+      "parents": []
+    },
+    "Submission": {
+      "attributes": {
+        "exerciseId": {
+          "type": "string"
+        },
+        "learnerSourcedId": {
+          "type": "string"
+        },
+        "media": {
+          "type": "set"
+        },
+        "rubricIdentifier": {
+          "type": "string"
+        },
+        "submissionId": {
+          "type": "string"
+        },
+        "submittedAt": {
+          "type": "timestamp"
+        }
+      },
+      "parents": []
+    },
+    "Teacher": {
+      "attributes": {
+        "orgSourcedId": {
+          "type": "string"
+        },
+        "sourcedId": {
+          "type": "string"
+        }
+      },
+      "parents": [],
+      "roles": [
+        "teacher",
+        "head-of-department"
+      ]
+    }
+  },
+  "namespace": "education",
+  "schema": "lumiwright.pack-schema/v1"
+}

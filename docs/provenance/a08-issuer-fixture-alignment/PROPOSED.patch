@@ -1,0 +1,75 @@
+--- a/src/assurance_reference/host_runtime.py
++++ b/src/assurance_reference/host_runtime.py
+@@ -52,9 +52,12 @@
+         raise TypeError("reference stores require the durable authority clock")
+     if type(partitioned_lifecycle) is not bool:
+         raise TypeError("partitioned_lifecycle must be an explicit boolean")
++    delegation_issuer = getattr(roles, "delegation_issuer", None)
++    if delegation_issuer is None:
++        raise ValueError("reference stores require an explicit delegation_issuer login")
+     if len({roles.receiver.role, roles.allocator.role, roles.recorder.role}) != 3:
+         raise ValueError("receiver, allocator and recorder logins must be distinct")
+-    if roles.delegation_issuer.role in {roles.receiver.role, roles.allocator.role, roles.recorder.role}:
++    if delegation_issuer.role in {roles.receiver.role, roles.allocator.role, roles.recorder.role}:
+         raise ValueError("delegation issuer must be separate from receiver, allocator and recorder")
+     stores = compose_regulated_stores(
+         roles.receiver, evidence_signer=evidence_signer, trust=trust,
+@@ -70,7 +73,7 @@
+         stores = replace(stores, activation=PartitionedActivationLedger(
+             "", pool=stores.pool, guard=stores.activation.governance_guard))
+     # Signed root/child issuance has its own append-only login; receiver stays read-only.
+-    grants = PostgresGrantStore(pool=SessionBoundPool(roles.delegation_issuer))
++    grants = PostgresGrantStore(pool=SessionBoundPool(delegation_issuer))
+     return replace(stores, recorder=recorder, grants=grants)
+ 
+ 
+--- a/tests/test_host_contract.py
++++ b/tests/test_host_contract.py
+@@ -46,7 +46,7 @@
+ 
+ @pytest.fixture
+ def contract(request):
+-    roles = SimpleNamespace(**{name: NoIOPool(name) for name in ("receiver", "allocator", "recorder", "clock", "alerts")})
++    roles = SimpleNamespace(**{name: NoIOPool(name) for name in ("receiver", "allocator", "recorder", "clock", "delegation_issuer", "alerts")})
+     clock = DurableClock(DbClock(roles.receiver, "pg:123"), floor_pool=roles.clock)
+     trust = TrustDirectory()
+     signer_factory = getattr(request, "param", ConstructionSigner)
+--- a/tests/test_partitioned_composition.py
++++ b/tests/test_partitioned_composition.py
+@@ -14,7 +14,7 @@
+ 
+ 
+ def arguments():
+-    roles = SimpleNamespace(**{name: NoIOPool(name) for name in ("receiver", "allocator", "recorder", "clock")})
++    roles = SimpleNamespace(**{name: NoIOPool(name) for name in ("receiver", "allocator", "recorder", "clock", "delegation_issuer")})
+     return roles, {"evidence_signer": Ed25519Signer("fixture:partitioned-composition"),
+                    "trust": TrustDirectory(),
+                    "clock": DurableClock(DbClock(roles.receiver, "pg:123"), floor_pool=roles.clock)}
+--- /dev/null
++++ b/tests/test_delegation_issuer_composition.py
+@@ -0,0 +1,25 @@
++"""Offline composition refuses an absent issuer before any database or signing."""
++import pytest
++
++from assurance_reference.host_runtime import compose_reference_stores
++from test_partitioned_composition import arguments
++
++
++@pytest.mark.parametrize("missing", [True, False])
++@pytest.mark.parametrize("partitioned", [False, True])
++def test_missing_or_none_issuer_refuses_explicitly(missing, partitioned):
++    roles, kwargs = arguments()
++    if missing:
++        del roles.delegation_issuer
++    else:
++        roles.delegation_issuer = None
++    with pytest.raises(ValueError, match="explicit delegation_issuer login"):
++        compose_reference_stores(roles, **kwargs, partitioned_lifecycle=partitioned)
++
++
++@pytest.mark.parametrize("partitioned", [False, True])
++def test_distinct_issuer_is_bound_without_receiver_fallback(partitioned):
++    roles, kwargs = arguments()
++    stores = compose_reference_stores(roles, **kwargs, partitioned_lifecycle=partitioned)
++    assert stores.grants._pool._pool is roles.delegation_issuer
++    assert stores.grants._pool._pool is not roles.receiver

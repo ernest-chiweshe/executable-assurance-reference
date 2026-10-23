@@ -1,0 +1,234 @@
+{
+  "schema": "reference/explicit-source-adaptations/v2",
+  "source_commit": "6bba989aeca27575b971c78a103cbf3745cfda6a",
+  "source_tree": "c72682a1dc4b51b3646d686002bfbdd7b8ae788d",
+  "patch_path": "docs/provenance/a03-application-tiers/PROPOSED.patch",
+  "patch_sha256": "28fc5a0c96e8ffe1c247c42ab6e79158b915a4bf1ad4c5c31d79902ef0f11ec6",
+  "files": [
+    {
+      "source_path": "regulated_core/projectos_gate.py",
+      "path": "src/regulated_core/projectos_gate.py",
+      "original_path": "docs/provenance/a21/originals/regulated_core/projectos_gate.py",
+      "original_sha256": "ebea15e2cb49027e7cc56303f7678aae8163fd9de256447173251c36727978d2",
+      "original_git_blob": "abfde32ee3f1034352585da469ceb3698106ed30",
+      "adapted_sha256": "336fa43b166c40f7e5d8ba43cddf49c44cf677259f6ab0a94b87b652c65613b3",
+      "recovered_source": true,
+      "retained_original": {
+        "kind": "attribution-sanitized-copy",
+        "sha256": "6db4658ef01ce993ce878da872ded7a99c13204807cb64319b8306ce197bf4ae",
+        "git_blob": "1f84f2cf7f56108fa79d27733ef1804028f37484"
+      }
+    },
+    {
+      "source_path": "regulated_core/pack_gate.py",
+      "path": "src/regulated_core/pack_gate.py",
+      "original_path": "docs/provenance/a21/originals/regulated_core/pack_gate.py",
+      "original_sha256": "fb1e3b981b036482b047cbcef69fa506dca11f76c23c6ede5780ab2fdcf431f2",
+      "original_git_blob": "b8da9e37507784c7bacdcf10394a218620aa3ce6",
+      "adapted_sha256": "638b66537d3459ed650af963d0b984ef237fc0a78bdb82e0a7cf5643c76e2846",
+      "recovered_source": true
+    },
+    {
+      "source_path": "tests/test_authority_alarm_sinks.py",
+      "path": "docs/provenance/a21/proposed/tests/test_authority_alarm_sinks.py",
+      "original_path": "docs/provenance/a21/originals/tests/test_authority_alarm_sinks.py",
+      "original_sha256": "bee933d8677f8995f6419573478ce4fd3d45005771c2ed0e03b69aa9915546cb",
+      "original_git_blob": "8ffb09c3f75329df3abea5fef9e189095a3d1eed",
+      "adapted_sha256": "3958b54c674e615a597ef6f013762c49c6eb20d7eadaeda13debadc4d5353f29",
+      "recovered_source": false
+    },
+    {
+      "source_path": "factory/credentials.py",
+      "path": "src/factory/credentials.py",
+      "original_path": "docs/provenance/bf7c/originals/factory/credentials.py",
+      "original_sha256": "de42aaa69a439c9a1e0150aef7481aaeae2079b4a66a72cd7bc5b289664a38b4",
+      "original_git_blob": "9dbf39b3800f9886eafd8cd5f83f3be6f9c32a9d",
+      "adapted_sha256": "8314c6cd4578f30b336168d0702df1aafbd8e2ac1c61d48e0fb54e42162b61d7",
+      "recovered_source": true
+    },
+    {
+      "source_path": "regulated_core/governance_targets.py",
+      "path": "src/regulated_core/governance_targets.py",
+      "original_path": "docs/provenance/a02-input-boundary/originals/regulated_core/governance_targets.py",
+      "original_sha256": "eb721c91336a72daf1eb89233fe46cfcc95b69b6014789148d6abe2fad8eb7d1",
+      "original_git_blob": "9a4dcf1c62771db873aab6c0ea98351ea3a0f0e5",
+      "adapted_sha256": "f6faf8bb64a84e74253e47f758a60fad06151693634b6dda1a27928c53c0bfb4",
+      "recovered_source": true,
+      "retained_original": {
+        "kind": "attribution-sanitized-copy",
+        "sha256": "98458cf4d7203d7de622667fcb9fd80606a8507f88675233e20ce7025a9b2b50",
+        "git_blob": "2b022ad7d3db4975c6894c1f22615e483f4edd96"
+      }
+    },
+    {
+      "source_path": "regulated_core/target.py",
+      "path": "src/regulated_core/target.py",
+      "original_path": "docs/provenance/a01-input-boundary/originals/regulated_core/target.py",
+      "original_sha256": "d69b7f0f0827475f3ee0222ee7bf90117c90a7f1664eae6d01a1496e9dae7665",
+      "original_git_blob": "5af41a81092ec7a1b72bd1acc0f2a70d99003431",
+      "adapted_sha256": "6231aa27959f97120320d0a6c726975e9d918cca3a3d0708b3ac0f711e15911e",
+      "recovered_source": true,
+      "retained_original": {
+        "kind": "attribution-sanitized-copy",
+        "sha256": "d778e184747df5c35ea741f23c397fbc5a668cf2a2e279e2e36976612f9f51dc",
+        "git_blob": "173eb1c4f46db767f4899d832d9ffa89cf1e8333"
+      }
+    },
+    {
+      "source_path": "regulated_core/database_receiver_pg.py",
+      "path": "src/regulated_core/database_receiver_pg.py",
+      "original_path": "docs/provenance/a01-input-boundary/originals/regulated_core/database_receiver_pg.py",
+      "original_sha256": "3c48cf2d442f7403c1b27b5ebb1d9f88bca25a6b575fcabce1dfa065afb667ed",
+      "original_git_blob": "5186b70f2aac662a420218b4d3b7b0fa1ae48209",
+      "adapted_sha256": "e37015118ec1410f99b5ee91769b1115719b9b12a4675eae4da933fc32ea4cf0",
+      "recovered_source": true
+    },
+    {
+      "source_path": "regulated_core/engine.py",
+      "path": "src/regulated_core/engine.py",
+      "original_path": "docs/provenance/a14-prepermit-retention/originals/regulated_core/engine.py",
+      "original_sha256": "38600ef56bf2188df58b09ad803ec1ddb86380b8504cff54556a26efe7a975ad",
+      "original_git_blob": "48d23cb8812a2240846028302eb8f9610f0b9c58",
+      "adapted_sha256": "e62bd23e28584def11eb94e76c4f7b430a5a6bfef8805ad5ee0dd7fb6f1af135",
+      "recovered_source": true,
+      "retained_original": {
+        "kind": "attribution-sanitized-copy",
+        "sha256": "6c579db09f431b6bc133d698684adbcd08d21bc618ddd354c0e116eba79c8f7f",
+        "git_blob": "624009b607092df911c4814a235ebc1e6a8a24e9"
+      }
+    },
+    {
+      "source_path": "regulated_core/budget.py",
+      "path": "src/regulated_core/budget.py",
+      "original_path": "docs/provenance/a07-roster-cumulative/originals/regulated_core/budget.py",
+      "original_sha256": "f2ccc5e773f8750f2d4009d9823da7e449f870c258763609354769517c62d084",
+      "original_git_blob": "553b21210382c6ec614cf981e049b3f518b929d4",
+      "adapted_sha256": "4cd534dfcb7cc11f026468f428ffdd2f8c65e463a195347e4ec960839581ac9a",
+      "recovered_source": true
+    },
+    {
+      "source_path": "regulated_core/preflight.py",
+      "path": "src/regulated_core/preflight.py",
+      "original_path": "docs/provenance/a07-roster-cumulative/originals/regulated_core/preflight.py",
+      "original_sha256": "d3f06200e9a0f20ed048c2905dba0275ed260c162b5e100b9ad9540577f9bf55",
+      "original_git_blob": "996a99bbf2a4f2040d9653235773bc3ab9ba0f71",
+      "adapted_sha256": "a0b397dce49e65e5d8ceea39b1348245934cb62ff199b679713ef5783e35afb1",
+      "recovered_source": true,
+      "retained_original": {
+        "kind": "attribution-sanitized-copy",
+        "sha256": "3fc6f537e82f9b98f5b9cb97d53f0f21b2523abfbde10c1b9a2be12e29cb3406",
+        "git_blob": "36e60c097dcf10a2e102156793259306fc4635fc"
+      }
+    },
+    {
+      "source_path": "factory/packs/lifecycle_pg.py",
+      "path": "src/factory/packs/lifecycle_pg.py",
+      "original_path": "docs/provenance/a07-roster-cumulative/originals/factory/packs/lifecycle_pg.py",
+      "original_sha256": "c3f38f2dbf715c402ef818f943d37f12f628eaa857e5aa9a59ac65ec33697def",
+      "original_git_blob": "3e147cbd5529d81223db1d6eefaf76851b80c5a7",
+      "adapted_sha256": "2a4007be44c2a2d5fe3e6380a70f195024c1c11509742526c026c458ef6fec8e",
+      "recovered_source": true
+    },
+    {
+      "source_path": "regulated_core/governance_roster.py",
+      "path": "src/regulated_core/governance_roster.py",
+      "original_path": "docs/provenance/a07-roster-cumulative/originals/regulated_core/governance_roster.py",
+      "original_sha256": "b450e5c33a40787ae1203456807b334bfc333ed5f85c6c3e4c7368273aba0769",
+      "original_git_blob": "433ea2066bcbdd666da7daaed9602ab4543b15b4",
+      "adapted_sha256": "26e24e8b4f26e2d0c4cc1366cf6f75d26ebaf8b2ef16c441628760d5580a520e",
+      "recovered_source": true,
+      "retained_original": {
+        "kind": "attribution-sanitized-copy",
+        "sha256": "4efd33788d449046c163cce0ee86507292803fb80f40f08a72c8b8ba0c9725da",
+        "git_blob": "1be6ca023ab02b721bb264d4cfd29a4242d0b631"
+      }
+    },
+    {
+      "source_path": "regulated_core/host_runtime.py",
+      "path": "src/regulated_core/host_runtime.py",
+      "original_path": "docs/provenance/a07-roster-cumulative/originals/regulated_core/host_runtime.py",
+      "original_sha256": "bf92e5e3a3dee2b1ad12aaaafb7cf3b426381ffb9c239e33231d32ceae520eef",
+      "original_git_blob": "c39122530167f843f16854019ce4935f4d6f1ac1",
+      "adapted_sha256": "54540782572956ccc33aa8c2f0c62924961cc5c15a4e8222039cf3b5e8fee93c",
+      "recovered_source": true
+    },
+    {
+      "source_path": "regulated_core/persistence_pg.py",
+      "path": "src/regulated_core/persistence_pg.py",
+      "original_path": "docs/provenance/a07-roster-cumulative/originals/regulated_core/persistence_pg.py",
+      "original_sha256": "73608a57290c3e01c297707eaa6cad8fd115a8589438a4d10b7e166e89011fa3",
+      "original_git_blob": "7b99ebd463eb63963b8dec17f9ed265a6f8d8f17",
+      "adapted_sha256": "0e7880e1ed95c450572d90f39e839c06a6b4fc305bdee3a10d7ac96338996670",
+      "recovered_source": true,
+      "retained_original": {
+        "kind": "attribution-sanitized-copy",
+        "sha256": "580971e56d61665036bbbef47149b7b11c8fdf87e627c797cd0f887e0a427a08",
+        "git_blob": "733a315313b60d69940d5d08817e1dfdb2d8f00d"
+      }
+    },
+    {
+      "source_path": "factory/domain_host.py",
+      "path": "src/factory/domain_host.py",
+      "original_path": "docs/provenance/a07-roster-cumulative/originals/factory/domain_host.py",
+      "original_sha256": "3c7e310215d497be24a29c89afde8fe39c645f4204ee1310a699f7e01fe433b1",
+      "original_git_blob": "aa4f4742ee4327d5096f52c5ce8d309b51dff541",
+      "adapted_sha256": "0acae334c2b8f188a878cb941250f44cc23f51f5ef0f30ae3b6971610c628e58",
+      "recovered_source": true
+    },
+    {
+      "source_path": "regulated_core/preparation_pg.py",
+      "path": "src/regulated_core/preparation_pg.py",
+      "original_path": "docs/provenance/a07-roster-cumulative/reference-originals/regulated_core/preparation_pg.py",
+      "original_sha256": "bc6f6b09ed2a139bf5435720b3a02a2e98e56a016ef00a61060edc970e5008fc",
+      "original_git_blob": "a4e1faeb8e765bc5ff0cf7970f4fe0fd10aa48f1",
+      "adapted_sha256": "c388fe597c6db39935822643474e463cb49f61e12cd7750ea5f56a56159ed806",
+      "recovered_source": true,
+      "original_origin": {
+        "kind": "frozen-source-recovered",
+        "source_commit": "6bba989aeca27575b971c78a103cbf3745cfda6a",
+        "corroborating_manifests": [
+          "source-provenance.json",
+          "source-provenance-authority.json",
+          "source-provenance-education-authority.json"
+        ],
+        "retained_copy": "candidate028 bytes match all original SHA256 and Git blob anchors"
+      }
+    },
+    {
+      "source_path": "regulated_core/outage.py",
+      "path": "src/regulated_core/outage.py",
+      "original_path": "docs/provenance/a17-cumulative/originals/regulated_core/outage.py",
+      "original_sha256": "7fdd707489b9e80894921c9e48b037a40f442e8f7d852928eb4884458c352fbc",
+      "original_git_blob": "ae70725b33d8c262e8280a9105d62bfee76dcb43",
+      "adapted_sha256": "aaeb1ac38c9e7d25c36fd92ecbc37379fc4b920d7eeea8714fa67885ba623473",
+      "recovered_source": true,
+      "retained_original": {
+        "kind": "attribution-sanitized-copy",
+        "sha256": "4cf37a9f1f10184b090d272dde4c5419355d60126a82566ef8c93c1f2ce01dd4",
+        "git_blob": "e2c38904b97ea17e3d6ed09a9fccce6cc8b07fc5"
+      }
+    },
+    {
+      "source_path": "factory/health_ui/clinical_release.py",
+      "path": "src/factory/health_ui/clinical_release.py",
+      "original_path": "docs/provenance/a03-application-tiers/originals/factory/health_ui/clinical_release.py",
+      "original_sha256": "e331f618540430a4fdb725c075748db30de2f04d1a2225caee46c4d1530d32c2",
+      "original_git_blob": "3ba01ad4c26b0078b6ffd86d8c96c9b1b245da82",
+      "adapted_sha256": "000f9b4d164672eccbaeb0a23836a04395bc8670efdce15b39ef93a3627ccbd5",
+      "recovered_source": true,
+      "retained_original": {
+        "kind": "attribution-sanitized-copy",
+        "sha256": "195628a850c94f90d5cf94a79e2d4d1f96f5a2a3ed9a2509ca8bf2a3d59213b3",
+        "git_blob": "8d5acc0fe63d275b67723dfde40dd66d86398d18"
+      }
+    }
+  ],
+  "sanitization": {
+    "kind": "attribution-only-public-derivative",
+    "baseline_archive_sha256": "ea01c93993c72fbfa2fafa455dcc7e3ac5fc1157dde1ade1fa472193616bab7b",
+    "baseline_manifest_sha256": "13d467b1838f5e2c69845fa1dee799b2966b914afd196b3e971571d8aa8169d4",
+    "baseline_patch_sha256": "3f29ffd887ed5b8573cfe7c310544912737bd8d4bd6619dc7259493d4363a30e",
+    "upstream_byte_identity_verified_by_this_manifest": false,
+    "scope": "Original upstream hashes are retained as historical references. Public retained copies have attribution-only text changes and separate hashes. Exact patch reconstruction verifies the public copies; independent archive comparison is needed to verify the transformation from the upstream originals. Runtime acceptance and review are separate."
+  }
+}

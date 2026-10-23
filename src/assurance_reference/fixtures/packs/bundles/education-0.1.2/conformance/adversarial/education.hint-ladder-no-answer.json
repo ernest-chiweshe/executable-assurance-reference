@@ -1,0 +1,15 @@
+{
+  "cases": [
+    {
+      "name": "spacing and case do not hide the answer",
+      "draft": "so X=-3 is where you should land",
+      "contract": {
+        "reference_answer": "x = -3"
+      },
+      "expected": "fail",
+      "expected_reasons": [
+        "ANSWER_LEAKED"
+      ]
+    }
+  ]
+}

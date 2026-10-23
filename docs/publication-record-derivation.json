@@ -1,0 +1,131 @@
+{
+  "schema": "reference/publication-record-derivation/v1",
+  "scope": "Sanitized display derivatives of privately retained canonical records. Original record and source hashes remain historical identifiers; these files are not their hash-identical replacements. Trace checks requiring private originals remain unavailable in the public tree; no repinning or inherited PASS.",
+  "files": [
+    {
+      "path": "docs/provenance/effect-site-classifications.json",
+      "original_sha256": "e6679626bcbcd5b0ed628ab19fe4fcb2285f8374019af15d56bd8cee4a1242b6",
+      "publication_sha256": "897609f9e83ed5648d67b19990823920385bd8f0cc659db1b31a9b6342312bd9"
+    },
+    {
+      "path": "docs/provenance/a15-receiving-boundaries/MATRIX.json",
+      "original_sha256": "2d9459ef3c9cd24ce3c08df40b0af7ad7f0420598e976d2322f86e1e80aee968",
+      "publication_sha256": "0f1e7a8bc850dded3bf395cf29ae0e56cc46a239ad22f2ebcf550e878474548c"
+    },
+    {
+      "path": "docs/provenance/a16-x21-a17-a05-integration/DERIVATION.json",
+      "original_sha256": "f340bf85076d38373d15d93faf4a80888d689a09d8e0ceb59ce705bb80c1dcea",
+      "publication_sha256": "dad9a6a8d7e3e38ee8174d2273c6552e9c97f52b3c13a136e808fbcd756e91ef"
+    },
+    {
+      "path": "docs/provenance/a19-guard-conformance/MAP.json",
+      "original_sha256": "319303ee1760237509e8aed75f7060443b751f9149c4d63266492260f0f5ef4e",
+      "publication_sha256": "3ac4247b0eb628523d1d8891b48cdf081d45a878b37159a97b5cffe41d09604e"
+    },
+    {
+      "path": "docs/provenance/c046-x15-x12-x22/CHANGES.json",
+      "original_sha256": "e5122a8ffb58faa56ab60350ff393cf6380d75b63e2f28d3f3b56d871bd0b944",
+      "publication_sha256": "48255980aa4b5c8762d3a7870e4a8a00cc8a033c8e9d1f6484a644c42ba7e6e8"
+    },
+    {
+      "path": "docs/provenance/c048-x14-x3-x15scope/CHANGES.json",
+      "original_sha256": "9c0904284aeed41c3b05dc05766ee13a3d012ed46d7c7c2481fa7bcd3caba290",
+      "publication_sha256": "94f79e7ebf0efa8315ebcbb3efebf63382f8b049c10ecfbca6c8b14e94dee4ec"
+    },
+    {
+      "path": "docs/provenance/c049-isolation-negatives/CHANGES.json",
+      "original_sha256": "3c88028e8cb7e8f3cd7739854fbde6a691ceadc8072b689165e23efcc252888b",
+      "publication_sha256": "17b5eb09225a10a5c7cec6aa483e65126c1f027dcc7916951b860c206e3eae97"
+    },
+    {
+      "path": "docs/provenance/c050-x4-bf1-x13/CHANGES.json",
+      "original_sha256": "6d92166713090b5a55aaf89c139cdc7683b46dfbf051b3f943346efd8e12c2b9",
+      "publication_sha256": "bd52cc21bb8804548cc7649bbe5b3feef5bba04ab91a360e1ff849e2860dbf94"
+    },
+    {
+      "path": "docs/provenance/c051-a19-review-fixes/CHANGES.json",
+      "original_sha256": "ac2472a61cb9420c6a102e4ea17a1d3688115b13c232e30957fde4fb4868de65",
+      "publication_sha256": "9e375b43996bc818027b51b845aace6cdd707a253cfec19003803789b360698c"
+    },
+    {
+      "path": "docs/provenance/c052-a15-i6-routing/CHANGES.json",
+      "original_sha256": "4c19eb980ae873397da11bcd4f56dbada96dd0e73f1ddbe0f532ee224b554328",
+      "publication_sha256": "8cf64286a3a6e9a1a88fdd5fcc8e4c12c43b776c9e5411032100667b43263234"
+    },
+    {
+      "path": "docs/provenance/c053-bf7b-i6-bounds/CHANGES.json",
+      "original_sha256": "21102744e1e7b2402582d6ce0603a584267db1c44b0f9c4673582e2210f994d3",
+      "publication_sha256": "d4f42133924ec12a2371574dbb1de7e466e14094e6c8426fb9bcc3d0f023ecf4"
+    },
+    {
+      "path": "docs/provenance/c054-x8-governed-egress/CHANGES.json",
+      "original_sha256": "3112a51a5743b4e3d05afed2097e72031af1bd8c3d8c7c95693cb1582680e146",
+      "publication_sha256": "380895baaa7e67a4e719ab04da7b58d2887e2484df4ed52c28a48ab448aa5d08"
+    },
+    {
+      "path": "docs/provenance/c055-x8-receipt-presend/CHANGES.json",
+      "original_sha256": "b88f7497a6739471709b5ae4024ad175c901e4ee70c7c99477ce3c469eb6267d",
+      "publication_sha256": "70f028998eb15d53a78f13b2b7c464d650d0ef1654b420476ddc0e97835c4d2a"
+    },
+    {
+      "path": "docs/provenance/c056-bf7b-tenant-fences/CHANGES.json",
+      "original_sha256": "e96c09755f59df2780dc19824aaa6e1509751c73b74565ac9839e9153682393a",
+      "publication_sha256": "8755e33afd7b249664e05a0adc7e221160acf555068271a3b41863bc3fbb05f4"
+    },
+    {
+      "path": "docs/provenance/c057-bf7b-policy-semantics/CHANGES.json",
+      "original_sha256": "758583385100a08bc63c3bd23711a667dd2c2480b821fa5f670719be8e102ea7",
+      "publication_sha256": "d7a6c8f9d129ac1c59201568ffec52869087259e93797cf01cca721ac5a09d44"
+    },
+    {
+      "path": "docs/provenance/c058-bf7b-policy-roles/CHANGES.json",
+      "original_sha256": "95559144d96a55b72d0b5a533e28c949a7e573db4d5d53819333703fba529584",
+      "publication_sha256": "acdb989e5281dd31788dd5a8c8ab655cd437b5ec955e4dcb3f0fccc41c8887e8"
+    },
+    {
+      "path": "docs/provenance/c059-bf7b-seeded-isolation/CHANGES.json",
+      "original_sha256": "61833b25e6f8f7166eeb9b0fb9d2cd98cedf11b7e569aa911f3816c804a6d491",
+      "publication_sha256": "b13db7c5f2bde1579f274a2d8e149a4df60b48b4a636e6c237ab15cf1c936229"
+    },
+    {
+      "path": "docs/provenance/c060-bf7b-tenant-stores/CHANGES.json",
+      "original_sha256": "507d3bf22d294a95d4516bf78a65b6a522d949db762d4cd14c53cba9dd2b46ec",
+      "publication_sha256": "e535eab7408947d870bebe45d870de06d8e07dd12a3e2764efb2f2768a245838"
+    },
+    {
+      "path": "docs/provenance/c062-a15-issuer-budget/CHANGES.json",
+      "original_sha256": "db7278399380937a26baeee4831b8f512e5f00f91fc20e7607fb9cda84f54009",
+      "publication_sha256": "5dc020dc26409fcfd1068a7e197e6eeb9c42193a8ca70017d5b5cc5b52c4e4a0"
+    },
+    {
+      "path": "docs/provenance/i2-reviewer-session/DERIVATION.json",
+      "original_sha256": "7218b6948caf85731f5e0e8f3041681ba56383ff10ad18e3d78dc69ab721f5e9",
+      "publication_sha256": "c2cf1ef8c2ce69cb3305e7ef81ea048b252f0899379ab8a3847088e20b7061db"
+    },
+    {
+      "path": "docs/provenance/operator-policy/DERIVATION.json",
+      "original_sha256": "de5d71cc550a4f7397ac5c6f3eae5347e41a37f66a1df9c1a860670f0aa096b7",
+      "publication_sha256": "ddc73e4672f168cf21d83778507d544c3c130b458b8da3e2115f88aa94b7ce02"
+    },
+    {
+      "path": "docs/provenance/x15-egress-composition/RECOVERED.json",
+      "original_sha256": "de894abbb5c0a7da4140a2b181e055eb96130c0dd6a37a40fa211e3903877dff",
+      "publication_sha256": "a316d3f14f1cda441d897a6afc4bff5745c8c4b62f1bd088a66a7d0a5eccc7e6"
+    },
+    {
+      "path": "docs/qualification/linux-20261014/freeze-offline.txt",
+      "original_sha256": "10f2aab93c5f218016e3c8f140a4c3a846c39837164d0f44f4577cd33529f28b",
+      "publication_sha256": "db2e85dc174311a034b8c597145389ea820a7cfa82439e441fc09819087e1949"
+    },
+    {
+      "path": "docs/qualification/restore-20261014/verifier-review-manifest.json",
+      "original_sha256": "81e17a64a5519a208459b722fdb3d33e2acb4b0af7f753192c2fe3706da67cae",
+      "publication_sha256": "6142c75a7644cff07aa4b2d46ad6592c438dcfce3c5805850a409c213483a33b"
+    },
+    {
+      "path": "docs/qualification/restore-20261014/verifier-run-003.json",
+      "original_sha256": "7fedcd55428c260457107cb852606e5eee7dbb285602d50a4e1dcc2007b3fca1",
+      "publication_sha256": "82ece5390aa06f3d4e78f83677345a5c17e6f2d81f7430365c8900ba31182df9"
+    }
+  ]
+}

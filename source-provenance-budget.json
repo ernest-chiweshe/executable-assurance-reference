@@ -1,0 +1,31 @@
+{
+  "source_commit": "6bba989aeca27575b971c78a103cbf3745cfda6a",
+  "source_repository": "echiweshe/agent-factory-prod",
+  "source_tree": "c72682a1dc4b51b3646d686002bfbdd7b8ae788d",
+  "licence": "No root LICENSE/COPYING/NOTICE found in the pinned commit; private owner-authorized extraction only. Public licensing unresolved.",
+  "review": "UNREVIEWED integration dependencies. Exact source extraction does not qualify a composed budgeted release.",
+  "line_endings": "Exact historical source bytes retained; governed by the existing regulated_core binary attribute.",
+  "files": [
+    {
+      "path": "src/regulated_core/document_policy.py",
+      "source_path": "regulated_core/document_policy.py",
+      "sha256": "6c4649dd22390dbca52d790febc2431c4feab13593b3a9d2e7dc043c9c260ccc",
+      "git_blob": "d76b173df8ef21fbb3948c7d33ce56d8c6711027",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/regulated_core/policy_document.py",
+      "source_path": "regulated_core/policy_document.py",
+      "sha256": "0638f8dd65f45fca3337a54f2991a9baeadbf2cf9df2973c5e8a6ff4837d7615",
+      "git_blob": "b3271a9b858d45255d4dfe285a1bf53364c63140",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/regulated_core/database_receiver_pg.py",
+      "source_path": "regulated_core/database_receiver_pg.py",
+      "sha256": "3c48cf2d442f7403c1b27b5ebb1d9f88bca25a6b575fcabce1dfa065afb667ed",
+      "git_blob": "5186b70f2aac662a420218b4d3b7b0fa1ae48209",
+      "historical_crlf": false
+    }
+  ]
+}

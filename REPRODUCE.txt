@@ -1,0 +1,87 @@
+EXECUTABLE ASSURANCE REFERENCE 0.1.8rc5 — REPRODUCTION
+
+This is the public derivative of candidate004. It contains all 2,826 original
+public cases and 11 additional provenance-integrity tests: 2,837 public cases.
+The original 124 cases requiring private inputs remain explicitly excluded.
+The full private denominator, including the 11 new cases, is 2,961.
+Counts describe scope; consult the accompanying PUBLIC-VALIDATION.json for
+completed qualification results and exact environments.
+
+Release artifacts, SHA-256:
+a0191272cff7f617cf1fe6fef691c8cf454c9edc59a6a3956d7763ac35dd1596  executable_assurance_reference-0.1.8rc5-py3-none-any.whl
+605979df092ecb58331d33b0d15ca23ac1321a880c81cf4f999effa03e33339d  executable_assurance_reference-0.1.8rc5.tar.gz
+
+Python 3.12 with PostgreSQL 17 is the Windows qualification environment.
+Python 3.14 with PostgreSQL 18 is the Linux qualification environment.
+The declared Python minimum is 3.11; a tested version is not a claim that every
+Python or PostgreSQL version has been qualified.
+
+Use a fresh virtual environment, with requirements-tested.txt supplied beside
+these instructions. Do not install editable source for installed-package tests.
+
+Windows PowerShell, from a new working directory containing release artifacts:
+
+  py -3.12 -m venv .venv
+  $py = (Resolve-Path .venv/Scripts/python.exe).Path
+  & $py -m pip install -r requirements-tested.txt
+  & $py -m pip install --no-deps ./executable_assurance_reference-0.1.8rc5-py3-none-any.whl
+  tar -xzf executable_assurance_reference-0.1.8rc5.tar.gz
+  $src = (Resolve-Path executable_assurance_reference-0.1.8rc5).Path
+  $run = Join-Path $env:TEMP ("reference-qualification-" + [guid]::NewGuid().ToString('N'))
+  New-Item -ItemType Directory -Path $run | Out-Null
+  & $py -I "$src/scripts/isolated_postgres.py" --pg-bin 'C:/Program Files/PostgreSQL/17/bin' --work-root "$run/pg" -- $py -u -I "$src/scripts/run_public_tests.py" -q --public-report "$run/PUBLIC-RESULT.json" --basetemp "$run/tests" --junitxml "$run/pytest.xml" --source-adaptation-manifest=docs/provenance/latency-phase3-029/adaptations.json --source-adaptation-sha256=e9374545527f71ba2fc22efddb1c69a086b4bf7a59b1d9666dc2f4dfd4520148
+
+Use NTFS for Windows database and filesystem-test scratch. Adjust the PostgreSQL
+binary path to your installation. Never point this launcher at an existing data
+directory. It creates a fresh loopback-only cluster and stops that cluster at exit.
+
+Linux, from a new working directory containing release artifacts:
+
+  python3.14 -m venv .venv
+  PY="$PWD/.venv/bin/python"
+  "$PY" -m pip install -r requirements-tested.txt
+  "$PY" -m pip install --no-deps ./executable_assurance_reference-0.1.8rc5-py3-none-any.whl
+  tar -xzf executable_assurance_reference-0.1.8rc5.tar.gz
+  SRC="$PWD/executable_assurance_reference-0.1.8rc5"
+  RUN="$(mktemp -d -p "$PWD" reference-qualification-XXXXXXXX)"
+  "$PY" -I "$SRC/scripts/isolated_postgres.py" --pg-bin /usr/lib/postgresql/18/bin --work-root "$RUN/pg" -- "$PY" -u -I "$SRC/scripts/run_public_tests.py" -q --public-report "$RUN/PUBLIC-RESULT.json" --basetemp "$RUN/tests" --junitxml "$RUN/pytest.xml" --source-adaptation-manifest=docs/provenance/latency-phase3-029/adaptations.json --source-adaptation-sha256=e9374545527f71ba2fc22efddb1c69a086b4bf7a59b1d9666dc2f4dfd4520148
+
+Source installation:
+After installing the pinned dependencies in a separate fresh environment,
+replace the wheel-install command with:
+  python -m pip install --no-build-isolation --no-deps ./executable_assurance_reference-0.1.8rc5.tar.gz
+Use that environment's interpreter for the same test command. A normal,
+non-editable installation from a clean repository clone is also supported:
+  python -m pip install --no-build-isolation --no-deps /path/to/clone
+
+Offline installation:
+Use the wheelhouse for the matching operating system and Python ABI, with its
+accompanying requirements-offline.lock. The lock pins every dependency and the
+application wheel. Do not substitute wheels for another platform or Python ABI.
+  python -m pip install --no-index --find-links /path/to/wheelhouse --require-hashes -r /path/to/requirements-offline.lock
+Then run the same full public-suite command with the offline environment.
+
+Acceptance requires exit status 0, exactly 2,837 public passes, no failures,
+errors or skips, 124 declared private exclusions, no unapproved runtime import
+origins, and the isolated database RESULT.json reporting stopped=true. Four
+historical care-parser modules are separately path/hash-pinned test fixtures;
+every other runtime import must come from the installed distribution.
+
+Qualification may use disjoint --public-shard=0/2 and --public-shard=1/2 runs,
+each with a separate database and scratch directory. Their selected node sets
+and JUnit case identities must form the exact public set, without duplicates.
+Do not add their private-exclusion counts: both describe the same 124 cases.
+
+Retain raw logs, XML, environment versions and database directories, including
+failed runs. rc4 failed two cleanup regressions (a missing frozen fixture and
+omitted README history); rc5 restores both without removing test cases or
+weakening their comparisons. Those failed results are not rc5 pass evidence.
+
+Runtime behavior is unchanged from the candidate004 public runtime except for
+two attribution-cleaned module docstrings. Historical source copies have
+explicit derivative hashes; upstream hashes remain historical records. The
+frozen delegation fixture is retained with a new commentary-only derivative
+hash, while its original hash remains in the sanitation record.
+
+The papers' R1b and R2b limits and the current candidate's open formal latency
+acceptance are not closed by package installation or regression tests.

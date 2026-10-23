@@ -1,0 +1,12 @@
+{
+  "schema": "reference/source-derivation/v1",
+  "original_commit": "6bba989aeca27575b971c78a103cbf3745cfda6a",
+  "original_source_path": "docs/publications/capability-is-not-authority/Execution assurance thesis/model/check_protocol.py",
+  "original_source_sha256": "506ada42218ae7b209e566ecc9dc6c75f9515109d6f1c2d0aa97f671c9d48e3d",
+  "original_results_path": "docs/publications/capability-is-not-authority/Execution assurance thesis/model/results.json",
+  "original_results_sha256": "ac074a65e2ea1ef97ce90738808198fb351860a20e60c5607b7a2eb90da41b68",
+  "reference_path": "src/assurance_reference/protocol_model/check_protocol.py",
+  "reference_results_path": "src/assurance_reference/protocol_model/results.json",
+  "changes": [],
+  "scope": "Byte-identical inclusion of the Python breadth-first abstract state explorer and its recorded results. Package wrapper, resource inclusion and regression tests are new. This is specification evidence, not runtime conformance or deployment qualification."
+}

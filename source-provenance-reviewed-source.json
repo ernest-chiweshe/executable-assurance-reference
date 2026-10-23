@@ -1,0 +1,16 @@
+{
+  "source_commit": "6bba989aeca27575b971c78a103cbf3745cfda6a",
+  "source_tree": "c72682a1dc4b51b3646d686002bfbdd7b8ae788d",
+  "source_repository": "echiweshe/agent-factory-prod",
+  "scope": "Byte-identical demonstration pack builder; other new runtime modules are explicit derivations in docs/provenance/reviewed-source/DERIVATION.json.",
+  "files": [
+    {
+      "path": "src/factory/packs/demonstrations.py",
+      "source_path": "factory/packs/demonstrations.py",
+      "bytes": 13618,
+      "sha256": "44b9fc8a3926a7a93c9640610b11f36dd4c4a84852d475601c9213e55798a3f4",
+      "git_blob": "ae7467a01fa8a5395a43d37bfa4f3d7c5ee1402d",
+      "historical_crlf": false
+    }
+  ]
+}

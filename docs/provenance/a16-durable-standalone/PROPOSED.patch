@@ -1,0 +1,38 @@
+--- a/src/assurance_reference/demo.py
++++ b/src/assurance_reference/demo.py
+@@ -46,7 +46,7 @@
+ from regulated_core.clock_pg import DbClock
+ from regulated_core.models import DecisionKind
+ from regulated_core.persistence_pg import (
+-    PostgresPermitUseStore, PostgresMissionBudget,
++    PostgresPermitUseStore, PostgresMissionBudget, PostgresRevocationLedger,
+     migrate,
+ )
+ from regulated_core.target import BoundEffect, FilesystemTargetAdapter, Outcome, effect_destination
+@@ -133,6 +133,7 @@
+     intended.declare(IntendedUse("course", operation, 2))
+     preflight = PreflightAuthority(signers["preflight"], intended, trust)
+     engine = ReferenceEngine(
++        revocation=PostgresRevocationLedger(pool=pool),
+         budget=budget, default_mission_budget={"limit": 1, "units": 1},
+         retention=LocalRetentionStore(output / "retention"),
+         alerts=AlertJournal(pool, signers["alert"], trust),
+--- a/src/assurance_reference/health.py
++++ b/src/assurance_reference/health.py
+@@ -54,7 +54,7 @@
+ from regulated_core.clock_pg import DbClock
+ from regulated_core.input_evidence import DecisionInputs
+ from regulated_core.models import Outcome as VerificationOutcome
+-from regulated_core.persistence_pg import PostgresPermitUseStore, PostgresMissionBudget, migrate
++from regulated_core.persistence_pg import PostgresPermitUseStore, PostgresMissionBudget, PostgresRevocationLedger, migrate
+ from regulated_core.target import BoundEffect, FilesystemTargetAdapter, Outcome, effect_destination
+ from regulated_core.verticals.health import (
+     CLINICAL_VALIDITY,
+@@ -146,6 +146,7 @@
+     intended.declare(IntendedUse("health", SEND, 3))
+     preflight = PreflightAuthority(signers["preflight"], intended, trust)
+     engine = ReferenceEngine(
++        revocation=PostgresRevocationLedger(pool=pool),
+         budget=budget, default_mission_budget={"limit": 1, "units": 1},
+         retention=LocalRetentionStore(output / "retention"),
+         alerts=AlertJournal(pool, signers["alert"], trust),

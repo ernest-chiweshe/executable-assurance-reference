@@ -1,0 +1,91 @@
+--- a/src/assurance_reference/local_roles.py
++++ b/src/assurance_reference/local_roles.py
+@@ -159,7 +159,8 @@
+     project_state: LocalPool
+     education_reader: LocalPool
+     education_governor: LocalPool
+-    monitor_ingress: LocalPool
++    monitor_ingress: LocalPool
++    delegation_issuer: LocalPool
+ 
+ 
+ def provision_local_roles(dsn: str) -> LocalAuthorityRoles:
+@@ -178,7 +179,7 @@
+     schema = "test_reference_roles_" + suffix
+     kinds = ("receiver", "allocator", "recorder", "governor", "clock", "alerts",
+              "session_reader", "session_issuer", "project_state", "education_reader", "education_governor",
+-             "monitor_ingress")
++             "monitor_ingress", "delegation_issuer")
+     credentials = {kind: ("ref_" + kind + "_" + suffix, secrets.token_urlsafe(32))
+                    for kind in kinds}
+     with psycopg.connect(dsn, connect_timeout=5) as connection:
+@@ -242,6 +243,9 @@
+                 "regulated_governance_fences_v1", "regulated_revocation_events_v1",
+                 "regulated_governance_rosters_v1",
+             ),
++            "delegation_issuer": (
++                "regulated_delegation_grants_v1", "regulated_delegation_revocations_v1",
++            ),
+             "clock": ("reference_clock_floor_v1",),
+             "alerts": ("reference_alerts_v1",),
+         }
+@@ -258,7 +262,8 @@
+                          "regulated_governance_rosters_v1",
+                          "pack_lifecycle", "regulated_governance_fences_v1"),
+             "alerts": ("reference_alerts_v1",),
+-            "monitor_ingress": ("regulated_monitor_heartbeats_v2",),
++            "monitor_ingress": ("regulated_monitor_heartbeats_v2",),
++            "delegation_issuer": ("regulated_delegation_grants_v1",),
+         }
+         for kind, tables in inserts.items():
+             for table in tables:
+--- a/src/assurance_reference/host_runtime.py
++++ b/src/assurance_reference/host_runtime.py
+@@ -21,6 +21,7 @@
+ from regulated_core.governance_guard import GovernanceGuard
+ from regulated_core.host_runtime import RuntimeAuthorities, compose_regulated_host
+ from regulated_core.pack_gate import PackGateFactory
++from regulated_core.persistence_pg import PostgresGrantStore
+ from regulated_core.runtime_pg import compose_regulated_stores
+ 
+ 
+@@ -53,6 +54,8 @@
+         raise TypeError("partitioned_lifecycle must be an explicit boolean")
+     if len({roles.receiver.role, roles.allocator.role, roles.recorder.role}) != 3:
+         raise ValueError("receiver, allocator and recorder logins must be distinct")
++    if roles.delegation_issuer.role in {roles.receiver.role, roles.allocator.role, roles.recorder.role}:
++        raise ValueError("delegation issuer must be separate from receiver, allocator and recorder")
+     stores = compose_regulated_stores(
+         roles.receiver, evidence_signer=evidence_signer, trust=trust,
+         guard=GovernanceGuard(), budget_allocator_pool=roles.allocator,
+@@ -66,7 +69,9 @@
+         from assurance_reference.lifecycle_runtime import PartitionedActivationLedger
+         stores = replace(stores, activation=PartitionedActivationLedger(
+             "", pool=stores.pool, guard=stores.activation.governance_guard))
+-    return replace(stores, recorder=recorder)
++    # Signed root/child issuance has its own append-only login; receiver stays read-only.
++    grants = PostgresGrantStore(pool=SessionBoundPool(roles.delegation_issuer))
++    return replace(stores, recorder=recorder, grants=grants)
+ 
+ 
+ def compose_reference_host(stores, authorities: RuntimeAuthorities, *,
+--- a/tests/test_delegation_root_journey.py
++++ b/tests/test_delegation_root_journey.py
+@@ -22,6 +22,17 @@
+ 
+ def test_authenticated_owner_and_two_reviewers_admit_one_root(tmp_path):
+     roles = provision_local_roles(os.environ["FACTORY_TEST_DB_URL"])
++    assert roles.delegation_issuer.role != roles.receiver.role
++    for pool, may_insert in ((roles.receiver, False), (roles.delegation_issuer, True)):
++        with pool.connection() as connection:
++            privileges = connection.execute(
++                "SELECT has_table_privilege(current_user, 'regulated_delegation_grants_v1', 'SELECT'), "
++                "has_table_privilege(current_user, 'regulated_delegation_grants_v1', 'INSERT'), "
++                "has_table_privilege(current_user, 'regulated_delegation_grants_v1', 'UPDATE'), "
++                "has_table_privilege(current_user, 'regulated_delegation_grants_v1', 'DELETE'), "
++                "has_table_privilege(current_user, 'regulated_delegation_revocations_v1', 'INSERT')"
++            ).fetchone()
++        assert privileges == (True, may_insert, False, False, False)
+     publisher = Ed25519Signer(SYNTHETIC_PUBLISHER)
+     bundle = tmp_path / "signed-budget-pack"
+     build_bounded_education_fixture(bundle, publisher=publisher)

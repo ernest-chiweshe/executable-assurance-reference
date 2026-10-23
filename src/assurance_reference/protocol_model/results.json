@@ -1,0 +1,107 @@
+{
+  "baseline": [
+    {
+      "actions": 2,
+      "budget": 1,
+      "states": 176,
+      "transitions": 604,
+      "violation": null
+    },
+    {
+      "actions": 2,
+      "budget": 2,
+      "states": 576,
+      "transitions": 2184,
+      "violation": null
+    },
+    {
+      "actions": 3,
+      "budget": 2,
+      "states": 1456,
+      "transitions": 5622,
+      "violation": null
+    }
+  ],
+  "variants": [
+    {
+      "removed": "mandatory_path",
+      "violation": "effect without permit",
+      "trace_length": 1,
+      "trace": [
+        "bypass[0]"
+      ]
+    },
+    {
+      "removed": "evidence_prerequisite",
+      "violation": "effect without prior evidence",
+      "trace_length": 3,
+      "trace": [
+        "reserve[0]",
+        "permit[0]",
+        "commit[0]"
+      ]
+    },
+    {
+      "removed": "revocation_check",
+      "violation": "effect after revocation or expiry",
+      "trace_length": 5,
+      "trace": [
+        "reserve[0]",
+        "record[0]",
+        "permit[0]",
+        "revoke",
+        "commit[0]"
+      ]
+    },
+    {
+      "removed": "expiry_check",
+      "violation": "effect after revocation or expiry",
+      "trace_length": 5,
+      "trace": [
+        "reserve[0]",
+        "record[0]",
+        "permit[0]",
+        "expire",
+        "commit[0]"
+      ]
+    },
+    {
+      "removed": "payload_match",
+      "violation": "effect differs from permitted payload",
+      "trace_length": 4,
+      "trace": [
+        "reserve[0]",
+        "record[0]",
+        "permit[0]",
+        "commit_substituted[0]"
+      ]
+    },
+    {
+      "removed": "durable_replay",
+      "violation": "effect committed more than once",
+      "trace_length": 5,
+      "trace": [
+        "reserve[0]",
+        "record[0]",
+        "permit[0]",
+        "commit[0]",
+        "commit[0]"
+      ]
+    },
+    {
+      "removed": "aggregate_reservation",
+      "violation": "mission budget exceeded",
+      "trace_length": 8,
+      "trace": [
+        "reserve[0]",
+        "record[0]",
+        "permit[0]",
+        "commit[0]",
+        "reserve[1]",
+        "record[1]",
+        "permit[1]",
+        "commit[1]"
+      ]
+    }
+  ]
+}

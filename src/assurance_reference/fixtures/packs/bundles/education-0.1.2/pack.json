@@ -1,0 +1,564 @@
+{
+  "capability": "education-feedback",
+  "cards": {
+    "source_label": "Education formative-feedback pack"
+  },
+  "collections": [
+    {
+      "description": "One person in one class: the OneRoster role vocabulary, so a school's SIS export lands unchanged.",
+      "fields": {
+        "classSourcedId": {
+          "type": "string"
+        },
+        "enrollmentAuthority": {
+          "required": false,
+          "type": "string"
+        },
+        "enrollmentDocumentDigest": {
+          "required": false,
+          "type": "string"
+        },
+        "enrollmentEffectiveFromUs": {
+          "required": false,
+          "type": "long"
+        },
+        "enrollmentEffectiveUntilUs": {
+          "required": false,
+          "type": "long"
+        },
+        "enrollmentGeneration": {
+          "required": false,
+          "type": "long"
+        },
+        "enrollmentPayloadDigest": {
+          "required": false,
+          "type": "string"
+        },
+        "familyName": {
+          "type": "string"
+        },
+        "givenName": {
+          "type": "string"
+        },
+        "guardianSourcedIds": {
+          "required": false,
+          "type": "set"
+        },
+        "role": {
+          "type": "string"
+        },
+        "sourcedId": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        }
+      },
+      "key": [
+        "sourcedId",
+        "classSourcedId"
+      ],
+      "name": "roster-user",
+      "version": 1,
+      "vocabulary": "oneroster@1.2 User + Enrollment"
+    },
+    {
+      "description": "A CASE rubric: criteria (CFRubricCriterion with CFItemURI and weight) and levels (quality, score, feedback).",
+      "fields": {
+        "criteria": {
+          "type": "set"
+        },
+        "identifier": {
+          "type": "string"
+        },
+        "subject": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "version": {
+          "type": "long"
+        }
+      },
+      "key": [
+        "identifier"
+      ],
+      "name": "rubric",
+      "version": 1,
+      "vocabulary": "case@1.0 CFRubric"
+    },
+    {
+      "description": "A learner's attempt: text or photographed work, bound to an exercise and a rubric.",
+      "fields": {
+        "draftDigest": {
+          "required": false,
+          "type": "string"
+        },
+        "exerciseId": {
+          "type": "string"
+        },
+        "learnerSourcedId": {
+          "type": "string"
+        },
+        "media": {
+          "type": "set"
+        },
+        "rubricIdentifier": {
+          "type": "string"
+        },
+        "submissionId": {
+          "type": "string"
+        },
+        "submittedAt": {
+          "type": "timestamp"
+        }
+      },
+      "key": [
+        "submissionId"
+      ],
+      "name": "submission",
+      "version": 1,
+      "vocabulary": "pack-local"
+    },
+    {
+      "description": "One attempt against one competency (a CASE CFItem URI), scored, with the evidence digest.",
+      "fields": {
+        "attempt": {
+          "type": "long"
+        },
+        "competencyUri": {
+          "type": "string"
+        },
+        "confidence": {
+          "required": false,
+          "type": "decimal"
+        },
+        "eventTime": {
+          "type": "timestamp"
+        },
+        "evidenceDigest": {
+          "type": "string"
+        },
+        "learnerSourcedId": {
+          "type": "string"
+        },
+        "score": {
+          "type": "decimal"
+        }
+      },
+      "key": [
+        "learnerSourcedId",
+        "competencyUri",
+        "attempt"
+      ],
+      "name": "mastery-signal",
+      "version": 1,
+      "vocabulary": "caliper@1.2 GradeEvent / Result"
+    },
+    {
+      "description": "Revision-controlled learner construction and explanation.",
+      "fields": {
+        "classId": {
+          "type": "string"
+        },
+        "content": {
+          "type": "record"
+        },
+        "exerciseId": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "pins": {
+          "type": "record"
+        },
+        "principal": {
+          "type": "string"
+        }
+      },
+      "key": [
+        "id"
+      ],
+      "name": "geometry-draft",
+      "version": 1,
+      "vocabulary": "lumi.geometry/1"
+    },
+    {
+      "description": "Immutable construction snapshot and original draft revision.",
+      "fields": {
+        "classId": {
+          "type": "string"
+        },
+        "content": {
+          "type": "record"
+        },
+        "exerciseId": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "pins": {
+          "type": "record"
+        },
+        "principal": {
+          "type": "string"
+        }
+      },
+      "key": [
+        "id"
+      ],
+      "name": "geometry-submission",
+      "version": 1,
+      "vocabulary": "lumi.geometry/1"
+    },
+    {
+      "description": "Separate teacher annotation tied to an immutable submission.",
+      "fields": {
+        "classId": {
+          "type": "string"
+        },
+        "content": {
+          "type": "record"
+        },
+        "exerciseId": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "pins": {
+          "type": "record"
+        },
+        "principal": {
+          "type": "string"
+        }
+      },
+      "key": [
+        "id"
+      ],
+      "name": "geometry-annotation",
+      "version": 1,
+      "vocabulary": "lumi.geometry/1"
+    },
+    {
+      "description": "Signed named reviewer appointment, separate from the person's OneRoster enrollment.",
+      "fields": {
+        "classId": {
+          "type": "string"
+        },
+        "document": {
+          "type": "record"
+        },
+        "principal": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string"
+        },
+        "schoolId": {
+          "type": "string"
+        }
+      },
+      "key": [
+        "principal",
+        "classId",
+        "role"
+      ],
+      "name": "reviewer-appointment",
+      "version": 1,
+      "vocabulary": "pack-local owner-approved pilot appointment"
+    },
+    {
+      "description": "Revision-controlled teacher-authored objectives, practice, hints and source notes.",
+      "fields": {
+        "classId": {
+          "type": "string"
+        },
+        "content": {
+          "type": "record"
+        },
+        "exerciseId": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "pins": {
+          "type": "record"
+        },
+        "principal": {
+          "type": "string"
+        }
+      },
+      "key": [
+        "id"
+      ],
+      "name": "teaching-lesson",
+      "version": 1,
+      "vocabulary": "lumi.education-teaching/1"
+    },
+    {
+      "description": "Immutable lesson snapshot assigned to one enrolled class; never an automatic assessment.",
+      "fields": {
+        "classId": {
+          "type": "string"
+        },
+        "content": {
+          "type": "record"
+        },
+        "exerciseId": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "pins": {
+          "type": "record"
+        },
+        "principal": {
+          "type": "string"
+        }
+      },
+      "key": [
+        "id"
+      ],
+      "name": "teaching-assignment",
+      "version": 1,
+      "vocabulary": "lumi.education-teaching/1"
+    }
+  ],
+  "commercial": {
+    "capabilities": [
+      "education-feedback"
+    ]
+  },
+  "conformance": {
+    "expected_decisions": {
+      "education:draft-feedback": "ALLOWED_WITH_NOTICE",
+      "education:record-progress": "APPROVAL_REQUIRED",
+      "education:release-feedback": "SECOND_REVIEW without calibrated confidence or below 0.70; APPROVAL_REQUIRED otherwise"
+    }
+  },
+  "dependencies": [],
+  "domain": "education",
+  "experts": {
+    "required_roles": [
+      "subject-teacher",
+      "curriculum-lead",
+      "privacy-officer"
+    ]
+  },
+  "files": {
+    "conformance/adversarial/education.hint-ladder-no-answer.json": "b779bd79089caeac31ec15ad6bcc5b2c76c6e9db8475177fff8234c11759a89e",
+    "conformance/adversarial/education.no-final-grade.json": "0063900a3a80229f36beaa2302a9f7868fd68f20c03265a56ef267f297fd035f",
+    "conformance/adversarial/education.region-normalized.json": "75920136b2c2a6e96566c2c32cbc3f6418c8a693632277e58fb9d31613d6f270",
+    "conformance/adversarial/education.rubric-bound.json": "be50621369f7621f2f9abe0275c3d675ce19a373966335bc2614f0cb29d95418",
+    "conformance/boundary/education.no-final-grade.json": "93ace7e8bef67a4df36702e181f13e5faf5881556545cb0f86cf3b2531d04f7b",
+    "conformance/golden/education.hint-ladder-no-answer.json": "0246c61495eff65b4ba8baa9f1f0d7e71a3615b2f38b9d7335dec5975c0f1fd5",
+    "conformance/golden/education.no-final-grade.json": "fa70d213ecaf6464012a69d0b79271608d23ee92b909d34547dea1b963d959bd",
+    "conformance/golden/education.region-normalized.json": "47d76193606e6bcc22fb77012cf696755b16eb292a283debbbf6afedd95ea7d4",
+    "conformance/golden/education.rubric-bound.json": "c109a2ebb19a436e8d8b6fdb4ddf175359852d5d63c5dc92a6f07ffcc2de7b2a",
+    "exercises/geometry.json": "7e986927bded4a300fbcf459ecaa49b97b549f2c3539efcae6d892add1635512",
+    "kit/README.md": "5c4ab979affaa0b8aabdbe620bb4b9b49b7ed7a9ed20a1681d561c469de1fdfb",
+    "rulebook/rulebook.json": "8854e495750882c7fc2dc328691e269dcf5d87c82f048823febd7fef371f3e17",
+    "schema/schema.json": "2a725f6c2508c3af85dc05fdc1d5136dfbcb77e0194a3dbe5a49a0f15390907d"
+  },
+  "id": "lumiwright.education.formative-feedback",
+  "jurisdictions": [
+    "ZW",
+    "ZA"
+  ],
+  "kind": "base",
+  "knowledge": {
+    "sources": [
+      {
+        "edition": "1.0",
+        "effective_date": "2017-07-27",
+        "id": "case",
+        "jurisdiction": "global",
+        "kind": "standard",
+        "licence": "1EdTech specification licence",
+        "title": "1EdTech Competencies and Academic Standards Exchange (CASE)",
+        "url": "https://www.imsglobal.org/sites/default/files/CASE/casev1p0/information_model/caseservicev1p0_infomodelv1p0.html"
+      },
+      {
+        "edition": "1.2",
+        "effective_date": "2021-11-10",
+        "id": "oneroster",
+        "jurisdiction": "global",
+        "kind": "standard",
+        "licence": "1EdTech specification licence",
+        "title": "1EdTech OneRoster",
+        "url": "https://www.imsglobal.org/spec/oneroster/v1p2"
+      },
+      {
+        "edition": "1.2",
+        "effective_date": "2020-09-16",
+        "id": "caliper",
+        "jurisdiction": "global",
+        "kind": "standard",
+        "licence": "1EdTech specification licence",
+        "title": "1EdTech Caliper Analytics",
+        "url": "https://www.imsglobal.org/spec/caliper/v1p2"
+      },
+      {
+        "edition": "2.0",
+        "effective_date": "2022-12-01",
+        "id": "cds-hooks",
+        "jurisdiction": "global",
+        "kind": "standard",
+        "licence": "HL7 (CC0 for the specification text)",
+        "title": "HL7 CDS Hooks",
+        "url": "https://cds-hooks.hl7.org/2.0/"
+      },
+      {
+        "edition": "Phi Delta Kappan 80(2)",
+        "effective_date": "1998-10-01",
+        "id": "black-wiliam-1998",
+        "jurisdiction": "global",
+        "kind": "literature",
+        "licence": "published article",
+        "title": "Black & Wiliam, Inside the Black Box: Raising Standards Through Classroom Assessment",
+        "url": ""
+      },
+      {
+        "edition": "Review of Educational Research 77(1)",
+        "effective_date": "2007-03-01",
+        "id": "hattie-timperley-2007",
+        "jurisdiction": "global",
+        "kind": "literature",
+        "licence": "published article",
+        "title": "Hattie & Timperley, The Power of Feedback",
+        "url": ""
+      },
+      {
+        "edition": "Act 5 of 2021",
+        "effective_date": "2021-12-03",
+        "id": "zw-data-protection-act",
+        "jurisdiction": "ZW",
+        "kind": "regulation",
+        "licence": "government gazette",
+        "title": "Zimbabwe Data Protection Act [Chapter 11:22]",
+        "url": ""
+      }
+    ]
+  },
+  "license": "proprietary",
+  "platform_contract": "governed-runtime/1",
+  "publisher": "lumiwright",
+  "roots": [
+    "education/formative-feedback"
+  ],
+  "rulebook": {
+    "digest": "2dd127ac1b6451f34ecfb8770a90a6d6b3eabdcf16730f6064c64b8ceb24a9b3",
+    "path": "rulebook/rulebook.json",
+    "ref": "education/formative-feedback@1.0.0"
+  },
+  "schema": "lumiwright.domain-pack/v1",
+  "scopes": [
+    {
+      "data_class": "pii",
+      "name": "learner-identity",
+      "rationale": "feedback is addressed to a named learner in a class roster"
+    },
+    {
+      "data_class": "pii",
+      "name": "submission-media",
+      "rationale": "photographed work identifies the learner; needed to localise findings"
+    },
+    {
+      "data_class": "pii",
+      "name": "guardian-contact",
+      "rationale": "released feedback is visible to the guardian by the school's rule"
+    }
+  ],
+  "title": "Education: teacher-governed formative feedback",
+  "version": "0.1.2",
+  "vocabularies": [
+    "oneroster@1.2",
+    "case@1.0",
+    "caliper@1.2",
+    "cds-hooks@2.0"
+  ],
+  "workflow": {
+    "stages": [
+      {
+        "action": null,
+        "id": "intake",
+        "inputs": [
+          "submission",
+          "rubric"
+        ],
+        "outputs": [
+          "submission"
+        ],
+        "trigger": "submission-received"
+      },
+      {
+        "action": "education:draft-feedback",
+        "effect": "reversible",
+        "id": "pre-assess",
+        "inputs": [
+          "submission",
+          "rubric"
+        ],
+        "outputs": [
+          "feedback-draft",
+          "card"
+        ],
+        "trigger": "stage:intake"
+      },
+      {
+        "action": null,
+        "id": "review",
+        "inputs": [
+          "feedback-draft",
+          "card-feedback"
+        ],
+        "outputs": [
+          "feedback"
+        ],
+        "trigger": "card-feedback"
+      },
+      {
+        "action": "education:release-feedback",
+        "effect": "external",
+        "id": "release",
+        "inputs": [
+          "feedback",
+          "approval"
+        ],
+        "outputs": [
+          "release-receipt"
+        ],
+        "trigger": "stage:review"
+      },
+      {
+        "action": "education:record-progress",
+        "effect": "authoritative",
+        "id": "progress",
+        "inputs": [
+          "release-receipt"
+        ],
+        "outputs": [
+          "mastery-signal"
+        ],
+        "trigger": "stage:release"
+      },
+      {
+        "action": null,
+        "id": "retrieval",
+        "inputs": [
+          "mastery-signal"
+        ],
+        "outputs": [
+          "re-attempt"
+        ],
+        "trigger": "schedule"
+      }
+    ]
+  }
+}

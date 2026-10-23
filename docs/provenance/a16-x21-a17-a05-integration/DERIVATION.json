@@ -1,0 +1,74 @@
+{
+  "schema": "reference/reviewed-surgical-integration/v1",
+  "created_utc": "2026-10-16T08:25:43.119392+00:00",
+  "parent_candidate": "sealed032/762 (A16 intermediate), based on adopted031/755",
+  "parent_files_sha256": "59644d6cb9f0b4cefcbe86ae87266ec89f027fab98982f036aa1a045b5b81240",
+  "verified_consensus_payloads": [
+    "bc40105db0e6d1d7dc80b15dd71896d60bcc9188e5dfb63f797b40e955b91802",
+    "30bbe890ae1d35d0855cfa789d219ecfe2f629d0c6dbafc4d9b5392efc898fe6",
+    "6f82952bb5c4ac3a99982d15181971b263742b8e64531c93e8569b7dc6e3fb0d",
+    "5388994ad7fe27315aa42b25f9116466342d4c657013e1e52552767e00613583",
+    "1a21662f6df41b28d5364f72fe9b98357df0ecada4c327ed0d669b9525939eef"
+  ],
+  "peer_results": "Attributed independent review metadata; peer mutation workflows were not requested, run or delegated by verifier.",
+  "changes": {
+    "src/regulated_core/projectos_gate.py": {
+      "before_sha256": "ca63a19c4d85af5b85940c31a1693bf58cb12fa7b73f1eb0bfb9ea34e07f5bc5",
+      "after_sha256": "01bfbf034c025fc3040d7e20ad82e6f4294b563d2a5fd427f96c5e3528ef0ec8"
+    },
+    "src/regulated_core/outage.py": {
+      "before_sha256": "7fdd707489b9e80894921c9e48b037a40f442e8f7d852928eb4884458c352fbc",
+      "after_sha256": "bfde50524373f69c69b2d8ce15eb17b8200ca95a4d3383d96748a43d5d7652ea"
+    },
+    "tests/test_education_record_outage.py": {
+      "before_sha256": "9ab96edded480ae3a9504494ef5d9fe9c05e9b3234a4c4f9411a19a6739f6f75",
+      "after_sha256": "a1459172b13ee4a70a922623288e7e1a5f6ae6c66f51890c211f3118113c0b6f"
+    },
+    "src/assurance_reference/local_education_fixture.py": {
+      "before_sha256": "db82a797abab4d960953fec13a4afc74017c30ce5b3b773df2b20697ebf88d13",
+      "after_sha256": "37fcce5a000e10b815901e3464bfb3695ab42232bd3c385bc9aee184d1216f8b"
+    }
+  },
+  "new_tests": {
+    "test_reference_clock_identity.py": "a982b7d8e09731cd9d4e791b10b28d86c5bb1a01db4a0c85b09377a65360940c",
+    "test_reference_ungoverned_surface.py": "0392d7d7f71c6e59709313fbc32286143350db196db60254e77fe3bd1b916d94",
+    "test_alarm_clock_availability.py": "b6aba20436cbb470b9ca1ca755308d8054929b2319085b57644593e8044b9f6f",
+    "test_store_outage_boundaries.py": "1bfbf7ab56412927dc47c58c58dc04adc48ba0fa7445220e6b5b91e59374667f",
+    "test_configured_alarm_consumers.py": "2c9e04e34f670d71f6dd7879679c2abf5ed84d7f6c946837af5457d91297a51f",
+    "test_a05_lawful_linkage.py": "e11441e65b0f6a505c2c2b31073011cbeef3fbf8664d0d9769b6b30557c69e0e",
+    "test_a05_report_configuration.py": "90cc2206d331cc7032149e0b3ae4c0b056eb697096ba38441cdc215eed5dc1a1",
+    "test_a05_credential_refusal.py": "500003e7713ad65168d5c414ab68136b90139c8bd7954b3e56aca1b29e8249fa",
+    "test_a05_actual_production_gate.py": "23244350a650251c62a27c00e8701f036f5ff6d3d3d044513ed0461895f3f362"
+  },
+  "targeted_receipts": {
+    "a17-store-outage-pg-001/RECEIPT.json": "97839652f0977329be8286d9a22090320c4f2bffac6be1f600a48672540bacbd",
+    "a17-store-outage-pg-001/CONFIGURED-CONSUMERS.json": "22abff516bcd4bcbd83e3ce54e1190d9b7d2b9cfdc4c407f4f39d0b2d0f3b44b",
+    "a05-production-composition-pg-005/RECEIPT.json": "041ef49e0f712b522ef9241338215b6f0c4ed802118e641ece161d03c2833bec",
+    "x21-clock-identity-contract-staging-001/RESULT.json": "1f0b335c339d0bdc5e22eb9b16bef91e6dc21512ea02fdcda9ad39b7ccc11fab"
+  },
+  "prior_adaptation_pin": {
+    "path": "docs/provenance/a08-cumulative/adaptations.json",
+    "sha256": "171d8e30cb0d0e0bb6756ba727c634b38a6ebcf4f24d8bc51ff3a93b8efd7bef"
+  },
+  "active_adaptation_pin": {
+    "path": "docs/provenance/a17-cumulative/adaptations.json",
+    "sha256": "dda0d16ef75ce358bc667db43186166cc80a43f5d358dd9f37b6ee3bf95868d5",
+    "entries": 17
+  },
+  "contract_evolution": "Recorder-outage assertion changes from escaping OperationalError to unsigned refusal/no permit plus exactly one HIGH contained independent alarm. Existing rollback, no-signing, no-output, unspent permit and lawful recovery assertions retained.",
+  "effect_classification_updates": {
+    "sites": 0,
+    "total_sites": 263,
+    "method": "Exact matching lines mapped; line/source SHA only. No classification, reason, exemption or authority-review changes."
+  },
+  "limits": [
+    "A16 supervisor-governed epoch withdrawal remains OPEN; cold-reconstruction evidence is in-process.",
+    "A05 missing receipt is a read-only incomplete storage observation; stored signed bytes unchanged.",
+    "A05 mismatched request digest is refused by the blanket caller-reference prohibition; no alternate signed permit injection.",
+    "A05 all identity, custody, assurance, drill and checker observations are local/synthetic; no deployed or domain-validity claim.",
+    "A17 optional timestamp consumers tested locally; deployed external consumer compatibility unqualified.",
+    "X21 generic reference-home startup only; supplementary35-file production-hub route excluded.",
+    "Full retained-private audit, package checks and independent dual-OS regression pending. 28MET baseline unchanged.",
+    "No new dependencies, deployment, external publication or private-owner/paper inclusion."
+  ]
+}

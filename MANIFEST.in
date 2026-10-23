@@ -1,0 +1,86 @@
+graft src/assurance_reference/fixtures
+include source-provenance*.json
+include .gitattributes
+recursive-include tests *.py
+include scripts/_scope_report.py scripts/_source_adaptations.py
+include scripts/_effect_sites.py scripts/inventory_reference_effects.py
+include docs/provenance/effect-inventory.json
+include docs/qualification/d2-current-evidence.md
+include docs/qualification/d2-domain-host-recovery.md
+include docs/provenance/current-evidence/derivation.json
+include scripts/export_checkpoint_report.py
+include scripts/check_historical_measurements.py scripts/check_obligations.py
+include scripts/check_parity.py scripts/check_publication_retention.py scripts/check_source_trace.py
+include scripts/d1_restore_support.py scripts/extract_reference.py scripts/isolated_postgres.py
+include scripts/prepare_publication_editions.py scripts/recover_authority_sources.py scripts/render_publication_editions.py
+include scripts/qualify_clinical_restore.py scripts/qualify_education_restore.py
+include scripts/qualify_isolated_restore.py scripts/qualify_lifecycle_retry_restore.py
+include scripts/qualify_product_spec_restore.py scripts/qualify_three_application_restore.py
+include docs/installation.md docs/separate-machine.md
+include docs/checkpoint-export.md
+include docs/qualification/d5-protocol-model.md docs/provenance/protocol-model.json
+include docs/qualification/d3-customer-credentials.md
+include docs/provenance/a02-input-boundary/adaptations.json
+include docs/qualification/linux-20261014/requirements-linux-locked.txt
+include docs/qualification/linux-20261014/wheelhouse-linux.sha256
+include docs/provenance/a21/proposed/tests/test_authority_alarm_sinks.py
+include docs/qualification/d2-reference-domain-composition.md
+include docs/provenance/a01-input-boundary/adaptations.json
+include scripts/check_effect_inventory.py
+include docs/provenance/effect-site-classifications.json
+global-exclude __pycache__ *.py[cod]
+include docs/provenance/a14-prepermit-retention/adaptations.json
+include docs/provenance/a14-core-retention/adaptations.json
+include docs/provenance/a07-roster-cumulative/adaptations.json
+include docs/provenance/a08-cumulative/adaptations.json
+include docs/provenance/a08-cumulative/derivation.json
+include docs/provenance/a08-writer-composition/DERIVATION.json
+include docs/provenance/a08-role-contract-alignment/DERIVATION.json
+include docs/provenance/a08-issuer-fixture-alignment/DERIVATION.json
+include docs/provenance/a16-durable-standalone/DERIVATION.json
+include docs/provenance/a16-x21-a17-a05-integration/DERIVATION.json
+include docs/provenance/a17-cumulative/adaptations.json
+
+include docs/qualification/a16-supervisor-withdrawal.md
+include docs/provenance/a16-supervisor/DERIVATION.json
+include docs/provenance/a16-resource-order/adaptations.json
+include docs/provenance/a03-application-tiers/adaptations.json
+include docs/provenance/a03-application-tiers/DERIVATION.json
+include docs/qualification/a03-application-tiers.md
+
+include docs/qualification/admitted-cas-and-adapter-seams.md
+include docs/provenance/cas-adapters/DERIVATION.json
+
+include docs/provenance/reviewed-source/DERIVATION.json
+include docs/qualification/reviewed-source-bindings.md
+
+# Retain this signed owner-containing fixture only in the complete private candidate.
+prune src/assurance_reference/fixtures/packs/bundles/health-workspace-membership
+
+include docs/provenance/operator-policy/DERIVATION.json
+include docs/qualification/operator-policy-loading.md
+
+include docs/provenance/i2-reviewer-session/adaptations.json
+include docs/provenance/i2-reviewer-session/DERIVATION.json
+include docs/qualification/reviewer-session-admission.md
+# Candidate 062: reference evidence read by archive tests (public; omitted from the 0.1.6 inclusion list).
+include docs/provenance/a15-receiving-boundaries/MATRIX.json docs/provenance/a19-guard-conformance/MAP.json
+include docs/provenance/c060-bf7b-tenant-stores/POLICIES.json docs/qualification/source-trace-bindings.json
+
+include docs/publication-closeout.md docs/publication-source-derivation.json docs/publication-record-derivation.json
+include docs/qualification/latency-20261018/LATENCY.json
+include scripts/bench_governed_latency.py
+prune docs/authority-scope
+prune tests/private-inputs
+prune docs/publication-corrections
+
+include PUBLIC-TEST-PARTITION.json
+recursive-include scripts *.py
+recursive-include docs/provenance *.json *.patch *.py *.original
+prune docs/authority-scope
+prune tests/private-inputs
+prune docs/publication-corrections
+prune src/assurance_reference/fixtures/packs/bundles/health-workspace-membership
+
+include tests/delegation_review.py.original
+include LICENSE

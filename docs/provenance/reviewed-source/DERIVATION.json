@@ -1,0 +1,105 @@
+{
+  "schema": "reference/additive-integration-provenance/v1",
+  "source_commit": "6bba989aeca27575b971c78a103cbf3745cfda6a",
+  "base_candidate": "039",
+  "base_manifest_sha256": "9449f6330b6d57241e5ca4def3da165aee784a7f8e249a7f256f760ed4d99276",
+  "originals": [
+    {
+      "module": "factory.packs.demonstration_host",
+      "source_path": "factory/packs/demonstration_host.py",
+      "git_blob": "aad6c7b7e9a66e7f3d2f3b8a3ccdccbc0e59308d",
+      "sha256": "d884f6051947eefab5774436d0e9836d8c1d97ec72670e632dc26c12827b0181",
+      "retained_path": "docs/provenance/reviewed-source/originals/factory/packs/demonstration_host.py"
+    },
+    {
+      "module": "factory.packs.demonstration_surfaces",
+      "source_path": "factory/packs/demonstration_surfaces.py",
+      "git_blob": "bd88829b5dbd35e8801b1c9897b34c55bfabc7db",
+      "sha256": "49bc7916f93021be510aa5641d159b7d34931649bab9c828905e0d2812d31d5e",
+      "retained_path": "docs/provenance/reviewed-source/originals/factory/packs/demonstration_surfaces.py"
+    },
+    {
+      "module": "factory.packs.demonstrations",
+      "source_path": "factory/packs/demonstrations.py",
+      "git_blob": "ae7467a01fa8a5395a43d37bfa4f3d7c5ee1402d",
+      "sha256": "44b9fc8a3926a7a93c9640610b11f36dd4c4a84852d475601c9213e55798a3f4",
+      "retained_path": "docs/provenance/reviewed-source/originals/factory/packs/demonstrations.py"
+    },
+    {
+      "module": "factory.packs.reviewed_evidence",
+      "source_path": "factory/packs/reviewed_evidence.py",
+      "git_blob": "4ae626208fae26520cb13532d9c6dd6a4f5d3614",
+      "sha256": "74e3e9c39ce406d79460361fc8ef3aea6f9853de397fb7d46c26797a8a7e557d",
+      "retained_path": "docs/provenance/reviewed-source/originals/factory/packs/reviewed_evidence.py"
+    }
+  ],
+  "modules": [
+    {
+      "path": "src/assurance_reference/reviewed_evidence.py",
+      "sha256": "45e6c91bed7959d0de00036668ce69f09bb2c5aa204b07331073b06a1ed431e9"
+    },
+    {
+      "path": "src/assurance_reference/reviewed_evidence_support.py",
+      "sha256": "29c2701b8e5fd8f727cc5c07f1dc44de298febe0949f022d516153f76ae016ee"
+    },
+    {
+      "path": "src/assurance_reference/reviewed_source_bindings.py",
+      "sha256": "77c7220a3803c85a43ba33dade4a320a84d135c943eb95dc2a13a4eb24e90498"
+    },
+    {
+      "path": "src/factory/packs/demonstrations.py",
+      "sha256": "44b9fc8a3926a7a93c9640610b11f36dd4c4a84852d475601c9213e55798a3f4"
+    }
+  ],
+  "unchanged_extracted_nodes": [
+    "EvidenceUnavailable",
+    "HostEvidence",
+    "current_snapshot",
+    "CurrentSnapshotVerifier"
+  ],
+  "helper_ast_identity_verified_in_staging": true,
+  "reviewed_evidence_import_relocations": {
+    "from .demonstration_checks import EvidenceSnapshot, SnapshotVerifier": "from factory.packs.demonstration_checks import EvidenceSnapshot, SnapshotVerifier",
+    "from .demonstration_surfaces import EvidenceUnavailable": "from assurance_reference.reviewed_evidence_support import EvidenceUnavailable",
+    "from .demonstrations import USES": "from factory.packs.demonstrations import USES"
+  },
+  "non_import_ast_identity_verified_in_staging": true,
+  "new_reference_binding": "src/assurance_reference/reviewed_source_bindings.py",
+  "tests": [
+    {
+      "path": "tests/test_reviewed_source_bindings.py",
+      "sha256": "49f6198a269332ea5d823b0a533057e1d116ac2b6521cee968ebf45f162d04db"
+    },
+    {
+      "path": "tests/test_reviewed_source_installed_composition.py",
+      "sha256": "08cd44b7061964b639eb6b306e16a60e0ae801f937013a77c42881beb445b36c"
+    },
+    {
+      "path": "tests/test_reviewed_source_lifecycle_pg.py",
+      "sha256": "8484d247a3c5661e7e96c8ecfdccaa767d6c2bd0b8fd7abb83edf72526b26025"
+    },
+    {
+      "path": "tests/test_reviewed_source_lock_pg.py",
+      "sha256": "5ef378153ab0cdcbe2c3c832ba22bee9bc34fb1060993e4c6da7cfc3114c9c09"
+    }
+  ],
+  "private_input": {
+    "path": "tests/private-inputs/approved-requirements.md",
+    "sha256": "0d065f9446b92a7aa9b48e967f7697ab07ae263e67b03be05976c1d81b09c08c",
+    "distribution": "PRIVATE; excluded from package inclusion list"
+  },
+  "limits": [
+    "X25 OPEN pending integrated qualification and independent acceptance.",
+    "Explicit local host bindings and retained source checks; no UI/customer hub equivalence, full application release, live issuer, professional or deployed custody qualification.",
+    "Source lock observation covers two threads/connections in one process, not distributed or cross-process assurance.",
+    "Private owner requirements and generated test bundles must remain outside distributable archives. Complete private candidate is required for full audit; archive-only execution is not full qualification.",
+    "Existing general current_evidence and original guard modules remain unchanged; no new runtime dependency.",
+    "Indirect review-store writes and advisory SELECT locks are not fully represented by direct syntax site counts."
+  ],
+  "private_inherited_bundle": {
+    "path": "src/assurance_reference/fixtures/packs/bundles/health-workspace-membership",
+    "private_input_sha256": "0d065f9446b92a7aa9b48e967f7697ab07ae263e67b03be05976c1d81b09c08c",
+    "archive_policy": "Omit complete signed bundle; retain all original bytes in private candidate.",
+    "runtime_limit": "Default local clinical qualification requires complete private candidate; archive-only full qualification not claimed."
+  }
+}

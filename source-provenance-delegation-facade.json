@@ -1,0 +1,56 @@
+{
+  "source_commit": "6bba989aeca27575b971c78a103cbf3745cfda6a",
+  "source_tree": "c72682a1dc4b51b3646d686002bfbdd7b8ae788d",
+  "source_repository": "echiweshe/agent-factory-prod",
+  "seeds": [
+    "regulated_core.delegation_source"
+  ],
+  "files": [
+    {
+      "path": "src/regulated_core/delegation_source.py",
+      "source_path": "regulated_core/delegation_source.py",
+      "bytes": 3513,
+      "sha256": "c8eb306144e1ad9b772e4fac28524ad632f649c767466e3a04cf6fdcda5a65d5",
+      "git_blob": "13a4ad99c1573cc8b8256fc41354151e795661d6",
+      "historical_crlf": false
+    }
+  ],
+  "external_import_roots": [
+    "__future__",
+    "bisect",
+    "collections",
+    "contextlib",
+    "contextvars",
+    "copy",
+    "cryptography",
+    "dataclasses",
+    "datetime",
+    "decimal",
+    "enum",
+    "errno",
+    "fcntl",
+    "hashlib",
+    "inspect",
+    "json",
+    "logging",
+    "math",
+    "msvcrt",
+    "ntpath",
+    "os",
+    "pathlib",
+    "psycopg",
+    "re",
+    "shutil",
+    "stat",
+    "sys",
+    "tempfile",
+    "threading",
+    "time",
+    "types",
+    "typing",
+    "uuid"
+  ],
+  "replacements": [],
+  "scope": "Narrow recovery of exactly one missing frozen module. Existing59 identical and8 adapted closure modules retained unchanged; full-profile recovery is not applied over improvements.",
+  "licence": "Private owner-authorized extraction; public licensing unresolved."
+}

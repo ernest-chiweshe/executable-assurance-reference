@@ -1,0 +1,64 @@
+{
+  "schema": "reference/candidate-changes/v1",
+  "candidate": "056",
+  "base": "055 (FILES 5f893524, SEAL 91e3cec9)",
+  "approval": "governor 9defb21e (option b) and 73051cec (architecture approved: governance-log subclass, forced-RLS tenant fences, installation scopes in the shared table, recovered production files and the adaptation pin unchanged); verifier b7990aa0 (digests are not isolation).",
+  "changes": [
+    {
+      "id": "tenant fences",
+      "files": [
+        "src/assurance_reference/tenant_fences.py"
+      ],
+      "note": "reference_tenant_fences_v1 (tenant, scope, attempt, phase) with forced RLS tenant = app.tenant, append-only trigger and explicit writer grants. TenantFencedGovernanceLog subclasses the recovered PostgresGovernanceLog bound to one tenant: append writes the recovered event row and this tenant's fence row in one transaction under the bound tenant's setting and the recovered per-tenant log lock; unresolved reads only the bound tenant's fences. Lock, event and receipt protocol unchanged."
+    },
+    {
+      "id": "non-bypassable wiring",
+      "files": [
+        "src/assurance_reference/governed_egress.py",
+        "src/assurance_reference/epoch_withdrawal_target.py",
+        "src/assurance_reference/managed_egress.py"
+      ],
+      "note": "The two reference-composable tenant-scoped scopes require a TenantFencedGovernanceLog for their own tenant: egress_delivery_target refuses any other log; epoch_withdrawal_target refuses a shared or foreign log. The managed host builds one per endpoint tenant over the governor login (field governance_log replaced by governance_pool). Installation scopes (pack lifecycle, governance roster) keep the recovered shared table, as the A16 fixture's roster target does."
+    },
+    {
+      "id": "role contract and provisioning",
+      "files": [
+        "src/assurance_reference/role_contract.py",
+        "src/assurance_reference/local_roles.py",
+        "tests/test_role_contract.py",
+        "tests/test_partitioned_role_contract.py"
+      ],
+      "note": "reference_tenant_fences_v1 added to the private tables (governor SELECT/INSERT), therefore to RLS_TABLES: tables 41 -> 42, RLS 31 -> 32, partitioned profile 46 -> 47. The SCOPE_REVIEW note for regulated_governance_fences_v1 now states installation scopes only."
+    },
+    {
+      "id": "fixtures",
+      "files": [
+        "tests/a16_supervisor_fixture.py",
+        "tests/test_epoch_withdrawal_target.py",
+        "tests/test_x8_governed_egress_pg.py",
+        "tests/test_standalone_revocation_reconstruction.py"
+      ],
+      "note": "Epoch-withdrawal targets use a tenant-bound log (the A16 roster target keeps the shared log); X-8 egress targets use the endpoint tenant's log. The standalone reconstruction test, which provisions its own synthetic schema explicitly, also provisions the tenant fence table there."
+    },
+    {
+      "id": "evidence",
+      "files": [
+        "tests/test_bf7b_tenant_fences_pg.py",
+        "tests/test_epoch_withdrawal_target.py"
+      ],
+      "note": "PG: two tenants each deliver through the managed host; every runtime login that may read the tenant fence table (governor) sees its own populated rows and none of the other tenant's; the installation-wide table holds no egress scope. Offline: egress and epoch factories refuse a shared or foreign log."
+    },
+    {
+      "id": "effect catalog",
+      "files": [
+        "docs/provenance/effect-site-classifications.json",
+        "tests/test_effect_classifications.py"
+      ],
+      "note": "5 new support sites in tenant_fences.py; 3 sites relocated by identical statement text; 319 -> 324."
+    },
+    {
+      "id": "limits",
+      "note": "Installation-scope fences (pack lifecycle, roster) stay in the shared table, read by installation duties; heartbeats and rosters ruled installation infrastructure (governor 9defb21e). Populated-owner assertions in the general isolation test cover the named core tables, identities, alerts and now tenant fences; monitor-clearance population is not asserted and is not claimed. Partitioned pack tables keep their own OPEN review notes. The database administrator is excluded."
+    }
+  ]
+}

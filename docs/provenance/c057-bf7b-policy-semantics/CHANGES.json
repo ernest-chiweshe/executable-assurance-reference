@@ -1,0 +1,26 @@
+{
+  "schema": "reference/candidate-changes/v1",
+  "candidate": "057",
+  "base": "056 (FILES 69ba2349, SEAL dd4d209f; dual-OS 2088/2088)",
+  "approval": "governor 2c3c3e39 pre-authorized a frozen-scope B-F7b hardening candidate; verifier d14789c6 asked for exact reviewed tenant-column/setting semantics and effective policies per role and command, keeping the populated positives and ACL/identity checks.",
+  "changes": [
+    {
+      "id": "pinned policy semantics",
+      "files": [
+        "docs/provenance/c057-bf7b-policy-semantics/POLICIES.json"
+      ],
+      "note": "The live pg_policies of a freshly provisioned schema for all 32 RLS tables, captured in the author run and pinned field for field: one PERMISSIVE policy per table for PUBLIC and command ALL. Its row condition compares the table's tenant column (or the alert payload tenant) to a per-request setting: app.tenant; app.education_tenant for pack_documents; app.release_tenant for release goal/link/material tables; app.alert_tenant for alerts. Project and clinical tables add namespace, workspace-owner and clinician conditions. The effective policy is identical for every runtime login and command; which commands a login may issue is fixed by the explicit privilege contract. reference_clinical_state_v1 reads are stricter than writes (removed sessions are hidden)."
+    },
+    {
+      "id": "population-independent proof",
+      "files": [
+        "tests/test_bf7b_policy_isolation_pg.py"
+      ],
+      "note": "On a freshly provisioned schema, every RLS table has RLS enabled and forced; the live policies equal the pinned set exactly; every condition compares a row value to an app.* session setting, none is absent or unconditional; each write condition is contained in its read condition. No runtime login is superuser, has BYPASSRLS, or owns a table. Together with the forced-RLS and exact-privilege contract per login, a foreign row is not visible to or writable by any runtime login whatever the table holds."
+    }
+  ],
+  "not_included": [
+    "Owner-seeded two-tenant rows for the 25 tables without lawful-flow population were not added (FK, append-only and writer-role triggers make generic seeding brittle); the populated positives remain the 7 tables named in 056.",
+    "Installation/shared stores and the partitioned pack tables' OPEN notes are unchanged and not claimed."
+  ]
+}

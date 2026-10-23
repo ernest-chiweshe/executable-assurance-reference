@@ -1,0 +1,24 @@
+{
+  "schema": "reference/generic-authority-derivation/v1",
+  "obligations": [
+    "X-25",
+    "I-4"
+  ],
+  "source_commit": "6bba989aeca27575b971c78a103cbf3745cfda6a",
+  "source_path": "factory/packs/reviewed_evidence.py",
+  "source_git_blob": "4ae626208fae26520cb13532d9c6dd6a4f5d3614",
+  "source_sha256": "74e3e9c39ce406d79460361fc8ef3aea6f9853de397fb7d46c26797a8a7e557d",
+  "retained_original": "docs/provenance/reviewed-evidence/originals/reviewed_evidence.py",
+  "derived_path": "src/assurance_reference/reviewed_evidence.py",
+  "derived_sha256": "61ba92e3178942939a7cb3550305a22381fa5064863f0fa78c773a38534c32ff",
+  "changes": [
+    "Relocate to reference namespace and reuse recovered EvidenceSnapshot/SnapshotVerifier and generic EvidenceUnavailable.",
+    "Replace application USES global with an explicit required immutable host allowlist carried through payload construction, decoding and custody scope checks.",
+    "Snapshot issuer authority maps into a read-only mapping.",
+    "Preserve SourceReleaseGuard class byte-for-byte and retain signed envelope verification, sequence CAS, advisory-lock lifetime and uncertain-lock connection closure."
+  ],
+  "limits": [
+    "Derived authority implementation pending independent review and full integration; original retained unchanged.",
+    "No deployment, issuer professional qualification or external source-custody claim."
+  ]
+}

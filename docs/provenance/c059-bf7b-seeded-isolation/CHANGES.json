@@ -1,0 +1,19 @@
+{
+  "schema": "reference/candidate-changes/v1",
+  "candidate": "059",
+  "base": "058 (FILES 2c10d8ae, SEAL 4004f146; dual-OS 2089/2089; P1-P5 KILLED 5/5)",
+  "approval": "governor pre-authorized a seeded-row isolation test for all 32 RLS tables (frozen-scope B-F7b hardening). verifier 784342f2 kept frozen B-F7b OPEN for population 7/32, monitor-clearance population, and shared/partitioned limits.",
+  "changes": [
+    {
+      "id": "populated two-tenant isolation on all 32 RLS tables",
+      "files": [
+        "tests/test_bf7b_seeded_isolation_pg.py"
+      ],
+      "note": "The excluded database administrator (isolated cluster superuser) seeds one row per tenant for two tenants into every RLS table. Triggers and foreign keys are skipped in replica mode; CHECK, UNIQUE and primary-key constraints still apply. Every value the row policy compares is set for its tenant (tenant columns, alert payload tenant, education pack and collection, project namespace, clinician owner). A removal row naming another session leaves the clinical session visible. Reads: for every runtime login and every RLS table it may read, by table or column privilege, each tenant's request settings show exactly that tenant's row, identified by a column whose value differs between the tenants. The four tables with no runtime read (decision inputs, decision uses, evidence checkpoints, root admissions) refuse every login. Inserts: all 23 login/table INSERT grants refuse a row tagged for the other tenant, and the other tenant's rows are unchanged (ctid/xmin). 19 are refused by the row policy's WITH CHECK. The other 4 (the three budget writers on mission budget events, and the recorder on preparations) are refused first by their tables' tenant-matching BEFORE INSERT triggers (pinned messages); WITH CHECK on those two tables is covered by the pinned policy proof. Updates: all 22 column UPDATE grants on RLS tables (pinned list equal to the privilege contract) update the requesting tenant's own row and never the other tenant's (xmin unchanged). Monitor clearances are populated: receiver reads only its tenant's clearance; monitor_ingress cannot insert one for another tenant."
+    }
+  ],
+  "not_included": [
+    "The partitioned pack profile (reference_pack_shared/tenants/installation_retries/retry_index) and the installation/shared stores (pack_lifecycle, rosters, governance fences, heartbeats) are unchanged; their OPEN notes are not claimed and are referred to governor for ruling.",
+    "Seeding uses the excluded administrator in replica mode; lawful-flow population remains the 7 tables named in 056."
+  ]
+}

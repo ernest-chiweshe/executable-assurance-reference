@@ -1,0 +1,22 @@
+{
+  "schema": "reference/candidate-changes/v1",
+  "candidate": "053",
+  "base": "052 (FILES e6b8ac8b, SEAL 6bd507ce)",
+  "changes": [
+    {
+      "id": "B-F7b (verifier C051-BF7B-G1)",
+      "files": [
+        "tests/test_tenant_row_isolation_pg.py",
+        "src/assurance_reference/local_education_fixture.py"
+      ],
+      "note": "The seeded loop now covers every row-level-secured table, including reference_alerts_v1. Alerts are row-level secured although listed for scope review, so one owner-tenant alert is seeded through the ordinary alert store and asserted populated. New column-only check: every login whose duty is a column-only read on a row-level-secured table (at least session_reader and owner_reader on reference_identities_v1; monitor_ingress on clearances where present) sees no other tenant's row through its readable columns. The owner's identities are present, so zero means isolation, not an empty table. The remaining SCOPE_REVIEW stores (pack_lifecycle, governance rosters, governance fences, monitor heartbeats) stay OPEN and are not claimed. Found while running: reference_alerts_v1 is scoped by app.alert_tenant, not app.tenant, so the earlier loop's zero for alerts was vacuous; the count helper now sets both settings. The fixture exposes its existing alert store (additive field alerts=alerts)."
+    },
+    {
+      "id": "I-6 clock/recorder per path (verifier 2f75990d)",
+      "files": [
+        "tests/test_i6_application_lane_pg.py"
+      ],
+      "note": "After each Education, Health and product lawful decision: the application's own ReferenceDecisionRecorder refuses a record stamped before its durable evidence head (no entry added, chain verified). Its single floor-bound DurableClock, shared with the target authority, refuses a same-domain sample below the floor that application's decisions advanced (ordinary regressing source on the application's own floor row)."
+    }
+  ]
+}

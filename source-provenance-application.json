@@ -1,0 +1,15 @@
+{
+  "source_commit": "6bba989aeca27575b971c78a103cbf3745cfda6a",
+  "source_repository": "echiweshe/agent-factory-prod",
+  "scope": "Exact declaration/validation module only. ProjectEngine is not extracted; new synthetic composition is separately qualified.",
+  "files": [
+    {
+      "path": "src/factory/projectos/spec.py",
+      "source_path": "factory/projectos/spec.py",
+      "bytes": 12238,
+      "sha256": "ba41eb80e1536c4aed275d799cdd294411bd34b681935bbf8be458ca2795b05b",
+      "git_blob": "bdd770676f2ad073126e0366de09efa6f0d65abe",
+      "historical_crlf": false
+    }
+  ]
+}

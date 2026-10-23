@@ -1,0 +1,50 @@
+{
+  "cases": [
+    {
+      "name": "every criterion addressed",
+      "draft": "...",
+      "contract": {
+        "rubric_identifier": "drawing-first-angle/v1",
+        "rubric_criteria": [
+          "projection",
+          "line-types",
+          "dimensioning"
+        ],
+        "criteria_addressed": [
+          "projection",
+          "line-types",
+          "dimensioning"
+        ]
+      },
+      "expected": "pass"
+    },
+    {
+      "name": "a criterion missed",
+      "draft": "...",
+      "contract": {
+        "rubric_identifier": "drawing-first-angle/v1",
+        "rubric_criteria": [
+          "projection",
+          "line-types",
+          "dimensioning"
+        ],
+        "criteria_addressed": [
+          "projection"
+        ]
+      },
+      "expected": "fail",
+      "expected_reasons": [
+        "CRITERION_UNADDRESSED"
+      ]
+    },
+    {
+      "name": "no rubric",
+      "draft": "...",
+      "contract": {},
+      "expected": "fail",
+      "expected_reasons": [
+        "NO_RUBRIC"
+      ]
+    }
+  ]
+}

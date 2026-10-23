@@ -1,0 +1,47 @@
+{
+  "source_commit": "6bba989aeca27575b971c78a103cbf3745cfda6a",
+  "source_tree": "c72682a1dc4b51b3646d686002bfbdd7b8ae788d",
+  "source_repository": "echiweshe/agent-factory-prod",
+  "seeds": [
+    "factory.domain_host"
+  ],
+  "files": [
+    {
+      "path": "src/factory/domain_host.py",
+      "source_path": "factory/domain_host.py",
+      "sha256": "3c7e310215d497be24a29c89afde8fe39c645f4204ee1310a699f7e01fe433b1",
+      "git_blob": "aa4f4742ee4327d5096f52c5ce8d309b51dff541",
+      "historical_crlf": false
+    }
+  ],
+  "changes": [],
+  "direct_reference_dependencies": [
+    {
+      "module": "regulated_core.production_gate",
+      "reference_path": "src/regulated_core/production_gate.py",
+      "sha256": "ca66c85274b2173c9c7af472a3c9a20792c0e502b9867a469e8f9357ac97fc35"
+    },
+    {
+      "module": "regulated_core.clock",
+      "reference_path": "src/regulated_core/clock.py",
+      "sha256": "b2677b19ecb29732de79bff314675cf6dc6dc159fda8146b1cd39003e8ee0fb7"
+    },
+    {
+      "module": "regulated_core.document_gate",
+      "reference_path": "src/regulated_core/document_gate.py",
+      "sha256": "aa06981b357c7a907e86d7513d97e06d19cbd4dace2debbc09110b9f16cae723"
+    },
+    {
+      "module": "regulated_core.host_runtime",
+      "reference_path": "src/regulated_core/host_runtime.py",
+      "sha256": "bf92e5e3a3dee2b1ad12aaaafb7cf3b426381ffb9c239e33231d32ceae520eef"
+    },
+    {
+      "module": "regulated_core.signing",
+      "reference_path": "src/regulated_core/signing.py",
+      "sha256": "d93c2dec6670b4c16f925d05f9fb244d95d2abb20c7b18614ae4643ad937e53b"
+    }
+  ],
+  "scope": "Exact pinned I-4 domain-host recovery only. Direct authority imports already present; no existing source overwritten. Not integrated with the additional reference qualification/session/floor contracts.",
+  "licence": "Private owner-authorized recovery; public licensing unresolved."
+}

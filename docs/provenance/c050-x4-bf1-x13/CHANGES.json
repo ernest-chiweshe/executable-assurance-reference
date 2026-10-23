@@ -1,0 +1,118 @@
+{
+  "schema": "reference/candidate-change-provenance/v1",
+  "candidate": "050",
+  "base_candidate": "049",
+  "base_manifest_sha256": "b7404ee83b33618205b2405a7db53e49aa8424e5de00877d13719171d4206a13",
+  "author": "implementer",
+  "addresses": [
+    {
+      "row": "X-4",
+      "resolution": "retained_settlement.py: one retained settlement per approved review (durable intent, then the exact TargetAuthorization retained after exact round-trip); re-entry with identical bindings returns the same signed permit and live reservation after re-authenticating permit and decision; any changed binding (bytes, contract, target, nonce) refuses; a crash at after-intent-before-authorization or after-authorization-before-retention is UNKNOWN, never a second permit; dedicated settlement_writer login (SELECT, INSERT, UPDATE(state, authorization_body)). Tests: test_retained_settlement_pg.py. Producer/requester refusal at grant: existing requester-self-review and 049 producer-bound test."
+    },
+    {
+      "row": "B-F1",
+      "resolution": "test_bf1_deny_by_default_matrix_pg.py: E, H and P each refuse no-policy (NO_POLICY), no-approval (APPROVAL_MISSING/SECOND_REVIEW) and no-evidence (CHECK_FAILED/CONTROL_MISSING) at the shared qualified engine with no permit, unspent nonce and no effect; all three gates are _RegulatedGateBase under QualificationEvidenceGate over QualifiedReferenceEngine; P's runtime VerticalSpec equals product_spec_spec() in every field except the regulated attachment, with no domain pack."
+    },
+    {
+      "finding": "C048-X13-G1 (X-13)",
+      "resolution": "test_clinical_finalisation_recovery_pg.py: permit deadline equals the attempt's recovery deadline; something present at the content-addressed target is never replaced; an attempt stopped at committed-before-settle resolves COMMITTED by receipt only after its window, with zero re-renders and one record."
+    },
+    {
+      "finding": "C049-P1 (I-6)",
+      "resolution": "test_intake_lane_serialization_pg.py waiting assertion bound to exactly this tenant's lane key (classid/objid/objsubid=1) and zero waiters on the other tenant's lane."
+    },
+    {
+      "row": "A15",
+      "resolution": "test_pg_receiver_connection_loss_pg.py: connection lost after the effect inside the receiver transaction is UNKNOWN, status resolves NOT_COMMITTED with nothing applied; MATRIX updated (governance committed-ack-lost and PG connection-loss evidence; resolved open items removed; remaining open items pinned exactly by test_a15_boundary_matrix)."
+    }
+  ],
+  "contract_count_updates": "settlement_writer: 19 logins, 41 tables, 31 RLS; refusal counts 88/108; effect catalog 312 (4 settlement sites support_effect).",
+  "limits": [
+    "Settlement intent without retained authorization requires the authorised procedure; no automatic resume of an unretained permit.",
+    "Synthetic data; isolated local PostgreSQL."
+  ],
+  "delta": {
+    "added": [
+      "src/assurance_reference/retained_settlement.py",
+      "tests/test_bf1_deny_by_default_matrix_pg.py",
+      "tests/test_clinical_finalisation_recovery_pg.py",
+      "tests/test_pg_receiver_connection_loss_pg.py",
+      "tests/test_retained_settlement_pg.py"
+    ],
+    "changed": [
+      "docs/provenance/a15-receiving-boundaries/MATRIX.json",
+      "docs/provenance/effect-site-classifications.json",
+      "src/assurance_reference/local_roles.py",
+      "src/assurance_reference/role_contract.py",
+      "tests/test_a15_boundary_matrix.py",
+      "tests/test_effect_classifications.py",
+      "tests/test_intake_lane_serialization_pg.py",
+      "tests/test_local_roles.py",
+      "tests/test_partitioned_role_contract.py",
+      "tests/test_role_contract.py"
+    ],
+    "removed": []
+  },
+  "files": {
+    "src/assurance_reference/retained_settlement.py": {
+      "base_sha256": null,
+      "sha256": "71005fe564c4228d9bafcd64e31e1ad611785f20c2755ee8a67a07766918d6ce"
+    },
+    "tests/test_bf1_deny_by_default_matrix_pg.py": {
+      "base_sha256": null,
+      "sha256": "77365da3777c018736a49c92f0b9d8c3778c631198867b0a9bc66fb829ff5153"
+    },
+    "tests/test_clinical_finalisation_recovery_pg.py": {
+      "base_sha256": null,
+      "sha256": "cd37e646b743c4a9425e6bbebba3cb8d2f85013a280b948a1392ee964952b55a"
+    },
+    "tests/test_pg_receiver_connection_loss_pg.py": {
+      "base_sha256": null,
+      "sha256": "486c7d632a1e41cb4c8c208130413df0084f806ee7330006dd8d1da677498e37"
+    },
+    "tests/test_retained_settlement_pg.py": {
+      "base_sha256": null,
+      "sha256": "4c07bacecab3fb1201946c3f2f82d9a8e947d7a8449342d351ffe2bd130ac38f"
+    },
+    "docs/provenance/a15-receiving-boundaries/MATRIX.json": {
+      "base_sha256": "1606ce2eb3052aa6ae77d97dd346ae7e1460c03a7e42379f04da62369e98c688",
+      "sha256": "49c887864249b8318c2bbdd00ec74cfba7acd7f394054ce7af6dc0aeffcb8a4d"
+    },
+    "docs/provenance/effect-site-classifications.json": {
+      "base_sha256": "8628706dc5531ef672c5aee8754a1dabd477512df36f4e6f5a8da68e01197ac8",
+      "sha256": "803bb31cb19965a82c933b60e2faecfae0c28dd0af33cdacdbdaadcb535713cf"
+    },
+    "src/assurance_reference/local_roles.py": {
+      "base_sha256": "01ddc2ad199230fa3c658d23b8ea3efd9cd7101f4575a53fef627ce0a12774c1",
+      "sha256": "e61f1ee4f92b81c7d4aa8acde9da918cc882661e0b5cca0f3547587c818a56e7"
+    },
+    "src/assurance_reference/role_contract.py": {
+      "base_sha256": "fc9006afbfff0fc3ba117d623b034194803c0ab928934faeaef1b9cfe5108041",
+      "sha256": "c59edcd358146efa871cb162bc161456260adc4b72eb18cbd98a8d7208d8ef83"
+    },
+    "tests/test_a15_boundary_matrix.py": {
+      "base_sha256": "87a89fad4dd789a5d39cbc784ea64742642bd2bf3ca2903ac3ada5c1183f9ecf",
+      "sha256": "72c72ac4621ad0a701b9554e88c3669ff36ad283fd5fd882a7bea4c0f37a98e9"
+    },
+    "tests/test_effect_classifications.py": {
+      "base_sha256": "37cb2f10f587917780916287bd66a454425fdcc3eec6f3b80d931fe27042de86",
+      "sha256": "5fbe2ad9bffcec4659c110e9a9067bd33b25e3cd97e2252b91f4f0a37781dee9"
+    },
+    "tests/test_intake_lane_serialization_pg.py": {
+      "base_sha256": "7b9f34d2f5f1ca79ca95e117c4d1f711b001d7e85321ef05835e7b9a754c8370",
+      "sha256": "282a879d7e83134a3c8b529c21db487a77c4ec0416595e49f683fe5ddb7bfad3"
+    },
+    "tests/test_local_roles.py": {
+      "base_sha256": "26847344e756d5d6177df3c93bbffa2b1b1424ca5ebe9274e058b951a52524d8",
+      "sha256": "b3052d78007d66ba7649f2d1af0a5247d3ef5eeba9fdbc0268f9daaf926b5a64"
+    },
+    "tests/test_partitioned_role_contract.py": {
+      "base_sha256": "92c8f55ec7d39b62231509dae5f6128312b448167aa940538e7d00485f244b9e",
+      "sha256": "f6f8d57c3577df4538b76cafab89ecb3230ee4225d0775b9ca73ae27581713e9"
+    },
+    "tests/test_role_contract.py": {
+      "base_sha256": "ba6f90daff69f913dbeaadaa5699141a951cdce82bea1804963574e64fdf623c",
+      "sha256": "d11b1054a8bcb679735254c7b9e5c26f435e534ebd89d520972ebdb2f2260e62"
+    }
+  }
+}

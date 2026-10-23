@@ -1,0 +1,218 @@
+--- a/regulated_core/projectos_gate.py
++++ b/regulated_core/projectos_gate.py
+@@ -87,6 +87,13 @@
+     return "write-once-evidence" if isinstance(down, WormUnavailable) else "signer"
+ 
+ 
++def require_retention_store(store: WormStore) -> None:
++    """Reject incomplete retention configuration without invoking storage."""
++    if any(not callable(getattr(store, name, None))
++           for name in ("anchor", "fetch", "verify")):
++        raise ValueError("explicit retention operations required")
++
++
+ class _RegulatedGateBase:
+     """The reusable recipe. A domain subclass sets the class attributes and implements `_verify`/`_audit`."""
+ 
+@@ -106,6 +113,7 @@
+                  review_store: ReviewStore | None = None, outage_alarm: OutageAlarm | None = None,
+                  membership_evidence: ReviewMembershipEvidence | None = None,
+                  release_readiness: ReleaseReadiness | None = None) -> None:
++        require_retention_store(worm)
+         self._engine = engine
+         # Paper A 5.3 (A17): an outage of the signer, key store or evidence store is reported through this channel,
+         # which depends on none of them; the default is the structured log a CloudWatch metric filter alarms on.
+@@ -566,6 +574,16 @@
+         certificate = approved.certificate if approved is not None else context.approval
+         quals = self._qualification_summaries(assertion, context.now_us)
+         summaries = quals.values() if isinstance(quals, dict) else ()
++        receipt = None
++
++        def retain_before_permit() -> None:
++            nonlocal receipt
++            retained = anchor_evidence_chain(self._worm, self._engine._recorder, context.tenant,
++                                             retain_us=self._worm_retain_us, now_us=context.now_us)
++            if not self._worm.verify(retained):
++                raise WormUnavailable("anchored evidence did not verify; no permit is issued")
++            receipt = retained
++
+         auth = self._engine.authorize_for_target(
+             vertical=self.VERTICAL, capability=cap, assertion=assertion, action=action, ctx=pctx, output=artifact,
+             target=self.target_for(out_path, context.tenant), permit_ttl_us=_HOUR, nonce=context.nonce,
+@@ -575,21 +593,11 @@
+                                                if isinstance(q, dict) and q.get("report_digest"))),
+             approval_cert=certificate,
+             approval_evidence=(approved.envelope if approved is not None
+-                               else self._approved_record(certificate, context.tenant)))
++                               else self._approved_record(certificate, context.tenant)),
++            retain_before_permit=retain_before_permit)
+         evidence = self._evidence(auth, assertion=assertion, certificate=certificate, approved=approved, quals=quals)
+         if auth.authorized:
+-            # Paper A 5.1: the retained, anchored decision is a precondition of the effect, so the anchor is
+-            # written before the permit is returned; a failed anchor raises and nothing is committed.
+-            try:
+-                receipt = anchor_evidence_chain(self._worm, self._engine._recorder, context.tenant,
+-                                                retain_us=self._worm_retain_us, now_us=context.now_us)
+-                # A receipt is a claim until the store proves it: the exact anchored bytes under their retention.
+-                # No permit is returned over evidence the store cannot verify (source review 3071; Paper A 5.1).
+-                if not self._worm.verify(receipt):
+-                    raise WormUnavailable("anchored evidence did not verify; no permit is issued")
+-            except BaseException:
+-                self._return_unreleased_reservation(auth)
+-                raise
++            # The engine completed retention verification before signing.
+             evidence = bind_worm_receipt(evidence, receipt)
+         return EmissionDecision(allowed=auth.authorized, reason=auth.reason or auth.decision_kind,
+                                 evidence=evidence, permit=auth if auth.authorized else None)
+--- a/regulated_core/pack_gate.py
++++ b/regulated_core/pack_gate.py
+@@ -27,7 +27,7 @@
+ from .preflight import IntendedUse, IntendedUseRegistry
+ from .registry import PolicyRegistry
+ from .outage import OutageAlarm
+-from .projectos_gate import CredentialVerifier, QualificationRegistry, _RegulatedGateBase
++from .projectos_gate import CredentialVerifier, QualificationRegistry, _RegulatedGateBase, require_retention_store
+ from .signing import Signer, TrustDirectory
+ from .verification import sign_verification
+ from .worm import WormStore
+@@ -57,6 +57,9 @@
+     review_extension_factory: Any = None
+     # The host's composed outage alarm (A17); absent, the gate's default log channel.
+     outage_alarm: OutageAlarm | None = None
++
++    def __post_init__(self) -> None:
++        require_retention_store(self.worm)
+ 
+     def __call__(self, pack: InstalledPack, registry: PackRegistry, surface: Any) -> RulebookGate:
+         spec = getattr(surface, "_spec", None) or getattr(surface, "spec", None)
+--- a/tests/test_authority_alarm_sinks.py
++++ b/tests/test_authority_alarm_sinks.py
+@@ -144,8 +144,13 @@
+     document = NS(vertical="v", policy_id="pid", digest=lambda: "d")
+     pack = NS(reference="p#1", rulebook=NS(document=document))
+     surface = NS(spec=NS(regulated=NS(pack_version="p#1", policy_ref="v/pid", policy_digest="d")))
++    def unexpected_retention(*args, **kwargs):
++        raise AssertionError("alarm wiring must not access retention")
++
++    retention = NS(anchor=unexpected_retention, fetch=unexpected_retention,
++                   verify=unexpected_retention)
+     factory = pack_gate.PackGateFactory(trust=None, engine=None, host_verifiers=None,  # type: ignore[arg-type]
+                                         verifier_signers={}, credential_verifier=None,  # type: ignore[arg-type]
+-                                        intended_uses=None, worm=None, outage_alarm=alarm)  # type: ignore[arg-type]
++                                        intended_uses=None, worm=retention, outage_alarm=alarm)  # type: ignore[arg-type]
+     assert factory(pack, None, surface) is None  # type: ignore[arg-type]
+     assert built["outage_alarm"] is alarm
+--- a/factory/credentials.py
++++ b/factory/credentials.py
+@@ -24,7 +24,7 @@
+ from collections.abc import Callable, Mapping
+ from typing import Protocol
+ 
+-from factory.tenant import TenantContext
++from factory.tenant import SELF, TenantContext
+ 
+ 
+ class MissingCredentialError(RuntimeError):
+@@ -41,7 +41,7 @@
+     from factory.runtime import active_tenant
+ 
+     for candidate in (active_tenant.get(), tenant):
+-        if candidate is not None and is_customer_tenant(candidate):
++        if candidate is not None and candidate.tenant_id != SELF.tenant_id:
+             raise MissingCredentialError(
+                 f"Operator environment credentials cannot serve customer tenant '{candidate.tenant_id}' "
+                 f"for provider '{provider}'; deposit a customer credential in the vault."
+@@ -209,11 +209,11 @@
+     * the effective tenant is the AMBIENT customer tenant when one is bound
+       (``factory.runtime.customer_tenant`` wraps every customer plan job), else
+       the tenant the caller passed;
+-    * a customer tenant resolves ONLY through the customer store (the BYO-key
++    * every tenant other than the explicit operator SELF resolves ONLY through the customer store (the BYO-key
+       vault, keyed by the customer's tenant id and the provider slug); with no
+       customer store composed, or no deposit, it fails LOUD - there is no path
+       from a customer run to the operator's environment;
+-    * every other tenant resolves exactly as before through the operator store.
++    * only the explicit operator SELF resolves through the operator store.
+     """
+ 
+     def __init__(self, operator: CredentialStore, *,
+@@ -224,11 +224,12 @@
+         self._ambient = ambient
+ 
+     def effective_tenant(self, tenant: TenantContext) -> TenantContext:
+-        return self._ambient() or tenant
++        ambient = self._ambient()
++        return ambient if ambient is not None and ambient.tenant_id != SELF.tenant_id else tenant
+ 
+     def get(self, tenant: TenantContext, provider: str) -> str:
+         effective = self.effective_tenant(tenant)
+-        if is_customer_tenant(effective):
++        if effective.tenant_id != SELF.tenant_id:
+             store = self._customer()
+             if store is None:
+                 raise MissingCredentialError(
+--- a/regulated_core/governance_targets.py
++++ b/regulated_core/governance_targets.py
+@@ -419,6 +419,9 @@
+         return None
+ 
+     def commit(self, signed: SignedTargetPermit, output: bytes) -> TargetResult:
++        # Reject a missing or wrong outer permit before host reads or nonce claims.
++        if not isinstance(signed, SignedTargetPermit):
++            return TargetResult(Outcome.FAILED, "a signed target permit is required")
+         p = signed.permit
+         replayed = self._replayed(signed, output)
+         if replayed is not None:
+--- a/regulated_core/target.py
++++ b/regulated_core/target.py
+@@ -555,6 +555,8 @@
+     # â”€â”€ commit â”€â”€
+ 
+     def commit(self, signed: SignedTargetPermit, output: bytes) -> TargetResult:
++        if not isinstance(signed, SignedTargetPermit):
++            return TargetResult(Outcome.FAILED, "a signed target permit is required")
+         p = signed.permit
+         self.path.parent.mkdir(parents=True, exist_ok=True)
+         try:
+--- a/regulated_core/database_receiver_pg.py
++++ b/regulated_core/database_receiver_pg.py
+@@ -255,6 +255,8 @@
+         return deadline
+ 
+     def commit(self, signed: SignedTargetPermit, output: bytes) -> TargetResult:
++        if not isinstance(signed, SignedTargetPermit):
++            return TargetResult(Outcome.FAILED, "a signed target permit is required")
+         import psycopg
+ 
+         attempted = False
+--- a/regulated_core/engine.py
++++ b/regulated_core/engine.py
+@@ -353,6 +353,7 @@
+         permit_ttl_us: int, nonce: str, qualification_digests: tuple[str, ...] = (), not_after_us: int = 0,
+         approval_cert: ApprovalCertificate | None = None,
+         approval_evidence: SignedDecisionEnvelope | None = None,
++        retain_before_permit: Callable[[], None] | None = None,
+     ) -> TargetAuthorization:
+         """Decide, then issue a permit bound to these exact bytes, this operation and this target's current state.
+ 
+@@ -465,6 +466,20 @@
+             # Nor does any permit outlive the capability or the approval it was decided on (source review 3107).
+             not_after_us = (min(not_after_us, decided.authority_expires_us) if not_after_us
+                             else decided.authority_expires_us)
++        if retain_before_permit is not None:
++            # A regulated host anchors and verifies the recorded decision here,
++            # after authorization checks but before any target permit is signed.
++            try:
++                retain_before_permit()
++            except BaseException:
++                if reservation != UNBUDGETED:
++                    try:
++                        self._budget.release(ctx.tenant_id, mission, reservation)
++                    except Exception:
++                        # Retain the original failure; a held reservation is the
++                        # conservative outcome if cleanup is also unavailable.
++                        pass
++                raise
+         try:
+             permit = self._targets.issue(
+                 # Every binding the approval owns comes from the signed action alone; the adapter only executes and

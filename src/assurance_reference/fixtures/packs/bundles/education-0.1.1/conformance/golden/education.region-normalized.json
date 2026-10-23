@@ -1,0 +1,72 @@
+{
+  "cases": [
+    {
+      "name": "localised finding",
+      "draft": "...",
+      "contract": {
+        "media": [
+          "scan.jpg"
+        ],
+        "findings": [
+          {
+            "rubric_code": "dimensioning",
+            "region": [
+              0.1,
+              0.2,
+              0.4,
+              0.5
+            ]
+          }
+        ]
+      },
+      "expected": "pass"
+    },
+    {
+      "name": "region outside the image",
+      "draft": "...",
+      "contract": {
+        "media": [
+          "scan.jpg"
+        ],
+        "findings": [
+          {
+            "rubric_code": "dimensioning",
+            "region": [
+              0.1,
+              0.2,
+              1.4,
+              0.5
+            ]
+          }
+        ]
+      },
+      "expected": "fail",
+      "expected_reasons": [
+        "REGION_OUT_OF_BOUNDS"
+      ]
+    },
+    {
+      "name": "image without localisation",
+      "draft": "...",
+      "contract": {
+        "media": [
+          "scan.jpg"
+        ],
+        "findings": []
+      },
+      "expected": "indeterminate",
+      "expected_reasons": [
+        "NO_LOCALISATION"
+      ]
+    },
+    {
+      "name": "text submission needs none",
+      "draft": "...",
+      "contract": {
+        "media": [],
+        "findings": []
+      },
+      "expected": "pass"
+    }
+  ]
+}

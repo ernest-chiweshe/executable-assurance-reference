@@ -1,0 +1,36 @@
+{
+  "schema": "reference/surgical-derivation/v1",
+  "parent_files_sha256": "b01d55197138cf305faf7ba143e9a614dae9863d575234c77206ef8ec62b3efd",
+  "recovered_module": [
+    {
+      "path": "src/regulated_core/delegation_source.py",
+      "source_path": "regulated_core/delegation_source.py",
+      "bytes": 3513,
+      "sha256": "c8eb306144e1ad9b772e4fac28524ad632f649c767466e3a04cf6fdcda5a65d5",
+      "git_blob": "13a4ad99c1573cc8b8256fc41354151e795661d6",
+      "historical_crlf": false
+    }
+  ],
+  "existing_adapted_closure_paths_preserved": [
+    "src/regulated_core/budget.py",
+    "src/regulated_core/engine.py",
+    "src/regulated_core/governance_roster.py",
+    "src/regulated_core/governance_targets.py",
+    "src/regulated_core/persistence_pg.py",
+    "src/regulated_core/preflight.py",
+    "src/regulated_core/preparation_pg.py",
+    "src/regulated_core/target.py"
+  ],
+  "change": "Five delegation-review methods route through existing _review_call; original methods and guards retained. Synthetic fixtures and A08/B-F4 contracts integrated.",
+  "limits": [
+    "A08/B-F4 OPEN pending runtime and independent acceptance.",
+    "Root-review fixture receiving callback deliberately refuses; not a delegated receiving-release claim.",
+    "Frozen comparison covers read methods under shared reference dependencies, not complete original production composition."
+  ],
+  "new_runtime_dependencies": [],
+  "verified_governance_and_review_payloads": [
+    "0e3da6d1779fb519577eb5e13171fff025bc0a06dc51bc586cd7c77e5330bc1c",
+    "e340bab27017bd8056650af66ba7d7e4f4be25f1628be79c566b44bd8ef7e26d",
+    "276ac037b06aaad9a6c573106f96370496d6feb83d953c7a871c6984b860c4ff"
+  ]
+}

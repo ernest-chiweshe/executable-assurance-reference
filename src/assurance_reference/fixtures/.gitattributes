@@ -1,0 +1,2 @@
+# Signed historical fixtures must survive checkout byte for byte.
+* -text

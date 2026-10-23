@@ -1,0 +1,37 @@
+{
+  "schema": "reference/candidate-changes/v1",
+  "candidate": "052",
+  "base": "051 (FILES 7ee21c12, SEAL dfcc7a42)",
+  "changes": [
+    {
+      "id": "A15 pack-bound-filesystem",
+      "files": [
+        "tests/test_pack_delivery.py",
+        "docs/provenance/a15-receiving-boundaries/MATRIX.json",
+        "tests/test_a15_boundary_matrix.py"
+      ],
+      "note": "Named point pack-bound-claimed-before-write: a separately-nonced ordinary other-school delivery stops after its nonce claim and before staging. Redelivery answers UNKNOWN PACK_DELIVERY_RECONCILIATION_REQUIRED with no effect. The existing redelivery after withdrawal is the lost-acknowledgement COMMITTED evidence. Pinned open count for this boundary goes 1 -> 0. The prepare/target helpers take an optional suffix; the existing deliveries are unchanged. The stopped delivery's UNKNOWN redelivery raises one TARGET_UNKNOWN operator alert for other-school; the fixture's alert count goes from 9 to 10, and that alert is asserted by code and tenant. A suffixed delivery gets its own directory so the fixture's 'nothing written before commit' assertion still holds."
+    },
+    {
+      "id": "A15 governance-targets scope note",
+      "files": [
+        "docs/provenance/a15-receiving-boundaries/MATRIX.json"
+      ],
+      "note": "The open item stays open. It now cites that the reference refuses to compose qualification_target and issuer_target before reservation, signing or effect (test_unsupported_governance_composition_refuses_before_reservation_signing_or_effect), so no reference commit path exists. Scoping is for governor to rule."
+    },
+    {
+      "id": "I-6 application routing (verifier I6-G1)",
+      "files": [
+        "tests/test_i6_application_lane_pg.py"
+      ],
+      "note": "Education, Health and product public authorize_release each reach ReferenceEngine.authorize_for_target -> locked_decision_transaction, which takes the tenant's regulated-evidence-v1 lock before sampling decision time. With an ordinary concurrent holder owning that lane, each release waits on that exact key; once released, its recorded decision time is at or after the release and the tenant chain stays ordered and verified. The delegated intake lane keeps its own contract."
+    },
+    {
+      "id": "B-F7a Health gate entry (verifier 19e21daf)",
+      "files": [
+        "tests/test_cross_tenant_indistinguishable_pg.py"
+      ],
+      "note": "New test: Health's public authorize_release, for a genuinely approved final record, is refused for a foreign workspace context (not allowed, no permit, nothing written). The same request in the owner's workspace is authorized. Indistinguishability stays evidenced by the existing verifier-equality test."
+    }
+  ]
+}

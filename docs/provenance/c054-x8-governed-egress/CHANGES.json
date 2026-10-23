@@ -1,0 +1,84 @@
+{
+  "schema": "reference/candidate-changes/v1",
+  "candidate": "054",
+  "base": "053 (FILES e75e821c, SEAL 6e27aa8c)",
+  "approval": "governor 1e76307d approved implementer proposal 3732cfbf (X-8, X-15 egress routing, A15 http-delivery): synthetic RequestPort only, no network; non-bypassable managed composition with a static scan; explicit limits; exact-hash pins.",
+  "changes": [
+    {
+      "id": "verbatim port",
+      "files": [
+        "src/factory/governed_http.py",
+        "src/factory/governed_http_pg.py",
+        "src/factory/public_fetch/contracts.py",
+        "src/factory/public_fetch/url_policy.py",
+        "src/factory/public_fetch/drivers/__init__.py",
+        "src/factory/public_fetch/drivers/application.py",
+        "src/factory/public_fetch/drivers/resolver.py",
+        "src/factory/public_fetch/drivers/stdlib.py",
+        "source-provenance.json"
+      ],
+      "note": "Byte-identical to 6bba989a; each pinned in source-provenance.json with sha256 and the frozen git blob (verified against the frozen repository). Pinned there rather than in the adaptation manifest because they are unmodified; the adaptation manifest and its pinned hash are unchanged."
+    },
+    {
+      "id": "reference-authored initializer",
+      "files": [
+        "src/factory/public_fetch/__init__.py"
+      ],
+      "note": "Not the production file: the production initializer re-exports the crawler, fetch service, artifact store and projection, which the reference does not compose. Declared reference-authored, not recovered."
+    },
+    {
+      "id": "effect catalog",
+      "files": [
+        "docs/provenance/effect-site-classifications.json",
+        "tests/test_effect_classifications.py"
+      ],
+      "note": "6 new sites: governed_http_pg CREATE TABLE and INSERT (support_effect); stdlib driver socket/HTTP(S) connection x3 (boundary_effect, the egress effect itself, reached only behind egress_target); one in-memory string replace (syntax_non_effect). 312 -> 318."
+    },
+    {
+      "id": "X-8 reference composition",
+      "files": [
+        "src/assurance_reference/governed_egress.py"
+      ],
+      "note": "egress_delivery_target: the core egress target's contract (registered endpoint as prior state, exact payload, idempotency key, receipt-only status) built as a supported reference governance factory under the mandatory durable budget (_options/_register), so the reference engine accepts it. The verbatim HttpEgressTransport is built per send with BudgetedHttpAttempts: in one PostgreSQL transaction it records the attempt (only against the matching prepared governance event), then consumes the budget unit and re-checks authority last; any refusal there rolls back both and nothing is sent (FAILED). The transport is given the connection-free authority re-check for its pre-record and pre-request checks. An already recorded delivery key raises DeliveryUnconfirmed (UNKNOWN; never re-sent). The request port is an explicit argument with no default."
+    },
+    {
+      "id": "budget ordering for an external effect",
+      "note": "An HTTP send cannot share a database transaction with the destination, so spend-at-dispatch is used: claim and spend commit before any byte leaves. An unconfirmed send stays UNKNOWN with its unit spent, never released or re-sent, and is resolved only by the destination's bound receipt."
+    },
+    {
+      "id": "X-8 tests",
+      "files": [
+        "tests/test_x8_governed_egress_pg.py",
+        "tests/test_x8_egress_static_scan.py"
+      ],
+      "note": "PG: publication and messaging endpoints each deliver exactly once with a bound receipt and one budget unit, and a repeat delivery sends nothing; a missing, rebound or forged permit is refused at the choke point with no request and no nonce claim; a lost acknowledgement is UNKNOWN and resolved COMMITTED by receipt with no second POST. Static: network-capable calls exist only in the ported drivers; the transport is built only by governed egress factories; every catalogued network effect is the driver behind egress_target. Synthetic RequestPort only; no network call (governor 1e76307d)."
+    },
+    {
+      "id": "removals",
+      "files": [
+        "a_c054_mutate_v1.py (outside the tree)"
+      ],
+      "note": "X8a budget not consumed with the attempt; X8b factory not registered; X8c unbound reply accepted as a receipt; X8d earlier attempt re-sent; X8e transport pre-send re-checks skipped (expected layered behind the in-transaction re-check)."
+    },
+    {
+      "id": "limits",
+      "note": "Frozen X-8 limits retained: no real outbound provider; absence of an ungoverned path rests on agents receiving no raw network or provider credentials; the lexical scan cannot see dynamically created paths."
+    },
+    {
+      "id": "A15 http-delivery",
+      "files": [
+        "docs/provenance/a15-receiving-boundaries/MATRIX.json",
+        "tests/test_a15_boundary_matrix.py"
+      ],
+      "note": "The http-delivery boundary is now importable and composed via egress_delivery_target; the matrix lists its evidence and limits, and its pinned open count goes 1 -> 0. The remaining A15 open items (governance qualification/issuer composition scope, synthetic choke points) are unchanged."
+    },
+    {
+      "id": "governed_egress catalog",
+      "files": [
+        "docs/provenance/effect-site-classifications.json",
+        "tests/test_effect_classifications.py"
+      ],
+      "note": "BudgetedHttpAttempts INSERT classified support_effect; 318 -> 319."
+    }
+  ]
+}

@@ -1,0 +1,273 @@
+{
+  "source_commit": "6bba989aeca27575b971c78a103cbf3745cfda6a",
+  "source_repository": "echiweshe/agent-factory-prod",
+  "scope": "Private owner-authorized exact-byte extraction; inherited conformance JSON is inert data, not executed. Lifecycle composition remains unqualified.",
+  "files": [
+    {
+      "path": "src/factory/__init__.py",
+      "source_path": "factory/__init__.py",
+      "sha256": "0f8b7f803dc3381c641f706a4a8ad05fac66a73dde1916ea8299e4284ed61d5b",
+      "git_blob": "0ca1d74f4c8a2bc2f143b63f01e1d91b8b1d250c",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/factory/packs/__init__.py",
+      "source_path": "factory/packs/__init__.py",
+      "sha256": "d246dcd84755ee1f8607bc5b1120190e5a55822c048feb78cb6a3c6f36632383",
+      "git_blob": "31096f94ce699651cd399bdcfa7d34bb8d841eea",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/factory/packs/manifest.py",
+      "source_path": "factory/packs/manifest.py",
+      "sha256": "737c5a6c3267c2a3da918710be68cfade79fdf5c5706ab135f1baa0bad56f8bc",
+      "git_blob": "723dd2220d48cba764f081d65cb985a633a1c903",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/factory/packs/signing.py",
+      "source_path": "factory/packs/signing.py",
+      "sha256": "d22ed06a2e604e432bdf1bce01b1e270383a396f4afcdea6c72f7daff4edc8a6",
+      "git_blob": "01c4a4897ade9338d7f24f7aa6f6a4d34b81dc0c",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/factory/packs/lifecycle.py",
+      "source_path": "factory/packs/lifecycle.py",
+      "sha256": "20674c3e30b4e2eecafbbc3a25caeec9c5c40334fb89826ec61c7120dba2561f",
+      "git_blob": "d85569825eb37bb269cb8e77063a305475548d3b",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/assurance_reference/fixtures/packs/trust-anchors.json",
+      "source_path": "deploy/packs/trust-anchors.json",
+      "sha256": "aa9afd4c1f982134b57d3e2d5a4a4fa98ad00d0bc729140d20b19cbdd0c817f1",
+      "git_blob": "397b6a3e8b18ca7394bdbd2e92b16f75bd05ba89",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/assurance_reference/fixtures/packs/bundles/education-0.1.1/.signatures.json",
+      "source_path": "deploy/packs/bundles/education-0.1.1/.signatures.json",
+      "sha256": "f33dc5e58ada047a3b56c25b939aaa0eb285bd01938e11bfb227c4684f2e88df",
+      "git_blob": "0671c6cbd90b11ccf04626dedea6cf03070dad37",
+      "historical_crlf": true
+    },
+    {
+      "path": "src/assurance_reference/fixtures/packs/bundles/education-0.1.1/conformance/adversarial/education.hint-ladder-no-answer.json",
+      "source_path": "deploy/packs/bundles/education-0.1.1/conformance/adversarial/education.hint-ladder-no-answer.json",
+      "sha256": "b779bd79089caeac31ec15ad6bcc5b2c76c6e9db8475177fff8234c11759a89e",
+      "git_blob": "dc249d3cded802c4e053fe8be5e42e0cc12cd2bc",
+      "historical_crlf": true
+    },
+    {
+      "path": "src/assurance_reference/fixtures/packs/bundles/education-0.1.1/conformance/adversarial/education.no-final-grade.json",
+      "source_path": "deploy/packs/bundles/education-0.1.1/conformance/adversarial/education.no-final-grade.json",
+      "sha256": "0063900a3a80229f36beaa2302a9f7868fd68f20c03265a56ef267f297fd035f",
+      "git_blob": "4c4bd99120b300f909dad1dc7d48fa54e881a022",
+      "historical_crlf": true
+    },
+    {
+      "path": "src/assurance_reference/fixtures/packs/bundles/education-0.1.1/conformance/adversarial/education.region-normalized.json",
+      "source_path": "deploy/packs/bundles/education-0.1.1/conformance/adversarial/education.region-normalized.json",
+      "sha256": "75920136b2c2a6e96566c2c32cbc3f6418c8a693632277e58fb9d31613d6f270",
+      "git_blob": "125965662e3706c29e864710e868903d3e852fec",
+      "historical_crlf": true
+    },
+    {
+      "path": "src/assurance_reference/fixtures/packs/bundles/education-0.1.1/conformance/adversarial/education.rubric-bound.json",
+      "source_path": "deploy/packs/bundles/education-0.1.1/conformance/adversarial/education.rubric-bound.json",
+      "sha256": "be50621369f7621f2f9abe0275c3d675ce19a373966335bc2614f0cb29d95418",
+      "git_blob": "d3edd31d7766dbe12eed86770dd1902fc0055840",
+      "historical_crlf": true
+    },
+    {
+      "path": "src/assurance_reference/fixtures/packs/bundles/education-0.1.1/conformance/boundary/education.no-final-grade.json",
+      "source_path": "deploy/packs/bundles/education-0.1.1/conformance/boundary/education.no-final-grade.json",
+      "sha256": "93ace7e8bef67a4df36702e181f13e5faf5881556545cb0f86cf3b2531d04f7b",
+      "git_blob": "aba7a782e2c7e870fce9228f87bba7cd65a5f7bb",
+      "historical_crlf": true
+    },
+    {
+      "path": "src/assurance_reference/fixtures/packs/bundles/education-0.1.1/conformance/golden/education.hint-ladder-no-answer.json",
+      "source_path": "deploy/packs/bundles/education-0.1.1/conformance/golden/education.hint-ladder-no-answer.json",
+      "sha256": "0246c61495eff65b4ba8baa9f1f0d7e71a3615b2f38b9d7335dec5975c0f1fd5",
+      "git_blob": "7dc605984787f357f6dca46e868a837d89d20710",
+      "historical_crlf": true
+    },
+    {
+      "path": "src/assurance_reference/fixtures/packs/bundles/education-0.1.1/conformance/golden/education.no-final-grade.json",
+      "source_path": "deploy/packs/bundles/education-0.1.1/conformance/golden/education.no-final-grade.json",
+      "sha256": "fa70d213ecaf6464012a69d0b79271608d23ee92b909d34547dea1b963d959bd",
+      "git_blob": "348aad4624d53b071e2ce36d15f76671e9dd0429",
+      "historical_crlf": true
+    },
+    {
+      "path": "src/assurance_reference/fixtures/packs/bundles/education-0.1.1/conformance/golden/education.region-normalized.json",
+      "source_path": "deploy/packs/bundles/education-0.1.1/conformance/golden/education.region-normalized.json",
+      "sha256": "47d76193606e6bcc22fb77012cf696755b16eb292a283debbbf6afedd95ea7d4",
+      "git_blob": "14616d45aaad3ef8f82a0813913b3b4affe8af83",
+      "historical_crlf": true
+    },
+    {
+      "path": "src/assurance_reference/fixtures/packs/bundles/education-0.1.1/conformance/golden/education.rubric-bound.json",
+      "source_path": "deploy/packs/bundles/education-0.1.1/conformance/golden/education.rubric-bound.json",
+      "sha256": "c109a2ebb19a436e8d8b6fdb4ddf175359852d5d63c5dc92a6f07ffcc2de7b2a",
+      "git_blob": "ef7d383874350b7a7fa9fb0f8343d70a64692015",
+      "historical_crlf": true
+    },
+    {
+      "path": "src/assurance_reference/fixtures/packs/bundles/education-0.1.1/exercises/geometry.json",
+      "source_path": "deploy/packs/bundles/education-0.1.1/exercises/geometry.json",
+      "sha256": "7e986927bded4a300fbcf459ecaa49b97b549f2c3539efcae6d892add1635512",
+      "git_blob": "4978a53fe4403a641596fa3159332596f84ff577",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/assurance_reference/fixtures/packs/bundles/education-0.1.1/kit/README.md",
+      "source_path": "deploy/packs/bundles/education-0.1.1/kit/README.md",
+      "sha256": "5c4ab979affaa0b8aabdbe620bb4b9b49b7ed7a9ed20a1681d561c469de1fdfb",
+      "git_blob": "8acc5942b0eb7597100b594de9c18f0766e09a8a",
+      "historical_crlf": true
+    },
+    {
+      "path": "src/assurance_reference/fixtures/packs/bundles/education-0.1.1/pack.json",
+      "source_path": "deploy/packs/bundles/education-0.1.1/pack.json",
+      "sha256": "104eb106d918948a22f06151d09089e656169b3f36ca8f78d7f813d8c1c9ee76",
+      "git_blob": "582b092885e290f413d3ca82f42e71717ee04527",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/assurance_reference/fixtures/packs/bundles/education-0.1.1/provenance.json",
+      "source_path": "deploy/packs/bundles/education-0.1.1/provenance.json",
+      "sha256": "6adca7b451bba8187caf607663b9192c04f2c924e878be50b19adbc487e96c72",
+      "git_blob": "f5e8442e544b9bdf6274a8848d07da3563dfdef2",
+      "historical_crlf": true
+    },
+    {
+      "path": "src/assurance_reference/fixtures/packs/bundles/education-0.1.1/rulebook/rulebook.json",
+      "source_path": "deploy/packs/bundles/education-0.1.1/rulebook/rulebook.json",
+      "sha256": "8854e495750882c7fc2dc328691e269dcf5d87c82f048823febd7fef371f3e17",
+      "git_blob": "ceb6b7f52049234255a01680061d29daa9eadf43",
+      "historical_crlf": true
+    },
+    {
+      "path": "src/assurance_reference/fixtures/packs/bundles/education-0.1.1/schema/schema.json",
+      "source_path": "deploy/packs/bundles/education-0.1.1/schema/schema.json",
+      "sha256": "2a725f6c2508c3af85dc05fdc1d5136dfbcb77e0194a3dbe5a49a0f15390907d",
+      "git_blob": "e6ac2856169bf4ae0ad6bfe1d952c631f62fdd91",
+      "historical_crlf": true
+    },
+    {
+      "path": "src/assurance_reference/fixtures/packs/bundles/education-0.1.2/.signatures.json",
+      "source_path": "deploy/packs/bundles/education-0.1.2/.signatures.json",
+      "sha256": "476996b4d993f188d4cdc54bef1e42c71b3e4ad3886ae0e0979aa79359e240ee",
+      "git_blob": "2e23f5fe6ac0f64ecb1ac3b823f1650979d62b80",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/assurance_reference/fixtures/packs/bundles/education-0.1.2/conformance/adversarial/education.hint-ladder-no-answer.json",
+      "source_path": "deploy/packs/bundles/education-0.1.2/conformance/adversarial/education.hint-ladder-no-answer.json",
+      "sha256": "b779bd79089caeac31ec15ad6bcc5b2c76c6e9db8475177fff8234c11759a89e",
+      "git_blob": "dc249d3cded802c4e053fe8be5e42e0cc12cd2bc",
+      "historical_crlf": true
+    },
+    {
+      "path": "src/assurance_reference/fixtures/packs/bundles/education-0.1.2/conformance/adversarial/education.no-final-grade.json",
+      "source_path": "deploy/packs/bundles/education-0.1.2/conformance/adversarial/education.no-final-grade.json",
+      "sha256": "0063900a3a80229f36beaa2302a9f7868fd68f20c03265a56ef267f297fd035f",
+      "git_blob": "4c4bd99120b300f909dad1dc7d48fa54e881a022",
+      "historical_crlf": true
+    },
+    {
+      "path": "src/assurance_reference/fixtures/packs/bundles/education-0.1.2/conformance/adversarial/education.region-normalized.json",
+      "source_path": "deploy/packs/bundles/education-0.1.2/conformance/adversarial/education.region-normalized.json",
+      "sha256": "75920136b2c2a6e96566c2c32cbc3f6418c8a693632277e58fb9d31613d6f270",
+      "git_blob": "125965662e3706c29e864710e868903d3e852fec",
+      "historical_crlf": true
+    },
+    {
+      "path": "src/assurance_reference/fixtures/packs/bundles/education-0.1.2/conformance/adversarial/education.rubric-bound.json",
+      "source_path": "deploy/packs/bundles/education-0.1.2/conformance/adversarial/education.rubric-bound.json",
+      "sha256": "be50621369f7621f2f9abe0275c3d675ce19a373966335bc2614f0cb29d95418",
+      "git_blob": "d3edd31d7766dbe12eed86770dd1902fc0055840",
+      "historical_crlf": true
+    },
+    {
+      "path": "src/assurance_reference/fixtures/packs/bundles/education-0.1.2/conformance/boundary/education.no-final-grade.json",
+      "source_path": "deploy/packs/bundles/education-0.1.2/conformance/boundary/education.no-final-grade.json",
+      "sha256": "93ace7e8bef67a4df36702e181f13e5faf5881556545cb0f86cf3b2531d04f7b",
+      "git_blob": "aba7a782e2c7e870fce9228f87bba7cd65a5f7bb",
+      "historical_crlf": true
+    },
+    {
+      "path": "src/assurance_reference/fixtures/packs/bundles/education-0.1.2/conformance/golden/education.hint-ladder-no-answer.json",
+      "source_path": "deploy/packs/bundles/education-0.1.2/conformance/golden/education.hint-ladder-no-answer.json",
+      "sha256": "0246c61495eff65b4ba8baa9f1f0d7e71a3615b2f38b9d7335dec5975c0f1fd5",
+      "git_blob": "7dc605984787f357f6dca46e868a837d89d20710",
+      "historical_crlf": true
+    },
+    {
+      "path": "src/assurance_reference/fixtures/packs/bundles/education-0.1.2/conformance/golden/education.no-final-grade.json",
+      "source_path": "deploy/packs/bundles/education-0.1.2/conformance/golden/education.no-final-grade.json",
+      "sha256": "fa70d213ecaf6464012a69d0b79271608d23ee92b909d34547dea1b963d959bd",
+      "git_blob": "348aad4624d53b071e2ce36d15f76671e9dd0429",
+      "historical_crlf": true
+    },
+    {
+      "path": "src/assurance_reference/fixtures/packs/bundles/education-0.1.2/conformance/golden/education.region-normalized.json",
+      "source_path": "deploy/packs/bundles/education-0.1.2/conformance/golden/education.region-normalized.json",
+      "sha256": "47d76193606e6bcc22fb77012cf696755b16eb292a283debbbf6afedd95ea7d4",
+      "git_blob": "14616d45aaad3ef8f82a0813913b3b4affe8af83",
+      "historical_crlf": true
+    },
+    {
+      "path": "src/assurance_reference/fixtures/packs/bundles/education-0.1.2/conformance/golden/education.rubric-bound.json",
+      "source_path": "deploy/packs/bundles/education-0.1.2/conformance/golden/education.rubric-bound.json",
+      "sha256": "c109a2ebb19a436e8d8b6fdb4ddf175359852d5d63c5dc92a6f07ffcc2de7b2a",
+      "git_blob": "ef7d383874350b7a7fa9fb0f8343d70a64692015",
+      "historical_crlf": true
+    },
+    {
+      "path": "src/assurance_reference/fixtures/packs/bundles/education-0.1.2/exercises/geometry.json",
+      "source_path": "deploy/packs/bundles/education-0.1.2/exercises/geometry.json",
+      "sha256": "7e986927bded4a300fbcf459ecaa49b97b549f2c3539efcae6d892add1635512",
+      "git_blob": "4978a53fe4403a641596fa3159332596f84ff577",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/assurance_reference/fixtures/packs/bundles/education-0.1.2/kit/README.md",
+      "source_path": "deploy/packs/bundles/education-0.1.2/kit/README.md",
+      "sha256": "5c4ab979affaa0b8aabdbe620bb4b9b49b7ed7a9ed20a1681d561c469de1fdfb",
+      "git_blob": "8acc5942b0eb7597100b594de9c18f0766e09a8a",
+      "historical_crlf": true
+    },
+    {
+      "path": "src/assurance_reference/fixtures/packs/bundles/education-0.1.2/pack.json",
+      "source_path": "deploy/packs/bundles/education-0.1.2/pack.json",
+      "sha256": "93e1e6395a42855e5afa48c1a7eb0d8838aa10897004f800d59f32151ac7abf9",
+      "git_blob": "63e530ee6f15453ac9694d413296468f1cf17db2",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/assurance_reference/fixtures/packs/bundles/education-0.1.2/provenance.json",
+      "source_path": "deploy/packs/bundles/education-0.1.2/provenance.json",
+      "sha256": "e4ab7b276c2863622f856a93bc8d45b44450906f39f17d4de578e5e258df7c8a",
+      "git_blob": "5b5bffdaa07a0d5dc57326333b5f586c6372a314",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/assurance_reference/fixtures/packs/bundles/education-0.1.2/rulebook/rulebook.json",
+      "source_path": "deploy/packs/bundles/education-0.1.2/rulebook/rulebook.json",
+      "sha256": "8854e495750882c7fc2dc328691e269dcf5d87c82f048823febd7fef371f3e17",
+      "git_blob": "ceb6b7f52049234255a01680061d29daa9eadf43",
+      "historical_crlf": true
+    },
+    {
+      "path": "src/assurance_reference/fixtures/packs/bundles/education-0.1.2/schema/schema.json",
+      "source_path": "deploy/packs/bundles/education-0.1.2/schema/schema.json",
+      "sha256": "2a725f6c2508c3af85dc05fdc1d5136dfbcb77e0194a3dbe5a49a0f15390907d",
+      "git_blob": "e6ac2856169bf4ae0ad6bfe1d952c631f62fdd91",
+      "historical_crlf": true
+    }
+  ]
+}

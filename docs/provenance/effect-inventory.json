@@ -1,0 +1,13 @@
+{
+  "schema": "reference/auxiliary-source-provenance/v1",
+  "source_path": "scripts/effect_inventory.py",
+  "retained_path": "scripts/_effect_sites.py",
+  "source_commit": "6bba989aeca27575b971c78a103cbf3745cfda6a",
+  "source_tree": "c72682a1dc4b51b3646d686002bfbdd7b8ae788d",
+  "sha256": "194359bb88bc29cca77ec7c7881b012f3f35a6d8241d703a581ca5e077a4f721",
+  "git_blob": "2a2c2b44bb621fde79b8eea5027b34b5ecc19049",
+  "adaptation": "None; original bytes retained under a private helper filename.",
+  "reference_entry_point": "scripts/inventory_reference_effects.py",
+  "scope": "The reference wrapper calls only sites() and inventories every Python file under src. Original standalone defaults and historical documentation remain preserved, not adopted as reference coverage claims.",
+  "limitations": "Syntactic inspection only. No target imports or execution, no proof of complete effect coverage, no inferred exemptions or obligation closure."
+}

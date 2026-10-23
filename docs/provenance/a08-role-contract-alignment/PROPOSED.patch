@@ -1,0 +1,157 @@
+--- a/src/assurance_reference/role_contract.py
++++ b/src/assurance_reference/role_contract.py
+@@ -14,7 +14,7 @@
+ ROLES = (
+     "receiver", "allocator", "recorder", "governor", "clock", "alerts",
+     "session_reader", "session_issuer", "project_state", "education_reader",
+-    "education_governor", "monitor_ingress",
++    "education_governor", "monitor_ingress", "delegation_issuer",
+ )
+ CORE_TABLES = frozenset({
+     "regulated_decision_evidence_v1", "regulated_permit_uses_v1",
+@@ -92,6 +92,9 @@
+         "pack_lifecycle", "regulated_governance_events_v1", "regulated_governance_fences_v1",
+         "regulated_revocation_events_v1", "regulated_governance_rosters_v1",
+     },
++    "delegation_issuer": {
++        "regulated_delegation_grants_v1", "regulated_delegation_revocations_v1",
++    },
+     "clock": {"reference_clock_floor_v1"},
+     "alerts": {"reference_alerts_v1"},
+ }
+@@ -109,7 +112,8 @@
+     "project_state": {"projectos_states", "reference_clinical_state_v1",
+                       "reference_clinical_removals_v1"},
+     "education_governor": {"pack_documents"},
+-    "monitor_ingress": {"regulated_monitor_heartbeats_v2"},
++    "monitor_ingress": {"regulated_monitor_heartbeats_v2"},
++    "delegation_issuer": {"regulated_delegation_grants_v1"},
+ }
+ PRIVATE_READS = {
+     "session_issuer": {"reference_identities_v1", "reference_sessions_v1"},
+--- a/tests/test_role_contract.py
++++ b/tests/test_role_contract.py
+@@ -15,7 +15,7 @@
+ 
+ 
+ def test_contract_covers_every_known_table_without_hiding_scope_gaps():
+-    assert len(ROLES) == 12
++    assert len(ROLES) == 13
+     assert set(ROLES) == {field.name for field in fields(LocalAuthorityRoles)} - {"schema", "domain"}
+     assert len(TABLES) == 33
+     assert not CORE_TABLES & PRIVATE_TABLES
+@@ -58,6 +58,21 @@
+         assert expected_privileges("monitor_ingress", other) == set()
+ 
+ 
++def test_delegation_issuer_contract_is_exact_and_receiver_remains_read_only():
++    grants = "regulated_delegation_grants_v1"
++    revocations = "regulated_delegation_revocations_v1"
++    for partitioned in (False, True):
++        for role, table, duties in (
++            ("delegation_issuer", grants, {"SELECT", "INSERT"}),
++            ("delegation_issuer", revocations, {"SELECT"}),
++            ("receiver", grants, {"SELECT"}),
++            ("receiver", revocations, {"SELECT"}),
++        ):
++            assert expected_privileges(role, table, partitioned_lifecycle=partitioned) == duties
++        for table in TABLES - {grants, revocations}:
++            assert expected_privileges("delegation_issuer", table, partitioned_lifecycle=partitioned) == set()
++
++
+ def test_every_runtime_login_matches_explicit_privilege_contract(tmp_path):
+     dsn = os.environ.get("FACTORY_TEST_DB_URL", "")
+     assert dsn, "explicit isolated factory_test required; no skipped qualification"
+@@ -65,7 +80,7 @@
+     report = collect_access_matrix(roles)
+     (tmp_path / "role-access-matrix.json").write_text(
+         json.dumps(report, sort_keys=True, indent=2) + "\n", encoding="utf-8")
+-    assert len(report["roles"]) == 12
++    assert len(report["roles"]) == 13
+     assert all(len(value["tables"]) == 33 for value in report["roles"].values())
+     assert not report["tenant_row_isolation_demonstrated"]
+     assert report["claims_promoted"] == 0
+@@ -91,4 +106,4 @@
+                         refused += 1
+                     else:
+                         raise AssertionError(f"{kind} read outside its duty: {table}")
+-    assert refused == 53
++    assert refused == 58
+--- a/tests/test_partitioned_role_contract.py
++++ b/tests/test_partitioned_role_contract.py
+@@ -30,7 +30,7 @@
+     report = collect_access_matrix(roles, partitioned_lifecycle=True)
+     (tmp_path / "partitioned-role-access-matrix.json").write_text(json.dumps(report, indent=2) + "\n")
+     assert report["lifecycle_profile"] == "partitioned-v1"
+-    assert len(report["roles"]) == 12
++    assert len(report["roles"]) == 13
+     assert all(len(value["tables"]) == 38 for value in report["roles"].values())
+     assert report["privilege_contract_matches"], report["errors"]
+     assert not report["tenant_row_isolation_demonstrated"] and report["claims_promoted"] == 0
+@@ -45,4 +45,4 @@
+                     with pytest.raises(psycopg.errors.InsufficientPrivilege):
+                         conn.execute(sql.SQL("SELECT * FROM {} LIMIT 0").format(sql.Identifier(table)))
+                     refused += 1
+-    assert refused == 66  # 72 role/table pairs minus six allowed reads.
++    assert refused == 72  # 78 role/table pairs minus six allowed reads.
+--- a/tests/test_local_roles.py
++++ b/tests/test_local_roles.py
+@@ -28,7 +28,8 @@
+ def test_runtime_logins_cannot_own_schema_edit_grants_or_assume_other_roles(roles):
+     pools = [roles.receiver, roles.allocator, roles.recorder, roles.governor,
+              roles.clock, roles.alerts, roles.session_reader, roles.session_issuer, roles.project_state,
+-             roles.education_reader, roles.education_governor, roles.monitor_ingress]
++             roles.education_reader, roles.education_governor, roles.monitor_ingress,
++             roles.delegation_issuer]
+     seen = set()
+     for pool in pools:
+         with pool.connection() as connection:
+@@ -52,7 +53,7 @@
+                                                   (other.role,)).fetchone()[0]
+             with pytest.raises(psycopg.errors.InsufficientPrivilege):
+                 connection.execute("CREATE TABLE forbidden_authority (value integer)")
+-    assert len(seen) == 12
++    assert len(seen) == 13
+ 
+ 
+ def test_monitor_ingress_can_only_append_heartbeats_without_receiver_write_access(roles):
+--- a/docs/runtime-role-contract.md
++++ b/docs/runtime-role-contract.md
+@@ -1,7 +1,7 @@
+ # Runtime privilege inventory — D4 work in progress
+ 
+ `assurance_reference.role_contract.collect_access_matrix` compares all 33 known
+-local tables and all 11 actual restricted logins with an explicit privilege
++local tables and all 13 actual restricted logins with an explicit privilege
+ contract. It reads effective table and column privileges, including grant
+ options, and checks forced RLS on the 24 tables presently intended to enforce
+ row scopes. It refuses an unregistered table inventory. The session reader's
+@@ -94,7 +94,7 @@
+ | `regulated_decision_evidence_v1` | recorder | `regulated_core/persistence_pg.py`, `PostgresDecisionRecorder`, and the reference recorder's age/predecessor validation. |
+ | `regulated_preparation_writers_v1` | recorder | Original `regulated_preparation_guard_v1` authorizes the invoking writer. |
+ | `regulated_revocation_events_v1` | receiver, governor | `PostgresRevocationLedger` and receiving authority fences in `regulated_core/authority_fence_pg.py`. |
+-| `regulated_delegation_grants_v1`, `regulated_delegation_revocations_v1` | receiver | `PostgresGrantStore` and authority-fence source status; the original runtime composition retains these ports. |
++| `regulated_delegation_grants_v1`, `regulated_delegation_revocations_v1` | receiver, delegation_issuer | `PostgresGrantStore` and authority-fence source status. The reference grant store uses the dedicated issuer login for issuance and chain/revocation reads. |
+ | `regulated_monitor_clearances_v1` | receiver | `PostgresClearanceStore`, retained in `regulated_core/runtime_pg.py` for tier-four controls. |
+ | `regulated_monitor_heartbeats_v2` | receiver | `PostgresHeartbeatStore.latest` and the host heartbeat gate. Installation scope. |
+ | `regulated_governance_events_v1`, `regulated_governance_fences_v1` | receiver, governor | `PostgresGovernanceLog.events` and `unresolved`, used by lifecycle governance. Fences span installation scope. |
+@@ -105,6 +105,19 @@
+ | `projectos_states` | project_state | Original `factory/projectos/pg_store.py`, `PostgresProjectStateStore`, behind reference session/namespace binding. |
+ | `reference_clinical_state_v1`, `reference_clinical_removals_v1` | project_state | Reference `RetainedClinicalStore` plus its forced-RLS removal-marker visibility predicate. |
+ | `pack_documents` | education_reader, education_governor | Original `factory/packs/collections.py`, `PostgresPackCollectionStore`, behind reference session-bound reading and signed enrollment/appointment provisioning. |
++
++## Delegation issuance duty
++
++The dedicated delegation_issuer has SELECT on delegation grants and revocations,
++and INSERT on delegation grants only. It has no grant UPDATE/DELETE or revocation
++INSERT duty. The receiver retains SELECT-only access to both tables. Both
++original and partitioned inventory profiles include this thirteenth login;
++partitioned lifecycle tables grant it no access. Migration still requires an
++exact, distinct set of registered runtime roles.
++
++The receiving process currently holds the issuer credential because the composed
++grant store serves issuance and at-effect reads. This establishes database-role
++separation, not process isolation. Grant-revocation writing is not enabled.
+ 
+ ## Evidence limit
+ 

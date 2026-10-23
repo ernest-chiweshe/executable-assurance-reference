@@ -1,0 +1,28 @@
+{
+  "schema": "reference/generic-authority-derivation/v1",
+  "obligation": "X-24",
+  "source_commit": "6bba989aeca27575b971c78a103cbf3745cfda6a",
+  "source_path": "factory/packs/demonstration_surfaces.py",
+  "source_git_blob": "bd88829b5dbd35e8801b1c9897b34c55bfabc7db",
+  "source_sha256": "49bc7916f93021be510aa5641d159b7d34931649bab9c828905e0d2812d31d5e",
+  "retained_original": "docs/provenance/current-evidence/originals/demonstration_surfaces.py",
+  "derived_path": "src/assurance_reference/current_evidence.py",
+  "derived_sha256": "dfd4422d7adf3abe647707c965911a3213b852e58338a1742b81736b942406c0",
+  "original_symbols": [
+    "EvidenceUnavailable",
+    "HostEvidence",
+    "current_snapshot",
+    "CurrentSnapshotVerifier"
+  ],
+  "changes": [
+    "Extract custody-only wrapper into assurance_reference; original bytes retained unchanged.",
+    "Replace application USES dependency with an explicit immutable host allowlist.",
+    "Require a callable host reader at composition and nonempty string identity before a read.",
+    "Keep the current-read, tenant/case matching, unavailable-result and existing SnapshotVerifier delegation semantics."
+  ],
+  "limits": [
+    "Generic wrapper only; not the original application surface.",
+    "No source lock through release, durable custody, authentication or full application qualification.",
+    "Private owner-authorized derivation; no publication or licensing decision."
+  ]
+}

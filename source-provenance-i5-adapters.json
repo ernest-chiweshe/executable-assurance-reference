@@ -1,0 +1,32 @@
+{
+  "source_commit": "6bba989aeca27575b971c78a103cbf3745cfda6a",
+  "source_tree": "c72682a1dc4b51b3646d686002bfbdd7b8ae788d",
+  "source_repository": "echiweshe/agent-factory-prod",
+  "scope": "Exact original I-5 adapter and local dependencies; optional cloud provider path unselected.",
+  "files": [
+    {
+      "path": "src/regulated_core/adapters.py",
+      "source_path": "regulated_core/adapters.py",
+      "bytes": 6036,
+      "sha256": "c1ee0703e9f4dd4929b18a38d3854b713282bbe93801b260c6463d017d442d4f",
+      "git_blob": "a96bf32d9903370f9819e40ab37cf46b483bcea9",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/factory/cryptoledger.py",
+      "source_path": "factory/cryptoledger.py",
+      "bytes": 6260,
+      "sha256": "250c7c8794bb1619c12fa5e4c29b86c07bc786689e5b758a8da9151a4d74c486",
+      "git_blob": "f69fd3da09df4c7d139497f2a7e808b3b78688b0",
+      "historical_crlf": false
+    },
+    {
+      "path": "src/factory/keyprovider.py",
+      "source_path": "factory/keyprovider.py",
+      "bytes": 12026,
+      "sha256": "7e7f4574fee09d5788adf59eaee3ea8c1cb6232db5a9ff7a4c9f4fdad107a8f1",
+      "git_blob": "17bbbbf99e5bb8e4ba310a17f9571229888303bf",
+      "historical_crlf": false
+    }
+  ]
+}

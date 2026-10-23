@@ -1,0 +1,129 @@
+{
+  "schema": "reference/candidate-change-provenance/v1",
+  "candidate": "049",
+  "base_candidate": "048",
+  "base_manifest_sha256": "8d1f402639390b3249b452f6c348cfac65602ca250e95ffd755664f7dd138cb0",
+  "author": "implementer",
+  "addresses": [
+    {
+      "finding": "C048-R1 (verifier REVIEW 0a6c996d, X-3)",
+      "resolution": "Predicate now also requires the requester's current tenant membership (reference_identities_v1.active read in the same READ COMMITTED transaction through owner_reader column-level SELECT(tenant,principal,active)); tests add membership-ended and term-absent cases independently at grant, settlement and receiver (term-absent via a synthetic policy view of the installed policy without the term; guard unchanged)."
+    },
+    {
+      "row": "B-F7b",
+      "resolution": "test_tenant_row_isolation_pg.py: after a lawful Education release, every runtime login sees no row of another tenant on every RLS table it may read (populated core tables asserted), and no runtime login may update or delete evidence, permit uses, reviews or alerts."
+    },
+    {
+      "row": "B-6.4",
+      "resolution": "test_b64_negative_suite_pg.py adds forged issuer name, replayed expired certificate and unregistered-issuer certificate refusals on the restricted Education path (existing: dual approval, same person two roles, requester self-review, cross-tenant; labelled authorized self-approval in X-3)."
+    },
+    {
+      "row": "X-7",
+      "resolution": "test_x7_review_actor_binding_pg.py: governance approver bound by identity-signed credential (missing, other actor's, expired, other tenant's, forged-signer credentials refused); delegation review gate cannot grant for another principal."
+    },
+    {
+      "row": "B-F7a",
+      "resolution": "test_cross_tenant_indistinguishable_pg.py: Education cross-tenant review refused identically to a missing review; Health cross-tenant document identical to a missing document; product vertical: indistinguishability is at the server-bound entry (048 test_project_entry_pg.py::test_another_tenants_project_is_not_found, 404 for another tenant's and a missing project), and behind it a foreign tenant context presented to the tenant-bound engine is refused before any effect while the lawful release then succeeds. The engine-level refusal message differs from a missing project's; that engine is composed per authenticated tenant and is not reachable by another tenant."
+    },
+    {
+      "row": "A15",
+      "resolution": "test_governance_committed_ack_lost_pg.py: PostgreSQL governance effect commits, acknowledgement lost at committed-before-caller-ack, UNKNOWN then COMMITTED by receipt, repeat delivery returns stored result with no second effect or consumption."
+    },
+    {
+      "row": "I-6 (I6-G1)",
+      "resolution": "test_intake_lane_serialization_pg.py: isolated per-tenant intake lane serialization (same-tenant admission waits on the lane advisory lock outside its callback, other tenant proceeds, recorded decision times non-decreasing). Application-path routing mapping remains as verifier stated."
+    },
+    {
+      "row": "X-4 / B-6.4",
+      "resolution": "test_producer_bound_requester_self_approval_pg.py: with a server-derived producer identity (inherited approval_exchange.py:140 requester_id = review_producer_id or actor), a requester certified for the role who self-grants is refused AT GRANT (ReviewError), the review stays awaiting and no release follows. Author run: refusal observed at grant."
+    }
+  ],
+  "fixture_changes": [
+    "local_education_fixture.py: certify(..., expires_at_us=None) optional expiry; exposes present_certificate and certificate_issuer_id (additive).",
+    "local_product_spec_fixture.py: exposes certify(principal, role) (additive)."
+  ],
+  "limits": [
+    "Membership currentness is read in the check transaction without a row lock; the receiver repeats it immediately before the effect.",
+    "Shared stores under SCOPE_REVIEW are excluded from the seeded-row demonstration; the database administrator is outside the threat model.",
+    "Synthetic tenants and fictional people; isolated local PostgreSQL only."
+  ],
+  "delta": {
+    "added": [
+      "tests/test_b64_negative_suite_pg.py",
+      "tests/test_cross_tenant_indistinguishable_pg.py",
+      "tests/test_governance_committed_ack_lost_pg.py",
+      "tests/test_intake_lane_serialization_pg.py",
+      "tests/test_producer_bound_requester_self_approval_pg.py",
+      "tests/test_tenant_row_isolation_pg.py",
+      "tests/test_x7_review_actor_binding_pg.py"
+    ],
+    "changed": [
+      "docs/provenance/effect-site-classifications.json",
+      "src/assurance_reference/local_education_fixture.py",
+      "src/assurance_reference/local_product_spec_fixture.py",
+      "src/assurance_reference/local_roles.py",
+      "src/assurance_reference/role_contract.py",
+      "src/assurance_reference/sole_owner_approval.py",
+      "tests/test_sole_owner_approval_pg.py"
+    ],
+    "removed": []
+  },
+  "files": {
+    "tests/test_b64_negative_suite_pg.py": {
+      "base_sha256": null,
+      "sha256": "609b09972d0a5d33452792986da41742646e4c7f9e81a70d1517dbb9e01a3ddc"
+    },
+    "tests/test_cross_tenant_indistinguishable_pg.py": {
+      "base_sha256": null,
+      "sha256": "9d98905fbf24c2267cea491dbcf86fbb9452536a72adb26350ab11dd710ee472"
+    },
+    "tests/test_governance_committed_ack_lost_pg.py": {
+      "base_sha256": null,
+      "sha256": "ca04a3466f20727de46357d176be0b3cbc6ccd14d9d8a4702bf096fc7ba51a5f"
+    },
+    "tests/test_intake_lane_serialization_pg.py": {
+      "base_sha256": null,
+      "sha256": "7b9f34d2f5f1ca79ca95e117c4d1f711b001d7e85321ef05835e7b9a754c8370"
+    },
+    "tests/test_producer_bound_requester_self_approval_pg.py": {
+      "base_sha256": null,
+      "sha256": "b36f9fd0b6c4f9d27bfcf1bfbbde95ff631afa0ceb57e761f0b72aef64ad406a"
+    },
+    "tests/test_tenant_row_isolation_pg.py": {
+      "base_sha256": null,
+      "sha256": "2dafaa62cadfa7961ed577ab44231ac9f0b4140e7e57b2c05b7cb476ee3c4371"
+    },
+    "tests/test_x7_review_actor_binding_pg.py": {
+      "base_sha256": null,
+      "sha256": "fe2d088979494fe1dd89e7daed75f05d40dcffff7a8568060fc9679eddd6378f"
+    },
+    "docs/provenance/effect-site-classifications.json": {
+      "base_sha256": "37a2571e179cbc7a5698bbccc09ae14a596b06aa59b8ce6f128311eb02e3f2eb",
+      "sha256": "8628706dc5531ef672c5aee8754a1dabd477512df36f4e6f5a8da68e01197ac8"
+    },
+    "src/assurance_reference/local_education_fixture.py": {
+      "base_sha256": "4068c89c748de41b79fe1afd77494ad94598bd70322ac4ceed36eee0b90f9509",
+      "sha256": "c1c3e7b3b0e691697b1a2c01ead120e475eb023b3cb0d65e624c05d841760e17"
+    },
+    "src/assurance_reference/local_product_spec_fixture.py": {
+      "base_sha256": "4b692c66f72182384688bd68b6e54643a8d52d751af06b61d1a6b2d69ea7d6b1",
+      "sha256": "abcd63daa75e4c2d118073afd38b266ad66b3e641166a48949a1dbf8f8698cba"
+    },
+    "src/assurance_reference/local_roles.py": {
+      "base_sha256": "1447c6555000788cadb4288572356c93ee1295a40551021a895dda6aa85d2a62",
+      "sha256": "01ddc2ad199230fa3c658d23b8ea3efd9cd7101f4575a53fef627ce0a12774c1"
+    },
+    "src/assurance_reference/role_contract.py": {
+      "base_sha256": "453fbc5b2cce3633883b818fcb4d428dd17015883291c4d7075beed8ed246ff0",
+      "sha256": "fc9006afbfff0fc3ba117d623b034194803c0ab928934faeaef1b9cfe5108041"
+    },
+    "src/assurance_reference/sole_owner_approval.py": {
+      "base_sha256": "26251eec87f7a5ca6ab42ccfdb0d2683075811749747a4e190fa0ef9fedb7595",
+      "sha256": "98951ae948d1160fd2ad260760b141df277065f532657169d7706b0d17f19f2f"
+    },
+    "tests/test_sole_owner_approval_pg.py": {
+      "base_sha256": "dcdd99c36ab242099d69b7acbb0c61d7f9f2b548d8b8e95685a04f8c86bc7459",
+      "sha256": "de7a8bfb8b89c498bad2d69e475b443c702b230310c0218a6fb9221ad2eb8b90"
+    }
+  }
+}

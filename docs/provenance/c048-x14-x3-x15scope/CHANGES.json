@@ -1,0 +1,195 @@
+{
+  "schema": "reference/candidate-change-provenance/v1",
+  "candidate": "048",
+  "base_candidate": "047",
+  "base_manifest_sha256": "9ca41b5d2f2b99961977e0a1c11acfa4b1cf65ab46dd4fde69f9cebf869708c4",
+  "author": "implementer",
+  "addresses": [
+    {
+      "row": "X-14",
+      "map": "verifier verifier-x3-x14-evidence-map-20261017.json 9b2f6548 (exact gaps 1 and 2)",
+      "frozen_source": "factory/health_ui/managed_clinical.py@6bba989a (required_credential_kind; ManagedClinicalDoor startup checks; host-selected provider signer)",
+      "resolution": "credential_profile.py reads the credential kind from the installed signed rulebook role groups (more than one kind refuses), refuses startup when no provider verifies that kind or the provider has no configured receipt-signing key, freezes host maps at selection, refuses any credential request naming a key/authority field, and requires exact-session admit_release. local_clinical_fixture.py now composes the retained Health credentials through this selection (membership provider, host receipt key)."
+    },
+    {
+      "row": "X-3",
+      "map": "verifier verifier-x3-x14-evidence-map-20261017.json 9b2f6548",
+      "frozen_source": "factory/customer/studio_self_approval_pg.py@6bba989a require_studio_self_approval_on; studio_owner_policy._valid_self_approval_term; call sites studio_owner_review_pg (grant), studio_owner_settlement_pg._approval_deadline (settlement), regulated_studio_owner_pg.lock_current_on (receiver)",
+      "resolution": "sole_owner_approval.py: signed term sole-owner/v1 required with requester_may_approve (either alone refuses startup); one predicate on a caller-owned READ COMMITTED transaction takes the shared tenant roster lock, reads the owner roster on the trusted clock, requires the requester to be the one current owner, and returns the earliest pending owner activation as a deadline. sole_owner_composition.py calls it at grant (before the inherited exchange records a self-grant), at permit settlement (bounding not_after_us) and inside the receiving admission (roster and review locks held across exact-session admission, re-checked before the effect). Dedicated owner_reader login (SELECT owner roster and reviews only); roster writes are owner-provisioned under the exclusive lock."
+    },
+    {
+      "row": "X-15",
+      "finding": "verifier 044 integration limit",
+      "resolution": "test_managed_egress_coverage.py: the four frozen covered outbound modules (messaging, publishing, repurpose publish, webhooks) are absent from the reference, and the only network clients constructed are the four reviewed provider_capability sites of the effect catalog (KMS/S3 infrastructure). Static scope statement, not live egress qualification."
+    },
+    {
+      "row": "X-6",
+      "map": "verifier verifier-x6-evidence-map-20261017.json bcb15b32 (X6-G1, X6-G2)",
+      "frozen_source": "health_ui/clinician_certificates.py, clinician_credentials.py, education_workbench/reviewer_credentials.py, appointments.py @6bba989a (inherited unchanged in the reference)",
+      "resolution": "X6-G1: local_clinical_fixture.py optionally composes the inherited ClinicianCertificateStore (explicit local-CA issuers) through the X-14 signed-profile selection; a signed synthetic Health derivative requiring clinician@institutional-attestation selects the certificate store; without a local CA it refuses startup; membership is never relabelled. PG tests: certified clinician finalises; no, revoked or expired certificate cannot. X6-G2: test_x6_credential_matrix.py offline matrix over the inherited store and ReviewerAppointments: lawful verification; unsigned, forged, wrong-key, undeclared-issuer, wrong-role, expired, over-bounded, non-member and other-workspace certificates refused; expiry, revocation and membership loss stop a held certificate; demonstration issuer never yields a stronger kind; appointments unsigned by the pinned owner, tampered, unsigned, outside their signed validity (before, at and after), owner-revoked, or for another person/class refused."
+    },
+    {
+      "row": "X-20",
+      "frozen_source": "factory/public_verticals.py@6bba989a lines 341,404,417,434,450,1515,1541 (_key, _scoped_key, _owned, _human_actor, _emission_context)",
+      "resolution": "project_entry.py: transport-agnostic Project OS entry. Durable owner-issued API keys (digest only, constant-time compare) re-verified through the dedicated api_key_reader login on every call, so revocation takes effect at the next request; tenant only from the verified key, actor only from an authenticated individual member session of that tenant; any request-body tenant/workspace/actor/principal/owner field refuses (400); a key alone or a workspace-principal session never approves (403); scope per vertical (403); project ownership through the tenant's own session-bound project state, another tenant's project indistinguishable from none (404). API-key table is host metadata (looked up by unguessable id before a tenant is known), SELECT-only for runtime."
+    },
+    {
+      "row": "A15",
+      "map": "verifier verifier-i6-a15-evidence-map-20261017.json d9a0158c (remaining_reconciliation)",
+      "resolution": "docs/provenance/a15-receiving-boundaries/MATRIX.json: explicit per-boundary matrix (filesystem, pack-bound filesystem, PostgreSQL receiver, delegated receiver, governance targets, choke points, http delivery) with the claim pattern each implements, cited evidence, named interruption points, substrate, and recorded open items; tests/test_a15_boundary_matrix.py fails on any unlisted target or non-existent cited test. tests/test_filesystem_interruption_points_pg.py adds named filesystem interruption points (after-claim-before-stage, after-prepared-before-rename, after-rename-before-committed-receipt, committed-ack-lost) each resolved by receipt/file identity with retry refused. The matrix records that only the PostgreSQL receivers claim the nonce in the same transaction as the effect."
+    },
+    {
+      "row": "X-22",
+      "finding": "governor c046_x22 removals f3cd8e44 (X22d, X22i SURVIVED)",
+      "resolution": "Tests only: test_release_material_row_is_share_locked_through_publication (owner FOR UPDATE NOWAIT on the material row hits LockNotAvailable during publication) and test_grant_revoked_between_resolution_and_fences_is_refused (revocation committed after the first in-transaction resolution and before the fences is refused). X22d is layered behind lock_current_authority's own revocation read; no runtime change."
+    }
+  ],
+  "fixture_changes": [
+    "tests/a08_education_fixture.py: optional credential_wrapper over the exact-session admission; accepts the explicitly named synthetic sole-owner publisher (error text generalised; no other behaviour change).",
+    "tests/synthetic_profile_health.py and tests/synthetic_sole_owner_education.py: signed synthetic derivatives; originals verified unchanged.",
+    "src/assurance_reference/local_clinical_fixture.py: optional certificate_issuers; accepts the explicitly named synthetic profile publisher; only the tier-four derivative selects the reviewed workflow (unchanged for it).",
+    "tests/synthetic_sole_owner_education.py: signed synthetic derivative lets one teacher approve feedback release including their own request under the sole-owner term, and drops the low-confidence second-review escalation for that release (a sole-owner workspace has no second reviewer); recorded in its provenance external parameters."
+  ],
+  "contract_count_updates": "Role contract extended by owner_reader and api_key_reader (18 logins, 40 tables, 30 RLS, 6 host metadata); derived refusal counts 83/102; effect catalog 308 (relocations by identical statement text; 4 owner-roster and 2 API-key provisioning sites support_effect). No assertion relaxed.",
+  "limits": [
+    "Owner roster is an owner-provisioned local stand-in for tenant membership; no production identity directory.",
+    "Synthetic tenants and fictional people; isolated local PostgreSQL only.",
+    "The local certificate authority and synthetic issuers are fixtures; no real professional register or institutional attestation is claimed.",
+    "Membership withdrawal for a held certificate is evidenced offline (the retained identity store has no membership-withdrawal API).",
+    "X-20 entry is transport-agnostic; no HTTP framework, cookie or same-origin behaviour is claimed."
+  ],
+  "delta": {
+    "added": [
+      "docs/provenance/a15-receiving-boundaries/MATRIX.json",
+      "src/assurance_reference/credential_profile.py",
+      "src/assurance_reference/project_entry.py",
+      "src/assurance_reference/sole_owner_approval.py",
+      "src/assurance_reference/sole_owner_composition.py",
+      "tests/synthetic_profile_health.py",
+      "tests/synthetic_sole_owner_education.py",
+      "tests/test_a15_boundary_matrix.py",
+      "tests/test_clinical_certificate_profile_pg.py",
+      "tests/test_credential_profile.py",
+      "tests/test_filesystem_interruption_points_pg.py",
+      "tests/test_managed_egress_coverage.py",
+      "tests/test_project_entry_pg.py",
+      "tests/test_sole_owner_approval_pg.py",
+      "tests/test_x6_credential_matrix.py"
+    ],
+    "changed": [
+      "docs/provenance/effect-site-classifications.json",
+      "src/assurance_reference/local_clinical_fixture.py",
+      "src/assurance_reference/local_roles.py",
+      "src/assurance_reference/role_contract.py",
+      "tests/a08_education_fixture.py",
+      "tests/test_effect_classifications.py",
+      "tests/test_local_roles.py",
+      "tests/test_partitioned_role_contract.py",
+      "tests/test_release_link_composition_pg.py",
+      "tests/test_role_contract.py"
+    ],
+    "removed": []
+  },
+  "files": {
+    "docs/provenance/a15-receiving-boundaries/MATRIX.json": {
+      "base_sha256": null,
+      "sha256": "1606ce2eb3052aa6ae77d97dd346ae7e1460c03a7e42379f04da62369e98c688"
+    },
+    "src/assurance_reference/credential_profile.py": {
+      "base_sha256": null,
+      "sha256": "839045f6a40ef64d897f73a36c18fb63f64ccdba553469486b258266aa292972"
+    },
+    "src/assurance_reference/project_entry.py": {
+      "base_sha256": null,
+      "sha256": "1e373966b9ed5aef64e8a617fb54ae835a73c98bd5c7bf1cd2fc5534aec429a6"
+    },
+    "src/assurance_reference/sole_owner_approval.py": {
+      "base_sha256": null,
+      "sha256": "26251eec87f7a5ca6ab42ccfdb0d2683075811749747a4e190fa0ef9fedb7595"
+    },
+    "src/assurance_reference/sole_owner_composition.py": {
+      "base_sha256": null,
+      "sha256": "1c06fb91e26a8a1f46fdaa8f5c69dd73e0e2a929beed87489afc440c3f45e36d"
+    },
+    "tests/synthetic_profile_health.py": {
+      "base_sha256": null,
+      "sha256": "4aa546e2bc10b7bd06f6ee63c8e98b3d8936cc61adb209e55f45c7a566d06af3"
+    },
+    "tests/synthetic_sole_owner_education.py": {
+      "base_sha256": null,
+      "sha256": "4217ece114308ac32b545cf73a63aaad776b29adec38c49deeef3b6fb71b8b69"
+    },
+    "tests/test_a15_boundary_matrix.py": {
+      "base_sha256": null,
+      "sha256": "87a89fad4dd789a5d39cbc784ea64742642bd2bf3ca2903ac3ada5c1183f9ecf"
+    },
+    "tests/test_clinical_certificate_profile_pg.py": {
+      "base_sha256": null,
+      "sha256": "d2e37c9582b31e8f5d03dc1dce8aa829799883fd82857c78013a13dfa2752821"
+    },
+    "tests/test_credential_profile.py": {
+      "base_sha256": null,
+      "sha256": "0e9e066f3ac14d08d92c4664fdbb528896e17f27c0037752844311fc7994e10b"
+    },
+    "tests/test_filesystem_interruption_points_pg.py": {
+      "base_sha256": null,
+      "sha256": "6f0cd24eb95482af686449e5bd85fd0170ca1aaa0a0db1127c7970d065578a59"
+    },
+    "tests/test_managed_egress_coverage.py": {
+      "base_sha256": null,
+      "sha256": "854435749a2c4a0d1f8b7cb503834dc1e34ff0428a1264c27a5af0353288e207"
+    },
+    "tests/test_project_entry_pg.py": {
+      "base_sha256": null,
+      "sha256": "6ed2246939b53c9864c4b167d77201d1b40f285da029849cd16bf4099d943135"
+    },
+    "tests/test_sole_owner_approval_pg.py": {
+      "base_sha256": null,
+      "sha256": "dcdd99c36ab242099d69b7acbb0c61d7f9f2b548d8b8e95685a04f8c86bc7459"
+    },
+    "tests/test_x6_credential_matrix.py": {
+      "base_sha256": null,
+      "sha256": "a27f1c1ca7f65541744e41e5b478b773f78da0fd9e6192b273cfaa34746e046d"
+    },
+    "docs/provenance/effect-site-classifications.json": {
+      "base_sha256": "6deaf1f6e8d728d4627327b654a2993c793142c72cf3dbcd8192dbf3e668ce73",
+      "sha256": "37a2571e179cbc7a5698bbccc09ae14a596b06aa59b8ce6f128311eb02e3f2eb"
+    },
+    "src/assurance_reference/local_clinical_fixture.py": {
+      "base_sha256": "72689526a8fab84b8834186203c9d4f61666d56b57fe69eeb0b8706fcd54292b",
+      "sha256": "15c2d911785e19155733a5830749fc0a2f2b8a7f95f36c7f166359c33cac59d9"
+    },
+    "src/assurance_reference/local_roles.py": {
+      "base_sha256": "d66ef5ac46c9ef07d8d7e19db9c58ec9b7204b1bd89142212f2a3b4cbbb95a7a",
+      "sha256": "1447c6555000788cadb4288572356c93ee1295a40551021a895dda6aa85d2a62"
+    },
+    "src/assurance_reference/role_contract.py": {
+      "base_sha256": "e0e17b6d44f83923a1aab301c0a1720aa741c073be63e3de3184c4ec8574880e",
+      "sha256": "453fbc5b2cce3633883b818fcb4d428dd17015883291c4d7075beed8ed246ff0"
+    },
+    "tests/a08_education_fixture.py": {
+      "base_sha256": "c260bf193af768e205f9052de1fe7f92f6d23fc22cddbed0e87f96580c7f714b",
+      "sha256": "4d7417aa89beaa8bf3fd473c59bdaba4309bd0533083de3c7d6c1ebce30da2f5"
+    },
+    "tests/test_effect_classifications.py": {
+      "base_sha256": "f394fe382f6529894909b664afd78df6fbeac84cf0bc4a2e0a4f91db044c4897",
+      "sha256": "37cb2f10f587917780916287bd66a454425fdcc3eec6f3b80d931fe27042de86"
+    },
+    "tests/test_local_roles.py": {
+      "base_sha256": "eb7bf31ac2c67bd124e298aff38a405db594c04371cd263478a0af39a40e7e0c",
+      "sha256": "26847344e756d5d6177df3c93bbffa2b1b1424ca5ebe9274e058b951a52524d8"
+    },
+    "tests/test_partitioned_role_contract.py": {
+      "base_sha256": "3849c8d45ad93d9464c22e3b697d1201981e40d9695afa21b3c66df3cf149cbb",
+      "sha256": "92c8f55ec7d39b62231509dae5f6128312b448167aa940538e7d00485f244b9e"
+    },
+    "tests/test_release_link_composition_pg.py": {
+      "base_sha256": "7c53c8fdf542cba63423eee6e2ba81f73457866f3fbb61935a41dfdebce73f3f",
+      "sha256": "bc02a1ba28ad74c9a49051451325f5831dd57d4dd081d4b63c79119768273b27"
+    },
+    "tests/test_role_contract.py": {
+      "base_sha256": "8cdc6e80cb4dd525dfa36ff979d534c0cbe21cd27814bcb240a91dab3add0a67",
+      "sha256": "ba6f90daff69f913dbeaadaa5699141a951cdce82bea1804963574e64fdf623c"
+    }
+  }
+}

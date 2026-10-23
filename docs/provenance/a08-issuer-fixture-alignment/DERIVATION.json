@@ -1,0 +1,48 @@
+{
+  "schema": "reference/surgical-reference-composition/v1",
+  "created_utc": "2026-10-16T05:59:57.296733+00:00",
+  "parent_files_sha256": "8ada497e7d39df91625bf4c33f4b1af6cf17daf1072919ef409cf8d2c57be687",
+  "parent_failure_receipt_sha256": "f8dfed9f4cad7c70b902926c7934dc833deef8d4eb54367139e2bf57d2ca25de",
+  "staged_review_sha256": "1c5856da3d77ee26a36d84f8609671e2141f698026fd57d38bfe6e2c88132d06",
+  "documentation_review_sha256": "5a0f28bdec76019287a754cc8d10a6ab5d5035f3afc35f811c7e19f45875975a",
+  "patch_sha256": "f016553fae65164838fed7ccf6e35d81c617c2b11cccc103f681722344a960cd",
+  "documentation_patch_sha256": "0e795f948b5b5a0e4392be75a2c0e430d846a3fdea5c3edbb2d99f881405c6af",
+  "verified_consensus_payloads": [
+    "84c1f352d46c65c4da2879998c3858aeee285d7d411c692c82695f0ac15399c8",
+    "a52e72bfa366d1af1db8d7f2ee804e0eb11b9edca2fbbe9d3aa7883f9188e02c"
+  ],
+  "files": {
+    "tests/test_delegation_issuer_composition.py": {
+      "before_sha256": null,
+      "after_sha256": "8a40eca7f5c8eb6d92b29ffa38cee8b3ebfaad3037d2cddacc48d3023c11e682"
+    },
+    "tests/test_host_contract.py": {
+      "before_sha256": "db62ed05c9db5e7c9305d41bbe735ccaf6afc563e3ad5cb56b0550e8054e69a9",
+      "after_sha256": "c0e24bd32931f96b68a142c936090e76515cd878e7c1a738b1ebc25e35fbd8b8"
+    },
+    "tests/test_partitioned_composition.py": {
+      "before_sha256": "7e5cb1a6b7cd19d5352a404cb9cd931108256e349c15ab14fcc955cdf4065863",
+      "after_sha256": "88ef2ae1dcd65d2af685dcae38348146df99e3b35bd3ad0468286972cf321ade"
+    },
+    "src/assurance_reference/host_runtime.py": {
+      "before_sha256": "dc4f09dd3af28b6688608613fcc3c76e1035e4530f152c3327c77689a4aeaeda",
+      "after_sha256": "f098e9a644ed08b0a57bfb5a672fc339d88f6b69d1ed0be1d9530a0f000fd2c0"
+    },
+    "README.md": {
+      "before_sha256": "4e78c66fa66456cb19536d1423fa788a243faa2b13815e5e05fa33a97d9b6b41",
+      "after_sha256": "31ecd21c581fc986552c4c80dbfa9ec2549b7b0786ae956167bebfa71d02301a"
+    },
+    "docs/installation.md": {
+      "before_sha256": "d1eef4930bc2bab13224bcbee91a00017df3a97538f784e69b2ae8e4c32fcc53",
+      "after_sha256": "c5a544cc5d8583b8404bda4990289a2b1cae3b245de700cadea07056ec9b75b8"
+    }
+  },
+  "source_adaptation_manifest_unchanged": "171d8e30cb0d0e0bb6756ba727c634b38a6ebcf4f24d8bc51ff3a93b8efd7bef",
+  "limits": [
+    "Reference composition and two shared fixture constructors aligned; original recovered delegation source unchanged.",
+    "Issuer must be explicit and distinct; no receiver fallback or new runtime dependency.",
+    "Existing assertions retained; six affected consumers unchanged.",
+    "Full private audit and full dual-OS regression pending; no adoption or obligation promotion.",
+    "Issuer revocation INSERT remains absent; database-role separation is not process isolation."
+  ]
+}

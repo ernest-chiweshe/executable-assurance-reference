@@ -1,0 +1,27 @@
+{
+  "schema": "reference/witness-network-review/v1",
+  "path": "src/regulated_core/evidence_witness_transport.py",
+  "source_sha256": "ceee9cf0e4776eff70392ce18ac48a5dc12b2dfa7c7c9bfca3a7396b759e2ed3",
+  "nonconstructing_matches": {
+    "7": "import http.client"
+  },
+  "network_sites": {
+    "58": "http.client.HTTPSConnection",
+    "59": "http.client.HTTPConnection"
+  },
+  "operations": [
+    "latest",
+    "ack-range",
+    "request",
+    "batch"
+  ],
+  "classification": "support_effect",
+  "author_review_only": true,
+  "not_an_authorization_exemption": true,
+  "limits": [
+    "Trusted host endpoint configuration only; not an agent-selected destination.",
+    "Remote TLS verifies hostname and certificate; explicit numeric loopback HTTP is test-only.",
+    "Signed witness response checks remain in publisher; transport success is not authorization.",
+    "Source inventory is not production or complete egress qualification."
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "schema": "reference/candidate-changes/v1",
+  "candidate": "055",
+  "base": "054 (FILES 4897056b, SEAL eede3f75)",
+  "answers": "governor 8587677f (c054 X-8 removals): X8c and X8e SURVIVED for want of a test; X8d unreachable through the API; verifier a81206f1 (054 preliminary): X-15 managed-host wiring not identified; verifier 467c8a84 (Linux054 1 FAIL: test_managed_egress_coverage network-client inventory)",
+  "changes": [
+    {
+      "id": "X8c test",
+      "files": [
+        "tests/test_x8_governed_egress_pg.py"
+      ],
+      "note": "A destination answering like an ordinary webhook (200 without the bound receipt) leaves the delivery UNKNOWN; only the receipt API proves COMMITTED. One POST."
+    },
+    {
+      "id": "X8e test",
+      "files": [
+        "tests/test_x8_governed_egress_pg.py"
+      ],
+      "note": "An ordinary tenant revocation landing after the attempt and its spend are recorded is refused by the transport's pre-send recheck; nothing is delivered. The spent unit stays spent (release reports budget settlement pending), the conservative side."
+    },
+    {
+      "id": "X8d limit",
+      "note": "The duplicate-delivery-key branch in BudgetedHttpAttempts is defence in depth: a repeat of the same permit is answered from the target's durable outcome before any send, so the branch is unreachable through the API and its removal is masked. Recorded as a layered limit, not a kill."
+    },
+    {
+      "id": "X-15 managed-host wiring",
+      "files": [
+        "src/assurance_reference/managed_egress.py",
+        "tests/test_x15_managed_delivery_pg.py"
+      ],
+      "note": "ReferenceManagedHost now carries the delivery attempts pool (receiver login) and a governance log (governor login) and offers egress_engine(policy) (the host engine's for_policy sibling: same recorder, approvals, emission, targets, budget and clock), delivery_target(endpoint, request, engine) (egress_delivery_target over that engine's budget, permit-use store and target authority) and deliver(...) (EgressAdmission.admit for the exact request, then the permit commit inside EgressAdmission.send while the tenant scope lock is held). PG composition test: an inventoried unregulated tenant delivers exactly once through the managed host; unknown scope and a regulated tenant without a declared egress action are refused before any request with the nonce unspent. The composition case uses EgressPolicy(approvers=0) (trusted machine endpoint); approval is exercised in test_x8_governed_egress_pg.py."
+    },
+    {
+      "id": "network-client inventory (054 Linux failure)",
+      "files": [
+        "tests/test_managed_egress_coverage.py"
+      ],
+      "note": "The X-15 coverage inventory still requires that, outside the ported driver, exactly the 4 reviewed provider capabilities construct network clients. Inside the governed driver (src/factory/public_fetch/drivers/stdlib.py), every connection construction must be one of the 3 catalogued egress boundary sites; its other http.client matches are imports, annotations, docstrings and exception references. The frozen covered-module absence check is unchanged. 054 shipped without this update: the author failed to run this static test before sealing."
+    },
+    {
+      "id": "managed composition budget",
+      "files": [
+        "tests/test_x15_managed_delivery_pg.py"
+      ],
+      "note": "The managed host has no default mission budget, so the fixture's host egress policy declares one explicitly (limit 4, units 1); an undeclared budget is refused fail-closed, which is the guard working."
+    },
+    {
+      "id": "removals",
+      "note": "a_c055_mutate_v1.py: X8a-e (054 set) plus X15a managed deliver skipping admission."
+    }
+  ],
+  "frozen_source_location": {
+    "path": "private-evidence/source-stage-g5-v2",
+    "commit": "6bba989aeca27575b971c78a103cbf3745cfda6a",
+    "repository": "echiweshe/agent-factory-prod",
+    "note": "Git checkout used for the verbatim port; each ported file's git blob was checked with git rev-parse 6bba989a:<path> before pinning."
+  }
+}

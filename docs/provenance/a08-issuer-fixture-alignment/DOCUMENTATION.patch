@@ -1,0 +1,35 @@
+--- a/README.md
++++ b/README.md
+@@ -46,6 +46,15 @@
+ folder, and stops only its owned cluster. Check the result and log before treating
+ a run as successful. Do not reuse the output or cluster folders. Keep credentials
+ out of source files and evidence bundles.
++
++The test command above uses strict source tracing by default. For a checkpoint
++with an accepted source adaptation, append
++`--source-adaptation-manifest=<recorded-relative-manifest-path>` and
++`--source-adaptation-sha256=<independently-accepted-sha256>` to the pytest
++arguments. Take both values from that checkpoint's retained acceptance evidence;
++do not generate a new pin merely to make a failing trace pass. Full qualification
++also requires the complete retained private candidate, including its audit
++records and paper inputs; a distributable source archive alone is insufficient.
+ 
+ These commands exercise the checkout: the launcher sets `PYTHONPATH` to its
+ `src` directory. They are not installed-wheel validation. For the restricted-role
+--- a/docs/installation.md
++++ b/docs/installation.md
+@@ -51,6 +51,14 @@
+ those checks and call the result full qualification. The full-suite commands
+ below require the complete, hash-verified private audit source. Earlier reviewed
+ artifact hashes describe their original contents, not this packaging revision.
++
++When validating an accepted v12 source adaptation, pass its recorded
++`--source-adaptation-manifest` and independently accepted
++`--source-adaptation-sha256` explicitly to pytest. Use the values bound by the
++exact checkpoint's acceptance evidence; package version 0.1.5 does not select a
++source adaptation. Omitting these options retains strict source tracing. An
++archive build or installation smoke check does not replace the complete private
++audit or full runtime regression.
+ 
+ For offline reproduction, retain the dependency wheels and their hashes. Install
+ using `--no-index --find-links <wheelhouse>` and the reviewed wheel, then run
