@@ -1,8 +1,8 @@
 {
   "schema": "reference/public-test-partition/v1",
   "base_source_manifest_sha256": "a17789dae09dec21819336be5e6ae1bfee84c46aaed80068ba9f58fe03413191",
-  "total_tests": 2961,
-  "public_tests": 2837,
+  "total_tests": 2969,
+  "public_tests": 2845,
   "private_tests": 124,
   "collection_excluded_files": {
     "tests/test_publication_retention.py": "Reads excluded publication correction contract at import time."
@@ -352,7 +352,8 @@
     "tests/test_x7_review_actor_binding_pg.py": "fe2d088979494fe1dd89e7daed75f05d40dcffff7a8568060fc9679eddd6378f",
     "tests/test_x8_egress_static_scan.py": "84d1a55704815dee43c71e7ffd1f7b6d97d03123dc207d45861cfb2c2e367cdc",
     "tests/test_x8_governed_egress_pg.py": "f3a6a87935b3945e37316f5a9eca9c104ca87430291e2e33fde9770f69d33416",
-    "tests/test_sanitized_provenance.py": "4291e63430e82cedf5ae6d0c4e11324889af0c8b6c1bbb3aab714c8d419e9f0c"
+    "tests/test_sanitized_provenance.py": "4291e63430e82cedf5ae6d0c4e11324889af0c8b6c1bbb3aab714c8d419e9f0c",
+    "tests/test_security_hardening_rc6.py": "bde5410a3a07f1cff5a2ba45edf6914be456f7839d94e7e71531d9cc478b4078"
   },
   "tests": [
     {
@@ -12457,6 +12458,38 @@
       "nodeid": "tests/test_sanitized_provenance.py::test_sanitized_history_requires_pins_and_explicit_limit[baseline_patch_sha256-zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz]",
       "scope": "public",
       "reason": "Public sanitized-provenance integrity regression; synthetic inputs only."
+    },
+    {
+      "nodeid": "tests/test_security_hardening_rc6.py::test_ordinary_docx_is_still_read",
+      "scope": "public"
+    },
+    {
+      "nodeid": "tests/test_security_hardening_rc6.py::test_docx_with_xml_declarations_or_entities_is_refused[doctype]",
+      "scope": "public"
+    },
+    {
+      "nodeid": "tests/test_security_hardening_rc6.py::test_docx_with_xml_declarations_or_entities_is_refused[entity]",
+      "scope": "public"
+    },
+    {
+      "nodeid": "tests/test_security_hardening_rc6.py::test_docx_with_xml_declarations_or_entities_is_refused[nested-entity-expansion]",
+      "scope": "public"
+    },
+    {
+      "nodeid": "tests/test_security_hardening_rc6.py::test_docx_with_xml_declarations_or_entities_is_refused[doctype-utf16]",
+      "scope": "public"
+    },
+    {
+      "nodeid": "tests/test_security_hardening_rc6.py::test_docx_with_xml_declarations_or_entities_is_refused[relationships-doctype]",
+      "scope": "public"
+    },
+    {
+      "nodeid": "tests/test_security_hardening_rc6.py::test_trickled_body_cannot_outlive_the_phase_allowance",
+      "scope": "public"
+    },
+    {
+      "nodeid": "tests/test_security_hardening_rc6.py::test_prompt_body_is_read_whole_within_the_allowance",
+      "scope": "public"
     }
   ],
   "historical_fixture_modules": {
@@ -12484,9 +12517,9 @@
   "baseline_public_tests": 2826,
   "baseline_total_tests": 2950,
   "public_derivative": {
-    "version": "0.1.8rc4",
+    "version": "0.1.8rc6",
     "baseline_archive_sha256": "ea01c93993c72fbfa2fafa455dcc7e3ac5fc1157dde1ade1fa472193616bab7b",
-    "added_public_tests": 11,
+    "added_public_tests": 19,
     "original_case_identities_and_private_exclusions_unchanged": true
   }
 }

@@ -25,7 +25,8 @@ from dataclasses import asdict, dataclass
 from pathlib import Path
 from types import ModuleType
 from typing import Protocol, cast
-from xml.etree import ElementTree as ET
+from defusedxml import ElementTree as ET
+from defusedxml.common import DefusedXmlException
 
 MAX_FILES = 20
 MAX_FILE_BYTES = 25 * 1024 * 1024
@@ -241,13 +242,15 @@ def _docx_fragments(content: bytes) -> tuple[ExtractedFragment, ...]:
             for name in names:
                 if not name.endswith(".rels"):
                     continue
-                root = ET.fromstring(archive.read(name))
+                root = ET.fromstring(archive.read(name), forbid_dtd=True, forbid_entities=True,
+                                     forbid_external=True)
                 if any(rel.get("TargetMode") == "External" for rel in root.iter(_REL + "Relationship")):
                     raise IntakeRefused("external DOCX relationships are not accepted")
-            root = ET.fromstring(archive.read("word/document.xml"))
+            root = ET.fromstring(archive.read("word/document.xml"), forbid_dtd=True,
+                                 forbid_entities=True, forbid_external=True)
     except IntakeRefused:
         raise
-    except (zipfile.BadZipFile, KeyError, ET.ParseError, OSError) as exc:
+    except (zipfile.BadZipFile, KeyError, ET.ParseError, DefusedXmlException, OSError) as exc:
         raise IntakeRefused("the DOCX could not be decoded safely") from exc
 
     fragments: list[ExtractedFragment] = []

@@ -273,13 +273,23 @@ class _SocketChannel:
         # whether to ask for an overflow-detection sentinel byte (by passing
         # cap+1) based on which bound binds, so an aggregate-bound read never
         # pulls an unauthorized byte off the wire.
-        self._sock.settimeout(read_timeout)  # type: ignore[attr-defined]
+        # `read_timeout` bounds the WHOLE body phase, not each socket read: a peer
+        # that trickles bytes must not keep the phase open past its allowance.
+        import time
+
+        deadline = time.monotonic() + read_timeout
         limit = min(max_bytes, _MAX_WIRE_READ)
         chunks: list[bytes] = []
         got = 0
         while got < limit:
+            remaining = deadline - time.monotonic()
+            if remaining <= 0:
+                raise TransportInterrupted(got)
+            self._sock.settimeout(remaining)  # type: ignore[attr-defined]
             try:
-                chunk = self._pending.read(  # type: ignore[attr-defined]
+                # read1: at most one underlying read, so the remaining allowance
+                # applies to every wait on the socket.
+                chunk = self._pending.read1(  # type: ignore[attr-defined]
                     min(_READ_CHUNK, limit - got))
             except http.client.IncompleteRead as exc:
                 # a truncated Content-Length transfer: the already-received bytes
