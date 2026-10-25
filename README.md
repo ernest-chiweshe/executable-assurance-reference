@@ -50,7 +50,7 @@ Walkthrough videos: [lumiwright.com/videos](https://www.lumiwright.com/videos)
 
 ## Author
 
-Ernest Chiweshe, Founder and CEO, LumiWright
+Ernest Chiweshe, Founder and Chief Architect, LumiWright
 
 [ernest.chiweshe@lumiwright.com](mailto:ernest.chiweshe@lumiwright.com) · [LinkedIn](https://www.linkedin.com/in/ernest-chiweshe-6b7732433/) · [X @ernest_chiweshe](https://x.com/ernest_chiweshe) · [YouTube](https://www.youtube.com/channel/UCO3vVGTjgFR9CCwKOcMMCpg) · [TikTok @ernest.chiweshe](https://www.tiktok.com/@ernest.chiweshe)
 
