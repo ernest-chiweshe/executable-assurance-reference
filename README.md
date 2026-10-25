@@ -7,7 +7,7 @@ This repository is the standalone reference implementation accompanying two pape
 - [Capability Is Not Authority: Executable Assurance as Infrastructure for Containing AI Risk to Humankind](https://doi.org/10.5281/zenodo.23580975)
 - [Governed AI as Runtime Infrastructure: A Unified Authority and Evidence Architecture for Regulated Agentic Systems](https://doi.org/10.5281/zenodo.23581016)
 
-The underlying LumiWright Agent Factory was implemented and deployed before this
+The underlying LumiWright Agent Factory was implemented and deployed in July 2026, before this
 reference extraction. Its domain implementations and deployment history are the
 subject of the papers. The focused examples here reproduce selected mechanisms;
 their smaller scope does not redefine the platform as a proposal.
