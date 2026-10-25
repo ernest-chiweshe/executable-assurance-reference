@@ -8,9 +8,9 @@ The full private denominator, including the 21 new cases, is 2,971.
 Counts describe scope; consult the accompanying PUBLIC-VALIDATION.json for
 completed qualification results and exact environments.
 
-Release artifacts, SHA-256:
-a0191272cff7f617cf1fe6fef691c8cf454c9edc59a6a3956d7763ac35dd1596  executable_assurance_reference-0.1.8rc6-py3-none-any.whl
-605979df092ecb58331d33b0d15ca23ac1321a880c81cf4f999effa03e33339d  executable_assurance_reference-0.1.8rc6.tar.gz
+Verify release artifacts against the detached SHA256SUMS file supplied with
+this release before installation. It identifies the exact wheel, source archive
+and requirements-tested.txt. Historical rc5 hashes do not identify rc6 files.
 
 Python 3.12 with PostgreSQL 17 is the Windows qualification environment.
 Python 3.14 with PostgreSQL 18 is the Linux qualification environment.
@@ -78,9 +78,10 @@ failed runs. rc4 failed two cleanup regressions (a missing frozen fixture and
 omitted README history); rc5 restores both without removing test cases or
 weakening their comparisons. Those failed results are not rc5 pass evidence.
 
-Runtime behavior is unchanged from the candidate004 public runtime except for
-two attribution-cleaned module docstrings. Historical source copies have
-explicit derivative hashes; upstream hashes remain historical records. The
+rc6 adds DOCX DTD/entity/external-reference refusal and bounded HTTP response
+phases, and updates runtime and installation dependencies. These security changes
+are recorded in docs/provenance/security-rc6/adaptations.json. Historical source
+copies retain derivative hashes; upstream hashes remain historical records. The
 frozen delegation fixture is retained with a new commentary-only derivative
 hash, while its original hash remains in the sanitation record.
 
