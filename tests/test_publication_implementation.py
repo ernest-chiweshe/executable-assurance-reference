@@ -37,7 +37,7 @@ def test_figures_show_implemented_states_and_scope_new_deployment_limits():
 
 def test_reference_readme_preserves_platform_history():
     text = (ROOT / "README.md").read_text(encoding="utf-8")
-    assert "was implemented and deployed before this" in text
+    assert "was implemented and deployed in July 2026, before this" in text
     assert "their smaller scope does not redefine the platform as a proposal" in text
 
 
