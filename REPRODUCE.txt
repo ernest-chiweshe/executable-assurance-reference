@@ -14,6 +14,10 @@ and requirements-tested.txt. Historical rc5 hashes do not identify rc6 files.
 
 Python 3.12 with PostgreSQL 17 is the Windows qualification environment.
 Python 3.14 with PostgreSQL 18 is the Linux qualification environment.
+Deploy only on a vendor-patched Python interpreter and operating-system libraries.
+The Windows qualification interpreter (Python 3.12.0, bundling OpenSSL 3.0.11 and
+Expat 2.5.0) is functional-compatibility evidence, not a patched security
+environment; use the current maintenance release of your Python version.
 The declared Python minimum is 3.11; a tested version is not a claim that every
 Python or PostgreSQL version has been qualified.
 
