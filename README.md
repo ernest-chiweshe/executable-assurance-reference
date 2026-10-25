@@ -31,9 +31,9 @@ The system does not attempt to solve model alignment, filter prompt semantics, o
 
 ## Release and reproduction
 
-Version **0.1.8rc6** builds on 0.1.8rc5, the public release of candidate004 with assistant attributions removed from historical commentary and provenance copies. It hardens two edges found in security review: uploaded DOCX documents are parsed with DTDs and entities refused, and an HTTP response body must arrive within its whole time allowance. Dependencies move to versions with no known advisories. The authority path is unchanged.
+Version **0.1.8rc6** builds on 0.1.8rc5, the public release of candidate004 with assistant attributions removed from historical commentary and provenance copies. It hardens two edges found in security review: uploaded DOCX documents are parsed with DTDs and entities refused, and every network read, from the response headers to the last byte of the body, must finish within its whole time allowance. Dependencies move to versions with no known advisories. The authority path is unchanged.
 
-- **2,845 public tests:** the 2,826 original public tests, 11 tests that check the provenance records of the cleanup, and 8 tests for the rc6 hardening. A further 124 tests need private inputs and are listed, with their reasons, in `PUBLIC-TEST-PARTITION.json`.
+- **2,847 public tests:** the 2,826 original public tests, 11 tests that check the provenance records of the cleanup, and 10 tests for the rc6 hardening. A further 124 tests need private inputs and are listed, with their reasons, in `PUBLIC-TEST-PARTITION.json`.
 - **Tested on Windows** (Python 3.12, PostgreSQL 17) **and Linux** (Python 3.14, PostgreSQL 18), each installed from the release wheel. Results, environments and artifact hashes are in `PUBLIC-VALIDATION.json`.
 
 Follow `REPRODUCE.txt` with the release wheel, source archive and `requirements-tested.txt`, against an isolated PostgreSQL cluster.

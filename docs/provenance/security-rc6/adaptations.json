@@ -3,7 +3,7 @@
   "source_commit": "6bba989aeca27575b971c78a103cbf3745cfda6a",
   "source_tree": "c72682a1dc4b51b3646d686002bfbdd7b8ae788d",
   "patch_path": "docs/provenance/security-rc6/EXPLICIT.patch",
-  "patch_sha256": "dbcb7c7d02e166e36e2b292c0696fda2333d1b65c8f776d9427d7e8e8c2291fd",
+  "patch_sha256": "aaa2c63356d006f45e272131023ad2af67ec9cf816ad9d5ec3a99c6ab0f547e9",
   "files": [
     {
       "source_path": "factory/credential_currency.py",
@@ -159,7 +159,7 @@
       "original_path": "docs/provenance/latency-phase0/originals/factory/public_fetch/drivers/stdlib.py",
       "original_sha256": "d148da9a778ca43a87a4ea37afa865600f321011612ee4a1c5ee7cb6fbd062a1",
       "original_git_blob": "1d2a477cba67805719ae6ee4dc0acc95bb164261",
-      "adapted_sha256": "86f997d4e0ec6184827d59732fd769a76a5a2ed14328e52c7c93c0445f3b1be3",
+      "adapted_sha256": "79369026ef1b56eec70497e9b943016a15e46175ed75b272c183bfe826237072",
       "recovered_source": true,
       "retained_original": {
         "kind": "attribution-sanitized-copy",
@@ -627,7 +627,7 @@
       "recovered_source": true
     }
   ],
-  "scope_note": "SECURITY-RC6: DOCX intake parses XML with defusedxml and refuses DTDs and entities; the HTTP body phase is bounded in total by read_timeout. Builds on latency-phase3-029; all prior originals preserved. Byte provenance is not behavioral acceptance.",
+  "scope_note": "SECURITY-RC6: DOCX intake parses XML with defusedxml and refuses DTDs and entities; every network read phase (response head, request payload head, chunk read, body) is bounded in total by its allowance, with a watchdog that shuts the socket at the deadline. Builds on latency-phase3-029; all prior originals preserved. Byte provenance is not behavioral acceptance.",
   "sanitization": {
     "kind": "attribution-only-public-derivative",
     "baseline_archive_sha256": "ea01c93993c72fbfa2fafa455dcc7e3ac5fc1157dde1ade1fa472193616bab7b",

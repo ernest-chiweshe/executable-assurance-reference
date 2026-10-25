@@ -89,3 +89,62 @@ def test_trickled_body_cannot_outlive_the_phase_allowance():
 def test_prompt_body_is_read_whole_within_the_allowance():
     channel, _ = _channel(_Trickle(total=5, delay=0.0))
     assert channel.read_body(max_bytes=5, read_timeout=1.0) == b"xxxxx"
+
+
+class _BlockingSock:
+    """Records timeouts; `shutdown` releases a read that is blocked on the peer."""
+
+    def __init__(self):
+        import threading
+        self.released = threading.Event()
+
+    def settimeout(self, value):
+        pass
+
+    def shutdown(self, how):
+        self.released.set()
+
+
+class _StalledPeer:
+    """A peer that stalls mid-message (a slow chunk-size line or header): the read
+    blocks until the socket is shut down, then fails as a real socket read would."""
+
+    def __init__(self, sock):
+        self.sock = sock
+
+    def read1(self, n):
+        if not self.sock.released.wait(5):
+            return b"late"
+        raise OSError("socket shut down")
+
+
+def test_stalled_chunked_read_ends_at_the_phase_deadline():
+    sock = _BlockingSock()
+    channel = _SocketChannel(sock, _Conn())
+    channel._pending = _StalledPeer(sock)
+    started = time.monotonic()
+    with pytest.raises(TransportInterrupted):
+        channel.read_body(max_bytes=10, read_timeout=0.2)
+    assert time.monotonic() - started < 0.2 + 0.5
+
+
+def test_stalled_response_head_ends_at_the_phase_deadline():
+    sock = _BlockingSock()
+
+    class _HeadConn:
+        def request(self, *args, **kwargs):
+            pass
+
+        def getresponse(self):
+            if sock.released.wait(5):
+                raise OSError("socket shut down")
+            raise AssertionError("head phase was not bounded")
+
+        def close(self):
+            pass
+
+    channel = _SocketChannel(sock, _HeadConn())
+    started = time.monotonic()
+    with pytest.raises(TimeoutError):
+        channel.request(host="example.test", path_and_query="/", headers={}, read_timeout=0.2)
+    assert time.monotonic() - started < 0.2 + 0.5

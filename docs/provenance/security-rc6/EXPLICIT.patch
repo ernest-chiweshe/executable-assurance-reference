@@ -805,33 +805,160 @@
      this vertical, project and action and whose bound effect names these bytes and target; `outcome` is the receiving
 --- a/factory/public_fetch/drivers/stdlib.py
 +++ b/factory/public_fetch/drivers/stdlib.py
-@@ -273,13 +273,23 @@
+@@ -32,6 +32,7 @@
+ import hashlib
+ import socket
+ import ssl
++import threading
+ import time
+ from dataclasses import dataclass
+ from datetime import datetime
+@@ -201,6 +202,25 @@
+         self._sock = sock
+         self._conn = conn
+         self._pending: object | None = None
++        self._phase_expired = False
++
++    def _arm_phase(self, seconds: float) -> threading.Timer:
++        """Bound one whole phase, not each socket read: when `seconds` pass, the
++        socket is shut down so any blocked read ends, however slowly the peer
++        trickles a header, a chunk-size line or a body."""
++        self._phase_expired = False
++
++        def expire() -> None:
++            self._phase_expired = True
++            try:
++                cast(Any, self._sock).shutdown(socket.SHUT_RDWR)
++            except (OSError, AttributeError):
++                pass
++
++        timer = threading.Timer(max(seconds, 0.0), expire)
++        timer.daemon = True
++        timer.start()
++        return timer
+ 
+     def peer_address(self) -> str:
+         return str(self._sock.getpeername()[0])  # type: ignore[attr-defined]
+@@ -216,9 +236,19 @@
+         # proxies; only the fixed headers and a bodyless GET are sent.
+         # `getresponse()` parses status + headers ONLY — no body byte is read
+         # until the driver has closed the header set against the policy.
+-        self._conn.request(  # type: ignore[attr-defined]
+-            "GET", path_and_query or "/", headers=dict(headers))
+-        response = self._conn.getresponse()  # type: ignore[attr-defined]
++        timer = self._arm_phase(read_timeout)
++        try:
++            self._conn.request(  # type: ignore[attr-defined]
++                "GET", path_and_query or "/", headers=dict(headers))
++            response = self._conn.getresponse()  # type: ignore[attr-defined]
++        except Exception as exc:
++            if self._phase_expired:
++                raise TimeoutError("response head exceeded its phase allowance") from exc
++            raise
++        finally:
++            timer.cancel()
++        if self._phase_expired:
++            raise TimeoutError("response head exceeded its phase allowance")
+         self._pending = response
+         header_pairs = tuple(
+             (name.lower(), value) for name, value in response.getheaders())
+@@ -236,9 +266,19 @@
+         if method not in {"GET", "POST"}:
+             raise LiveTransportError("unsupported application method")
+         cast(Any, self._sock).settimeout(read_timeout)
+-        cast(Any, self._conn).request(method, path_and_query or "/", body=body,
+-                           headers=dict(headers))
+-        response = cast(Any, self._conn).getresponse()
++        timer = self._arm_phase(read_timeout)
++        try:
++            cast(Any, self._conn).request(method, path_and_query or "/", body=body,
++                               headers=dict(headers))
++            response = cast(Any, self._conn).getresponse()
++        except Exception as exc:
++            if self._phase_expired:
++                raise TimeoutError("response head exceeded its phase allowance") from exc
++            raise
++        finally:
++            timer.cancel()
++        if self._phase_expired:
++            raise TimeoutError("response head exceeded its phase allowance")
+         self._pending = response
+         pairs = tuple((name.lower(), value) for name, value in response.getheaders())
+         length = response.getheader("Content-Length")
+@@ -249,7 +289,18 @@
+         if self._pending is None:
+             raise LiveTransportError("body read before response headers")
+         cast(Any, self._sock).settimeout(read_timeout)
+-        return bytes(cast(Any, self._pending).read1(min(max_bytes, _READ_CHUNK)))
++        timer = self._arm_phase(read_timeout)
++        try:
++            chunk = bytes(cast(Any, self._pending).read1(min(max_bytes, _READ_CHUNK)))
++        except Exception as exc:
++            if self._phase_expired:
++                raise TimeoutError("chunk read exceeded its allowance") from exc
++            raise
++        finally:
++            timer.cancel()
++        if self._phase_expired:
++            raise TimeoutError("chunk read exceeded its allowance")
++        return chunk
+ 
+     def abort(self) -> None:
+         """Interrupt blocked reads at an application's absolute deadline."""
+@@ -273,24 +324,38 @@
          # whether to ask for an overflow-detection sentinel byte (by passing
          # cap+1) based on which bound binds, so an aggregate-bound read never
          # pulls an unauthorized byte off the wire.
--        self._sock.settimeout(read_timeout)  # type: ignore[attr-defined]
-+        # `read_timeout` bounds the WHOLE body phase, not each socket read: a peer
-+        # that trickles bytes must not keep the phase open past its allowance.
-+        import time
-+
++        # `read_timeout` bounds the WHOLE body phase: the watchdog ends any blocked
++        # read when it passes, and each read waits at most the remaining allowance.
+         self._sock.settimeout(read_timeout)  # type: ignore[attr-defined]
 +        deadline = time.monotonic() + read_timeout
          limit = min(max_bytes, _MAX_WIRE_READ)
          chunks: list[bytes] = []
          got = 0
-         while got < limit:
-+            remaining = deadline - time.monotonic()
-+            if remaining <= 0:
-+                raise TransportInterrupted(got)
-+            self._sock.settimeout(remaining)  # type: ignore[attr-defined]
-             try:
+-        while got < limit:
+-            try:
 -                chunk = self._pending.read(  # type: ignore[attr-defined]
-+                # read1: at most one underlying read, so the remaining allowance
-+                # applies to every wait on the socket.
-+                chunk = self._pending.read1(  # type: ignore[attr-defined]
-                     min(_READ_CHUNK, limit - got))
-             except http.client.IncompleteRead as exc:
-                 # a truncated Content-Length transfer: the already-received bytes
-@@ -997,7 +1007,7 @@
+-                    min(_READ_CHUNK, limit - got))
+-            except http.client.IncompleteRead as exc:
+-                # a truncated Content-Length transfer: the already-received bytes
+-                # live in `.partial` and DID touch the wire — charge them.
+-                raise TransportInterrupted(got + len(exc.partial)) from exc
+-            except OSError as exc:
+-                raise TransportInterrupted(got) from exc
+-            if not chunk:
+-                break
+-            chunks.append(bytes(chunk))
+-            got += len(chunk)
++        timer = self._arm_phase(read_timeout)
++        try:
++            while got < limit:
++                remaining = deadline - time.monotonic()
++                if remaining <= 0 or self._phase_expired:
++                    raise TransportInterrupted(got)
++                self._sock.settimeout(remaining)  # type: ignore[attr-defined]
++                try:
++                    # read1: at most one underlying read per call
++                    chunk = self._pending.read1(  # type: ignore[attr-defined]
++                        min(_READ_CHUNK, limit - got))
++                except http.client.IncompleteRead as exc:
++                    # a truncated Content-Length transfer: the already-received bytes
++                    # live in `.partial` and DID touch the wire — charge them.
++                    raise TransportInterrupted(got + len(exc.partial)) from exc
++                except Exception as exc:  # any read failure ends the phase; bytes seen are charged
++                    raise TransportInterrupted(got) from exc
++                if self._phase_expired:
++                    raise TransportInterrupted(got + len(chunk))
++                if not chunk:
++                    break
++                chunks.append(bytes(chunk))
++                got += len(chunk)
++        finally:
++            timer.cancel()
+         return b"".join(chunks)
+ 
+     def close(self) -> None:
+@@ -997,7 +1062,7 @@
                      max_groups=self._policy.max_robots_groups)
                  path_decision = robots_decision(ruleset, _path_and_query(body_url))
                  # A PARSED 2xx ruleset is a DETERMINISTIC decision: RULES_APPLIED+

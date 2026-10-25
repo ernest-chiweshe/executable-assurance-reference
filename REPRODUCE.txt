@@ -1,10 +1,10 @@
 EXECUTABLE ASSURANCE REFERENCE 0.1.8rc6 — REPRODUCTION
 
 This is the public derivative of candidate004. It contains all 2,826 original
-public cases, 11 additional provenance-integrity tests and 8 security-hardening
-tests: 2,845 public cases.
+public cases, 11 additional provenance-integrity tests and 10 security-hardening
+tests: 2,847 public cases.
 The original 124 cases requiring private inputs remain explicitly excluded.
-The full private denominator, including the 19 new cases, is 2,969.
+The full private denominator, including the 21 new cases, is 2,971.
 Counts describe scope; consult the accompanying PUBLIC-VALIDATION.json for
 completed qualification results and exact environments.
 
@@ -30,7 +30,7 @@ Windows PowerShell, from a new working directory containing release artifacts:
   $src = (Resolve-Path executable_assurance_reference-0.1.8rc6).Path
   $run = Join-Path $env:TEMP ("reference-qualification-" + [guid]::NewGuid().ToString('N'))
   New-Item -ItemType Directory -Path $run | Out-Null
-  & $py -I "$src/scripts/isolated_postgres.py" --pg-bin 'C:/Program Files/PostgreSQL/17/bin' --work-root "$run/pg" -- $py -u -I "$src/scripts/run_public_tests.py" -q --public-report "$run/PUBLIC-RESULT.json" --basetemp "$run/tests" --junitxml "$run/pytest.xml" --source-adaptation-manifest=docs/provenance/security-rc6/adaptations.json --source-adaptation-sha256=10f4452b2837681be14bbf047f60327344ede575eaea013ef363c060ef02b96a
+  & $py -I "$src/scripts/isolated_postgres.py" --pg-bin 'C:/Program Files/PostgreSQL/17/bin' --work-root "$run/pg" -- $py -u -I "$src/scripts/run_public_tests.py" -q --public-report "$run/PUBLIC-RESULT.json" --basetemp "$run/tests" --junitxml "$run/pytest.xml" --source-adaptation-manifest=docs/provenance/security-rc6/adaptations.json --source-adaptation-sha256=f0e587b27319f7ea7cdaa9e91b581af85e6b207a52ada41175b1a2cf7a88c137
 
 Use NTFS for Windows database and filesystem-test scratch. Adjust the PostgreSQL
 binary path to your installation. Never point this launcher at an existing data
@@ -45,7 +45,7 @@ Linux, from a new working directory containing release artifacts:
   tar -xzf executable_assurance_reference-0.1.8rc6.tar.gz
   SRC="$PWD/executable_assurance_reference-0.1.8rc6"
   RUN="$(mktemp -d -p "$PWD" reference-qualification-XXXXXXXX)"
-  "$PY" -I "$SRC/scripts/isolated_postgres.py" --pg-bin /usr/lib/postgresql/18/bin --work-root "$RUN/pg" -- "$PY" -u -I "$SRC/scripts/run_public_tests.py" -q --public-report "$RUN/PUBLIC-RESULT.json" --basetemp "$RUN/tests" --junitxml "$RUN/pytest.xml" --source-adaptation-manifest=docs/provenance/security-rc6/adaptations.json --source-adaptation-sha256=10f4452b2837681be14bbf047f60327344ede575eaea013ef363c060ef02b96a
+  "$PY" -I "$SRC/scripts/isolated_postgres.py" --pg-bin /usr/lib/postgresql/18/bin --work-root "$RUN/pg" -- "$PY" -u -I "$SRC/scripts/run_public_tests.py" -q --public-report "$RUN/PUBLIC-RESULT.json" --basetemp "$RUN/tests" --junitxml "$RUN/pytest.xml" --source-adaptation-manifest=docs/provenance/security-rc6/adaptations.json --source-adaptation-sha256=f0e587b27319f7ea7cdaa9e91b581af85e6b207a52ada41175b1a2cf7a88c137
 
 Source installation:
 After installing the pinned dependencies in a separate fresh environment,
@@ -62,7 +62,7 @@ application wheel. Do not substitute wheels for another platform or Python ABI.
   python -m pip install --no-index --find-links /path/to/wheelhouse --require-hashes -r /path/to/requirements-offline.lock
 Then run the same full public-suite command with the offline environment.
 
-Acceptance requires exit status 0, exactly 2,845 public passes, no failures,
+Acceptance requires exit status 0, exactly 2,847 public passes, no failures,
 errors or skips, 124 declared private exclusions, no unapproved runtime import
 origins, and the isolated database RESULT.json reporting stopped=true. Four
 historical care-parser modules are separately path/hash-pinned test fixtures;
