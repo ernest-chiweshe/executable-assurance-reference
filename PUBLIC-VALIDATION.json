@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "package_version": "0.1.8rc6",
+  "scope": "Completed installed-package public regression qualification, composite record (see qualification_basis)",
+  "public_cases": 2847,
+  "private_cases_excluded": 124,
+  "release_commit": "95f5978532d312eb109cb9c48bd4bc44717ab4ae",
+  "qualified_artifacts": {
+    "executable_assurance_reference-0.1.8rc6-py3-none-any.whl": {
+      "sha256": "a26ac96961291913c398acdd27b7e1588a7f8b247f12a4af0bad393aebb99b21"
+    },
+    "executable_assurance_reference-0.1.8rc6.tar.gz": {
+      "sha256": "107987649e316be712c4561833c6af9ab4e05f567d2ffb441692449c0873947c"
+    },
+    "requirements-tested.txt": {
+      "sha256": "46100c87ad141522e83cec0c1de653a00df1c9d2525fadc8038f120a769a461c"
+    }
+  },
+  "qualification_basis": "The full public suite ran on artifacts built from commit e137879b76a58dacacd27b4e7256d85c776cc53e. Between that commit and the release commit only REPRODUCE.txt, the rc5 validation record's location, one README guard assertion and its partition pin changed. All 344 files inside the release wheel are byte-identical to the tested wheel; the source archive differs only in tests/test_publication_implementation.py and PUBLIC-TEST-PARTITION.json. On both platforms the single failure was test_reference_readme_preserves_platform_history, asserting the README wording before the author's 25 October 2026 edit; the corrected assertion passes against the release files.",
+  "platforms": {
+    "windows": {
+      "role": "functional compatibility evidence, not a patched security environment",
+      "environment": {
+        "os": "Windows 11 10.0.26200",
+        "python": "3.12.0",
+        "python_openssl": "OpenSSL 3.0.11 19 Sep 2023",
+        "python_expat": "expat_2.5.0",
+        "cryptography_openssl": "OpenSSL 4.0.3 29 Sep 2026",
+        "libpq": "18.4",
+        "postgresql": "17.4",
+        "scratch_filesystem": "NTFS"
+      },
+      "full_suite_on_e137879": {
+        "selected": 2847,
+        "passed": 2846,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0,
+        "elapsed_seconds": 3751.37,
+        "failure": "tests/test_publication_implementation.py::test_reference_readme_preserves_platform_history (README wording)",
+        "isolated_cluster_stopped": true,
+        "junit_sha256": "f8c096f207bb067adc78c26d00748c86942e660bac7b3717dea699e3cc086cd0",
+        "public_result_sha256": "3677217a7c5d4c3b19cc671c00269baaadfa4f700e43c1d00dafc9d518115350"
+      },
+      "release_files_targeted": {
+        "tests": [
+          "tests/test_publication_implementation.py::test_reference_readme_preserves_platform_history",
+          "tests/test_security_hardening_rc6.py (10)"
+        ],
+        "passed": 11,
+        "failures": 0,
+        "junit_sha256": "18e1079b30d1862ae2fd7b69a709a82bdc325d0cab7a581b81f93502c0e342a8"
+      }
+    },
+    "linux": {
+      "role": "qualification environment; distribution OpenSSL and Expat carry Ubuntu security backports (independently checked)",
+      "environment": {
+        "python": "3.14.4",
+        "postgresql": "18.6",
+        "libpq": "18.6",
+        "cryptography_openssl": "OpenSSL 4.0.3"
+      },
+      "full_suite_on_e137879": {
+        "selected": 2847,
+        "passed": 2846,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0,
+        "elapsed_seconds": 1655.57,
+        "failure": "tests/test_publication_implementation.py::test_reference_readme_preserves_platform_history (README wording)",
+        "isolated_cluster_stopped": true,
+        "receipt": "collaboration ledger entry 6a069b12841fe448934315274de45a739cf69805b076325808e9c9ea1e62dcc1 (independent verifier)"
+      }
+    }
+  },
+  "security_review": {
+    "dependency_advisories_for_pinned_set": 0,
+    "independent_boundary_probes_passed": 47,
+    "red_team_attacks": 17,
+    "red_team_breaches": 0,
+    "authority_recovery_checks_normal_and_optimized": 8,
+    "confirmed_leaked_credentials": 0,
+    "fixed_in_rc6": [
+      "DOCX DTD/entity/external-reference refusal (defusedxml)",
+      "whole-phase deadlines on every network read phase",
+      "cryptography 50.0.2, psycopg-binary 3.3.6 (libpq 18.4, CVE-2026-6477), pip 26.2, setuptools 84.1.0"
+    ]
+  },
+  "limits": [
+    "Composite record: no single all-green run on the release commit; see qualification_basis.",
+    "Not a penetration test of a running deployment, nor a review of AWS KMS or CloudHSM account configuration.",
+    "Deploy only on vendor-patched Python interpreters and operating-system libraries."
+  ]
+}
