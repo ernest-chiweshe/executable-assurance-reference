@@ -1,0 +1,34 @@
+cff-version: 1.2.0
+message: "If you use this reference implementation, please cite the paper below."
+title: "Executable Assurance reference architecture"
+type: software
+version: "0.1.8rc6"
+license: Apache-2.0
+repository-code: "https://github.com/ernest-chiweshe/executable-assurance-reference"
+authors:
+  - family-names: Chiweshe
+    given-names: Ernest
+    affiliation: LumiWright
+    email: ernest.chiweshe@lumiwright.com
+preferred-citation:
+  type: article
+  title: "Capability Is Not Authority: Executable Assurance as Infrastructure for Containing AI Risk to Humankind"
+  authors:
+    - family-names: Chiweshe
+      given-names: Ernest
+      affiliation: LumiWright
+  year: 2026
+  publisher:
+    name: Zenodo
+  doi: 10.5281/zenodo.23580975
+references:
+  - type: article
+    title: "Governed AI as Runtime Infrastructure: A Unified Authority and Evidence Architecture for Regulated Agentic Systems"
+    authors:
+      - family-names: Chiweshe
+        given-names: Ernest
+        affiliation: LumiWright
+    year: 2026
+    publisher:
+      name: Zenodo
+    doi: 10.5281/zenodo.23581016
