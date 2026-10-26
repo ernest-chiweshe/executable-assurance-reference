@@ -69,7 +69,15 @@
         "elapsed_seconds": 1655.57,
         "failure": "tests/test_publication_implementation.py::test_reference_readme_preserves_platform_history (README wording)",
         "isolated_cluster_stopped": true,
-        "receipt": "collaboration ledger entry 6a069b12841fe448934315274de45a739cf69805b076325808e9c9ea1e62dcc1 (independent verifier)"
+        "receipt": "LINUX-COMPOSITE-RECEIPT.json SHA256 7917239f11b382684d8c8c7e00e14efa2b0a56bafcac4185932699fc944803f6 (independent verifier; ledger 6a069b12841fe448934315274de45a739cf69805b076325808e9c9ea1e62dcc1 and b2efbf63b190abf2299780dcc900089d23687f5dc2b562476781c576bed646bf)"
+      },
+      "release_files_targeted": {
+        "tests": [
+          "tests/test_publication_implementation.py::test_reference_readme_preserves_platform_history"
+        ],
+        "passed": 1,
+        "failures": 0,
+        "verifier": "independent"
       }
     }
   },
