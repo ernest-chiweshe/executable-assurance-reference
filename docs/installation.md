@@ -1,5 +1,7 @@
 # Install the reviewed package in a fresh environment
 
+> **Current release:** for 0.1.8rc6 and later, verify the release files against `SHA256SUMS` and follow `REPRODUCE.txt`. This page records the earlier reviewed 0.1.5 installation. Its retained Linux lock (`qualification/linux-20261014/requirements-linux-locked.txt`) pins cryptography 49.0.0, which carries advisory GHSA-g6cj-pr64-35w5 (PKCS#7 decryption, a feature this code does not use; fixed in 50.0.0). Current releases pin cryptography 50.0.2; keep the old lock as a historical record only.
+
 Use Python 3.11 or later. The reviewed runs used Windows/Python 3.12 and a
 separate Ubuntu/Python 3.14 machine. A fresh Python environment excludes inherited
 Python packages; deployment identity, custody and recovery need separate evidence.

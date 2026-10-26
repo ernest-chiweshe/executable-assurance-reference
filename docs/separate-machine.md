@@ -1,5 +1,7 @@
 # The reviewed wheel runs on a second machine
 
+> **Current release:** for 0.1.8rc6 and later, verify the release files against `SHA256SUMS` and follow `REPRODUCE.txt`. This page records the earlier reviewed 0.1.5 installation. Its retained Linux lock (`qualification/linux-20261014/requirements-linux-locked.txt`) pins cryptography 49.0.0, which carries advisory GHSA-g6cj-pr64-35w5 (PKCS#7 decryption, a feature this code does not use; fixed in 50.0.0). Current releases pin cryptography 50.0.2; keep the old lock as a historical record only.
+
 the implementer independently reproduced version 0.1.5 on a separate physical Linux
 machine on 14 October 2026. Ubuntu 26.04.1, Python 3.14.4 and PostgreSQL 18.6
 differ from the earlier Windows/Python 3.12 host. the governor accepted this bounded
