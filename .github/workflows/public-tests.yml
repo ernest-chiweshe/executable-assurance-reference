@@ -44,6 +44,22 @@ jobs:
           .venv/bin/python -m pip install -q -r "$GITHUB_WORKSPACE/requirements-tested.txt"
           .venv/bin/python -m pip install -q --no-deps dist/*.whl
           tar -xzf dist/*.tar.gz
+      - name: Record the environment
+        working-directory: ${{ runner.temp }}
+        run: |
+          mkdir -p qualification
+          .venv/bin/python - <<'PY' > qualification/environment.json
+          import hashlib, json, pathlib, platform, pyexpat, ssl, subprocess, sys
+          import psycopg
+          from cryptography.hazmat.backends.openssl.backend import backend
+          pg = subprocess.run(["/usr/lib/postgresql/18/bin/postgres", "--version"], capture_output=True, text=True).stdout.strip()
+          dist = sorted(pathlib.Path("dist").iterdir())
+          print(json.dumps({"os": platform.platform(), "python": sys.version.split()[0], "python_openssl": ssl.OPENSSL_VERSION,
+                            "python_expat": pyexpat.EXPAT_VERSION, "cryptography_openssl": backend.openssl_version_text(),
+                            "libpq": psycopg.pq.version(), "postgresql": pg,
+                            "artifacts": {f.name: hashlib.sha256(f.read_bytes()).hexdigest() for f in dist}}, indent=2))
+          PY
+          cat qualification/environment.json
       - name: Run the public suite
         working-directory: ${{ runner.temp }}
         run: |
@@ -56,6 +72,11 @@ jobs:
             --basetemp "$RUN/tests" --junitxml "$RUN/pytest.xml" \
             --source-adaptation-manifest=docs/provenance/security-rc6/adaptations.json \
             --source-adaptation-sha256=f0e587b27319f7ea7cdaa9e91b581af85e6b207a52ada41175b1a2cf7a88c137
+      - name: Accept only an exact, complete, clean result
+        working-directory: ${{ runner.temp }}
+        run: |
+          SRC="$(ls -d "$PWD"/executable_assurance_reference-*/)"
+          python -I "$GITHUB_WORKSPACE/.github/scripts/verify_ci_results.py"             --manifest "$SRC/PUBLIC-TEST-PARTITION.json" --results "$PWD/qualification"
       - name: Keep the results
         if: always()
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9  # v7.0.2
@@ -65,4 +86,7 @@ jobs:
             ${{ runner.temp }}/qualification/pytest.xml
             ${{ runner.temp }}/qualification/PUBLIC-RESULT.json
             ${{ runner.temp }}/qualification/pg/RESULT.json
+            ${{ runner.temp }}/qualification/pg/*.log
+            ${{ runner.temp }}/qualification/environment.json
+            ${{ runner.temp }}/qualification/ACCEPTANCE.json
           if-no-files-found: warn

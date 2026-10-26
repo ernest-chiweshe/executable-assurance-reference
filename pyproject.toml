@@ -8,7 +8,7 @@ version = "0.1.8rc6"
 description = "Executable Assurance reference architecture with synthetic local demonstrations"
 requires-python = ">=3.11"
 license = "Apache-2.0"
-license-files = ["LICENSE"]
+license-files = ["LICENSE", "NOTICE"]
 dependencies = ["cryptography==50.0.2", "defusedxml==0.7.1", "psycopg[binary]==3.3.6", "psycopg-pool==3.3.3"]
 
 [project.optional-dependencies]

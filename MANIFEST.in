@@ -84,3 +84,4 @@ prune src/assurance_reference/fixtures/packs/bundles/health-workspace-membership
 
 include tests/delegation_review.py.original
 include LICENSE
+include NOTICE
