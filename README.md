@@ -46,7 +46,12 @@ Open engineering items, as stated in the papers: **R-1b**, the database refuses 
 
 Because no single boundary can guarantee complete safety, this authority path is one layer within a multi-discipline Swiss-cheese model. We invite practitioners in systems security, formal methods, safety engineering and law to contribute complementary, independent layers whose protections cover one another's gaps.
 
-Walkthrough videos: [lumiwright.com/videos](https://www.lumiwright.com/videos)
+## Papers and videos
+
+- [Capability Is Not Authority](https://doi.org/10.5281/zenodo.23580974), all versions
+- [Governed AI as Runtime Infrastructure](https://doi.org/10.5281/zenodo.23581015), all versions
+- Videos: [lumiwright.com/open-source/videos](https://www.lumiwright.com/open-source/videos/)
+- Project page: [lumiwright.com/open-source](https://www.lumiwright.com/open-source/)
 
 ## Author
 
