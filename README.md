@@ -50,12 +50,10 @@ Because no single boundary can guarantee complete safety, this authority path is
 
 - [Capability Is Not Authority](https://doi.org/10.5281/zenodo.23580974), all versions
 - [Governed AI as Runtime Infrastructure](https://doi.org/10.5281/zenodo.23581015), all versions
-- Videos: [lumiwright.com/open-source/videos](https://www.lumiwright.com/open-source/videos/)
-- Project page: [lumiwright.com/open-source](https://www.lumiwright.com/open-source/)
 
 ## Author
 
-Ernest Chiweshe, Founder and Chief Architect, LumiWright
+I am Ernest Chiweshe,  Ex AWS. Thirty years of infrastructure shifts—from Novell NetWare and Microsoft platforms through Cisco enterprise networks to AWS cloud—taught me that critical systems cannot be trusted until execution is strictly separated from authority.
 
 [ernest.chiweshe@lumiwright.com](mailto:ernest.chiweshe@lumiwright.com) · [LinkedIn](https://www.linkedin.com/in/ernest-chiweshe-6b7732433/) · [X @ernest_chiweshe](https://x.com/ernest_chiweshe) · [YouTube](https://www.youtube.com/channel/UCO3vVGTjgFR9CCwKOcMMCpg) · [TikTok @ernest.chiweshe](https://www.tiktok.com/@ernest.chiweshe)
 
